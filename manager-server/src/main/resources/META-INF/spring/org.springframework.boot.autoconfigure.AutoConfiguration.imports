@@ -1,0 +1,2 @@
+io.github.weimin96.manager.server.config.ServerManagerAutoConfiguration
+io.github.weimin96.manager.server.ui.config.AdminServerUiAutoConfiguration

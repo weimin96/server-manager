@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: client-sample
+#  boot:
+#    admin:
+#      client:
+#        enabled: true
+#        url: http://localhost:8080/admin
+server:
+  port: 8081
+manager:
+  client:
+    enabled: true
+    url: http://localhost:8080/admin
+    instance:
+      metadata:
+        tags:
+          name: ${spring.application.name}
+          version: 1.0.0
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,loggers,auditevents,mappings,scheduledtasks,configprops,beans"
+  endpoint:
+    health:
+      # health 默认只展示 是否在线，增加该配置后会展示更多信息
+      show-details: ALWAYS
