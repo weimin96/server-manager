@@ -17,7 +17,7 @@ export const LoginForm = {
   render: Template,
 
   args: {
-    title: 'Spring Boot Admin',
+    title: 'Server Manager',
     param: {},
   },
 };

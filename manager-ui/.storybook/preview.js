@@ -8,8 +8,6 @@ import '@/index.css';
 import components from '@/components';
 import { createApplicationStore } from '@/composables/useApplicationStore';
 import i18n from '@/i18n';
-import applicationsEndpoint from '@/mocks/applications';
-import mappingsEndpoint from '@/mocks/instance/mappings';
 
 initialize();
 const router = createRouter({
@@ -32,13 +30,7 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
-  },
-  msw: {
-    handlers: {
-      auth: null,
-      others: [...mappingsEndpoint, ...applicationsEndpoint],
-    },
-  },
+  }
 };
 
 export const decorators = [mswDecorator];

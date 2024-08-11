@@ -55,14 +55,6 @@
         </template>
       </template>
     </sba-navbar-nav>
-    <sba-navbar-nav class="ml-auto">
-      <sba-nav-language-selector
-        v-if="availableLocales.length > 1"
-        :available-locales="availableLocales"
-        @locale-changed="changeLocale"
-      />
-      <sba-nav-usermenu v-if="showUserMenu" />
-    </sba-navbar-nav>
   </sba-navbar>
 </template>
 
@@ -78,9 +70,7 @@ import SbaNavbarNav from '@/components/sba-navbar/sba-navbar-nav.vue';
 import SbaNavbar from '@/components/sba-navbar/sba-navbar.vue';
 
 import { useViewRegistry } from '@/composables/ViewRegistry';
-import { getAvailableLocales } from '@/i18n';
 import sbaConfig, { getCurrentUser } from '@/sba-config';
-import SbaNavUsermenu from '@/shell/sba-nav-usermenu.vue';
 import { compareBy } from '@/utils/collections';
 
 defineProps({
@@ -90,7 +80,6 @@ defineProps({
   },
 });
 
-const availableLocales = getAvailableLocales();
 
 const currentUser = getCurrentUser();
 const showUserMenu = !!currentUser && Object.hasOwn(currentUser, 'name');

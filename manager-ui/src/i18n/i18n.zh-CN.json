@@ -12,6 +12,7 @@
     "clear": "清除",
     "cleared": "已清除",
     "close": "关闭",
+    "ok": "确定",
     "confirm": "确认",
     "delete": "删除",
     "deleted": "已删除",
@@ -25,6 +26,8 @@
     "float": "浮点型",
     "hours": "{count} 小时 | {count} 小时",
     "instances": "实例",
+    "instance": "实例",
+    "instances_tc": "{count} 个实例",
     "integer": "整型",
     "milliseconds": "毫秒",
     "minutes": "{count} 分钟 | {count} 分钟",
@@ -36,6 +39,6 @@
     "time": "时间",
     "unsuppress": "Unsuppress",
     "username": "用户名",
-    "instances_tc": "{count} 个实例"
+    "filter": "Filter"
   }
 }

@@ -1,6 +1,10 @@
 {
   "journal": {
     "title": "事件日志",
-    "label": "日志报表"
+    "label": "日志报表",
+    "per_page": {
+      "per_page": "每页大小:",
+      "all": "全部"
+    }
   }
 }

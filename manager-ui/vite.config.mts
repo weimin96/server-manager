@@ -39,18 +39,6 @@ export default defineConfig(({ mode }) => {
     css: {
       postcss,
     },
-    test: {
-      root: __dirname,
-      globals: true,
-      environment: 'jsdom',
-      setupFiles: [resolve(frontendDir, 'tests/setup.ts')],
-      include: [
-        resolve(
-          frontendDir,
-          '**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
-        ),
-      ],
-    },
     root: frontendDir,
     build: {
       target: 'es2020',

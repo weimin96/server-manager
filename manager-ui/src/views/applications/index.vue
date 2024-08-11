@@ -68,7 +68,7 @@
               :key="group.name"
               v-on-clickaway="(event: Event) => deselect(event, group.name)"
               :seamless="true"
-              :title="t(group.name)"
+              :title="group.name"
               :subtitle="
                 t('term.instances_tc', { count: group.instances?.length ?? 0 })
               "

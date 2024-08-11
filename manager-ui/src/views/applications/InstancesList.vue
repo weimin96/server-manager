@@ -15,9 +15,6 @@
       </div>
       <div class="flex-auto xl:flex-1 xl:w-1/4 truncate">
         <a
-          :href="
-            instance.registration.serviceUrl || instance.registration.healthUrl
-          "
           @click.stop
           v-text="
             instance.registration.serviceUrl || instance.registration.healthUrl
