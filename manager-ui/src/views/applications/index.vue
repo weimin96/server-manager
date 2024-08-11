@@ -280,7 +280,6 @@ const groupNames = computed(() => {
 });
 
 const grouped = computed(() => {
-  console.log(applications);
   const filteredApplications = filterInstances(applications.value);
 
   const instances = filteredApplications.flatMap(

@@ -1,7 +1,6 @@
 import { merge } from 'lodash-es';
 
-const brand =
-  '<img src="assets/img/icon-server-manager.svg">Spring Boot Admin';
+const brand = '<img src="assets/img/icon-server-manager.svg">Server Manager';
 
 const DEFAULT_CONFIG = {
   uiSettings: {

@@ -236,10 +236,6 @@ class Instance {
     });
   }
 
-  async fetchFlyway() {
-    return this.axios.get(uri`actuator/flyway`);
-  }
-
   async fetchLoggers() {
     return this.axios.get(uri`actuator/loggers`);
   }

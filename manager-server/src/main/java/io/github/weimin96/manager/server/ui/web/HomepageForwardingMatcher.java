@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 
 public class HomepageForwardingMatcher<T> implements Predicate<T> {
 
-	private final List<Pattern> includeRoutes;
-
 	private final List<Pattern> excludeRoutes;
 
 	private final Function<T, String> methodAccessor;
@@ -22,10 +20,9 @@ public class HomepageForwardingMatcher<T> implements Predicate<T> {
 
 	private final Function<T, List<MediaType>> acceptsAccessor;
 
-	public HomepageForwardingMatcher(List<String> includeRoutes, List<String> excludeRoutes,
+	public HomepageForwardingMatcher(List<String> excludeRoutes,
 			Function<T, String> methodAccessor, Function<T, String> pathAccessor,
 			Function<T, List<MediaType>> acceptsAccessor) {
-		this.includeRoutes = toPatterns(includeRoutes);
 		this.excludeRoutes = toPatterns(excludeRoutes);
 		this.methodAccessor = methodAccessor;
 		this.pathAccessor = pathAccessor;
@@ -40,8 +37,7 @@ public class HomepageForwardingMatcher<T> implements Predicate<T> {
 
 		String path = this.pathAccessor.apply(request);
 		boolean isExcludedRoute = this.excludeRoutes.stream().anyMatch((p) -> p.matcher(path).matches());
-		boolean isIncludedRoute = this.includeRoutes.stream().anyMatch((p) -> p.matcher(path).matches());
-		if (isExcludedRoute || !isIncludedRoute) {
+		if (isExcludedRoute) {
 			return false;
 		}
 

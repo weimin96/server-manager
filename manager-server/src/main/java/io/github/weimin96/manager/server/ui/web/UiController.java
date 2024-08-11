@@ -4,13 +4,10 @@ package io.github.weimin96.manager.server.ui.web;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.github.weimin96.manager.server.ui.config.AdminServerUiProperties;
-import io.github.weimin96.manager.server.ui.extensions.UiExtension;
-import io.github.weimin96.manager.server.ui.extensions.UiExtensions;
 import io.github.weimin96.manager.server.utils.Util;
 import io.github.weimin96.manager.server.web.AdminController;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,176 +28,163 @@ import static java.util.Collections.singletonMap;
 @AdminController
 public class UiController {
 
-	private final String publicUrl;
+    private final String publicUrl;
 
-	private final UiExtensions uiExtensions;
+    private final Settings uiSettings;
 
-	private final Settings uiSettings;
+    public UiController(String publicUrl, Settings uiSettings) {
+        this.publicUrl = publicUrl;
+        this.uiSettings = uiSettings;
+    }
 
-	public UiController(String publicUrl, UiExtensions uiExtensions, Settings uiSettings) {
-		this.publicUrl = publicUrl;
-		this.uiExtensions = uiExtensions;
-		this.uiSettings = uiSettings;
-	}
+    @ModelAttribute(value = "baseUrl", binding = false)
+    public String getBaseUrl(UriComponentsBuilder uriBuilder) {
+        UriComponents publicComponents = UriComponentsBuilder.fromUriString(this.publicUrl).build();
+        if (publicComponents.getScheme() != null) {
+            uriBuilder.scheme(publicComponents.getScheme());
+        }
+        if (publicComponents.getHost() != null) {
+            uriBuilder.host(publicComponents.getHost());
+        }
+        if (publicComponents.getPort() != -1) {
+            uriBuilder.port(publicComponents.getPort());
+        }
+        if (publicComponents.getPath() != null) {
+            uriBuilder.path(publicComponents.getPath());
+        }
+        return uriBuilder.path("/").toUriString();
+    }
 
-	@ModelAttribute(value = "baseUrl", binding = false)
-	public String getBaseUrl(UriComponentsBuilder uriBuilder) {
-		UriComponents publicComponents = UriComponentsBuilder.fromUriString(this.publicUrl).build();
-		if (publicComponents.getScheme() != null) {
-			uriBuilder.scheme(publicComponents.getScheme());
-		}
-		if (publicComponents.getHost() != null) {
-			uriBuilder.host(publicComponents.getHost());
-		}
-		if (publicComponents.getPort() != -1) {
-			uriBuilder.port(publicComponents.getPort());
-		}
-		if (publicComponents.getPath() != null) {
-			uriBuilder.path(publicComponents.getPath());
-		}
-		return uriBuilder.path("/").toUriString();
-	}
+    @ModelAttribute(value = "uiSettings", binding = false)
+    public Settings getUiSettings() {
+        return this.uiSettings;
+    }
 
-	@ModelAttribute(value = "uiSettings", binding = false)
-	public Settings getUiSettings() {
-		return this.uiSettings;
-	}
+    @ModelAttribute(value = "user", binding = false)
+    public Map<String, Object> getUser(Principal principal) {
+        if (principal != null) {
+            return singletonMap("name", principal.getName());
+        }
+        return emptyMap();
+    }
 
-	@ModelAttribute(value = "cssExtensions", binding = false)
-	public List<UiExtension> getCssExtensions() {
-		return this.uiExtensions.getCssExtensions();
-	}
+    @GetMapping(path = "/", produces = MediaType.TEXT_HTML_VALUE)
+    public String index() {
+        return "index";
+    }
 
-	@ModelAttribute(value = "jsExtensions", binding = false)
-	public List<UiExtension> getJsExtensions() {
-		return this.uiExtensions.getJsExtensions();
-	}
+    @GetMapping(path = "/sba-settings.js", produces = "application/javascript")
+    public String sbaSettings() {
+        return "sba-settings.js";
+    }
 
-	@ModelAttribute(value = "user", binding = false)
-	public Map<String, Object> getUser(Principal principal) {
-		if (principal != null) {
-			return singletonMap("name", principal.getName());
-		}
-		return emptyMap();
-	}
+    @GetMapping(path = "/variables.css", produces = "text/css")
+    public String variablesCss() {
+        return "variables.css";
+    }
 
-	@GetMapping(path = "/", produces = MediaType.TEXT_HTML_VALUE)
-	public String index() {
-		return "index";
-	}
+    @GetMapping(path = "/login", produces = MediaType.TEXT_HTML_VALUE)
+    public String login() {
+        return "login";
+    }
 
-	@GetMapping(path = "/sba-settings.js", produces = "application/javascript")
-	public String sbaSettings() {
-		return "sba-settings.js";
-	}
+    @Data
+    @Builder
+    public static class Settings {
 
-	@GetMapping(path = "/variables.css", produces = "text/css")
-	public String variablesCss() {
-		return "variables.css";
-	}
+        private final String title;
 
-	@GetMapping(path = "/login", produces = MediaType.TEXT_HTML_VALUE)
-	public String login() {
-		return "login";
-	}
+        private final String brand;
 
-	@Data
-	@Builder
-	public static class Settings {
+        private final String loginIcon;
 
-		private final String title;
+        private final String favicon;
 
-		private final String brand;
+        private final String faviconDanger;
 
-		private final String loginIcon;
+        private final AdminServerUiProperties.PollTimer pollTimer;
 
-		private final String favicon;
+        private final AdminServerUiProperties.UiTheme theme;
 
-		private final String faviconDanger;
+        private final boolean notificationFilterEnabled;
 
-		private final AdminServerUiProperties.PollTimer pollTimer;
+        private final boolean rememberMeEnabled;
 
-		private final AdminServerUiProperties.UiTheme theme;
+        private final List<String> availableLanguages;
 
-		private final boolean notificationFilterEnabled;
+        private final List<String> routes;
 
-		private final boolean rememberMeEnabled;
+        private final List<ExternalView> externalViews;
 
-		private final List<String> availableLanguages;
+        private final List<ViewSettings> viewSettings;
 
-		private final List<String> routes;
+        private final Boolean enableToasts;
 
-		private final List<ExternalView> externalViews;
+    }
 
-		private final List<ViewSettings> viewSettings;
+    @Data
+    @JsonInclude(Include.NON_EMPTY)
+    public static class ExternalView {
 
-		private final Boolean enableToasts;
+        /**
+         * Label to be shown in the navbar.
+         */
+        private final String label;
 
-	}
+        /**
+         * Url for the external view to be linked
+         */
+        private final String url;
 
-	@Data
-	@JsonInclude(Include.NON_EMPTY)
-	public static class ExternalView {
+        /**
+         * Order in the navbar.
+         */
+        private final Integer order;
 
-		/**
-		 * Label to be shown in the navbar.
-		 */
-		private final String label;
+        /**
+         * Should the page shown as an iframe or open in a new window.
+         */
+        private final boolean iframe;
 
-		/**
-		 * Url for the external view to be linked
-		 */
-		private final String url;
+        /**
+         * A list of child views.
+         */
+        private final List<ExternalView> children;
 
-		/**
-		 * Order in the navbar.
-		 */
-		private final Integer order;
+        public ExternalView(String label, String url, Integer order, boolean iframe, List<ExternalView> children) {
+            Assert.hasText(label, "'label' must not be empty");
+            if (Util.isEmpty(children)) {
+                Assert.hasText(url, "'url' must not be empty");
+            }
+            this.label = label;
+            this.url = url;
+            this.order = order;
+            this.iframe = iframe;
+            this.children = children;
+        }
 
-		/**
-		 * Should the page shown as an iframe or open in a new window.
-		 */
-		private final boolean iframe;
+    }
 
-		/**
-		 * A list of child views.
-		 */
-		private final List<ExternalView> children;
+    @Data
+    @JsonInclude(Include.NON_EMPTY)
+    public static class ViewSettings {
 
-		public ExternalView(String label, String url, Integer order, boolean iframe, List<ExternalView> children) {
-			Assert.hasText(label, "'label' must not be empty");
-			if (Util.isEmpty(children)) {
-				Assert.hasText(url, "'url' must not be empty");
-			}
-			this.label = label;
-			this.url = url;
-			this.order = order;
-			this.iframe = iframe;
-			this.children = children;
-		}
+        /**
+         * Name of the view to address.
+         */
+        private final String name;
 
-	}
+        /**
+         * Set view enabled.
+         */
+        private boolean enabled;
 
-	@Data
-	@JsonInclude(Include.NON_EMPTY)
-	public static class ViewSettings {
+        public ViewSettings(String name, boolean enabled) {
+            Assert.hasText(name, "'name' must not be empty");
+            this.name = name;
+            this.enabled = enabled;
+        }
 
-		/**
-		 * Name of the view to address.
-		 */
-		private final String name;
-
-		/**
-		 * Set view enabled.
-		 */
-		private boolean enabled;
-
-		public ViewSettings(String name, boolean enabled) {
-			Assert.hasText(name, "'name' must not be empty");
-			this.name = name;
-			this.enabled = enabled;
-		}
-
-	}
+    }
 
 }

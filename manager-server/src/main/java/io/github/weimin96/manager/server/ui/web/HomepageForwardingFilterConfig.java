@@ -13,8 +13,6 @@ public class HomepageForwardingFilterConfig {
 
 	String homepage;
 
-	List<String> routesIncludes;
-
 	/**
 	 * routes which are excluded intentionally (for instance downloads)
 	 */

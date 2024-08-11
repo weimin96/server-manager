@@ -75,16 +75,6 @@ public final class LegacyEndpointConverters {
 				convertUsing(RESPONSE_TYPE_LIST, RESPONSE_TYPE_MAP, LegacyEndpointConverters::convertThreaddump));
 	}
 
-	public static LegacyEndpointConverter liquibase() {
-		return new LegacyEndpointConverter(Endpoint.LIQUIBASE,
-				convertUsing(RESPONSE_TYPE_LIST_MAP, RESPONSE_TYPE_MAP, LegacyEndpointConverters::convertLiquibase));
-	}
-
-	public static LegacyEndpointConverter flyway() {
-		return new LegacyEndpointConverter(Endpoint.FLYWAY,
-				convertUsing(RESPONSE_TYPE_LIST_MAP, RESPONSE_TYPE_MAP, LegacyEndpointConverters::convertFlyway));
-	}
-
 	public static LegacyEndpointConverter info() {
 		return new LegacyEndpointConverter(Endpoint.INFO, (flux) -> flux);
 	}
@@ -282,57 +272,6 @@ public final class LegacyEndpointConverters {
 
 	private static Map<String, Object> convertThreaddump(List<Object> threads) {
 		return singletonMap("threads", threads);
-	}
-
-	@SuppressWarnings("unchecked")
-	private static Map<String, Object> convertLiquibase(List<Map<String, Object>> reports) {
-		Map<String, Object> liquibaseBeans = reports.stream().sequential()
-				.collect(toMap((r) -> (String) r.get("name"), (r) -> singletonMap("changeSets", LegacyEndpointConverters
-						.convertLiquibaseChangesets((List<Map<String, Object>>) r.get("changeLogs")))));
-
-		return singletonMap("contexts", singletonMap("application", singletonMap("liquibaseBeans", liquibaseBeans)));
-	}
-
-	private static List<Map<String, Object>> convertLiquibaseChangesets(List<Map<String, Object>> changeSets) {
-		return changeSets.stream().map((changeset) -> {
-			Map<String, Object> converted = new LinkedHashMap<>();
-			converted.put("id", changeset.get("ID"));
-			converted.put("author", changeset.get("AUTHOR"));
-			converted.put("changeLog", changeset.get("FILENAME"));
-			if (changeset.get("DATEEXECUTED") instanceof Long) {
-				converted.put("dateExecuted", new Date((Long) changeset.get("DATEEXECUTED")));
-			}
-			converted.put("orderExecuted", changeset.get("ORDEREXECUTED"));
-			converted.put("execType", changeset.get("EXECTYPE"));
-			converted.put("checksum", changeset.get("MD5SUM"));
-			converted.put("description", changeset.get("DESCRIPTION"));
-			converted.put("comments", changeset.get("COMMENTS"));
-			converted.put("tag", changeset.get("TAG"));
-			converted.put("contexts", (changeset.get("CONTEXTS") instanceof String)
-					? new LinkedHashSet<>(asList(((String) changeset.get("CONTEXTS")).split(",\\s*"))) : emptySet());
-			converted.put("labels", (changeset.get("LABELS") instanceof String)
-					? new LinkedHashSet<>(asList(((String) changeset.get("LABELS")).split(",\\s*"))) : emptySet());
-			converted.put("deploymentId", changeset.get("DEPLOYMENT_ID"));
-			return converted;
-		}).collect(toList());
-	}
-
-	@SuppressWarnings("unchecked")
-	private static Map<String, Object> convertFlyway(List<Map<String, Object>> reports) {
-		Map<String, Object> flywayBeans = reports.stream().sequential()
-				.collect(toMap((r) -> (String) r.get("name"), (r) -> singletonMap("migrations", LegacyEndpointConverters
-						.convertFlywayMigrations((List<Map<String, Object>>) r.get("migrations")))));
-		return singletonMap("contexts", singletonMap("application", singletonMap("flywayBeans", flywayBeans)));
-	}
-
-	private static List<Map<String, Object>> convertFlywayMigrations(List<Map<String, Object>> migrations) {
-		return migrations.stream().map((migration) -> {
-			Map<String, Object> converted = new LinkedHashMap<>(migration);
-			if (migration.get("installedOn") instanceof Long) {
-				converted.put("installedOn", new Date((Long) migration.get("installedOn")));
-			}
-			return converted;
-		}).collect(toList());
 	}
 
 	private static Map<String, Object> convertBeans(List<Map<String, Object>> contextBeans) {

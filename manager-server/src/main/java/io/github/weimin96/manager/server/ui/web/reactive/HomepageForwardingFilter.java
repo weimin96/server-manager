@@ -13,6 +13,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * @author pwm
+ */
 public class HomepageForwardingFilter implements WebFilter {
 
 	private static final Logger log = LoggerFactory.getLogger(HomepageForwardingFilter.class);
@@ -21,14 +24,14 @@ public class HomepageForwardingFilter implements WebFilter {
 
 	private final HomepageForwardingMatcher<ServerHttpRequest> matcher;
 
-	public HomepageForwardingFilter(String homepage, List<String> routeIncludes, List<String> routeExcludes) {
+	public HomepageForwardingFilter(String homepage,List<String> routeExcludes) {
 		this.homepage = homepage;
-		this.matcher = new HomepageForwardingMatcher<>(routeIncludes, routeExcludes, ServerHttpRequest::getMethodValue,
+		this.matcher = new HomepageForwardingMatcher<>(routeExcludes, ServerHttpRequest::getMethodValue,
 				(r) -> r.getPath().pathWithinApplication().toString(), (r) -> r.getHeaders().getAccept());
 	}
 
 	public HomepageForwardingFilter(HomepageForwardingFilterConfig filterConfig) {
-		this(filterConfig.getHomepage(), filterConfig.getRoutesIncludes(), filterConfig.getRoutesExcludes());
+		this(filterConfig.getHomepage(), filterConfig.getRoutesExcludes());
 	}
 
 	@Override

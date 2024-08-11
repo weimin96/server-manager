@@ -1,7 +1,6 @@
 {
   "instances": {
     "auditevents": {
-      "audit_log_not_supported_spring_boot_1": "Spring Boot 1.x的应用不支持审计日志。",
       "event": "事件",
       "loading_audit_events": "加载审计事件中...",
       "no_audit_events_found": "没有审计事件。",

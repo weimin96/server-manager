@@ -190,18 +190,6 @@ public class ServerManagerWebClientConfiguration {
         }
 
         @Bean
-        @ConditionalOnMissingBean(name = "liquibaseLegacyEndpointConverter")
-        public LegacyEndpointConverter liquibaseLegacyEndpointConverter() {
-            return LegacyEndpointConverters.liquibase();
-        }
-
-        @Bean
-        @ConditionalOnMissingBean(name = "flywayLegacyEndpointConverter")
-        public LegacyEndpointConverter flywayLegacyEndpointConverter() {
-            return LegacyEndpointConverters.flyway();
-        }
-
-        @Bean
         @ConditionalOnMissingBean(name = "beansLegacyEndpointConverter")
         public LegacyEndpointConverter beansLegacyEndpointConverter() {
             return LegacyEndpointConverters.beans();

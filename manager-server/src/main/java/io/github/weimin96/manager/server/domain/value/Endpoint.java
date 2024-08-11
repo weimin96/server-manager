@@ -24,10 +24,6 @@ public class Endpoint implements Serializable {
 
     public static final String THREADDUMP = "threaddump";
 
-    public static final String LIQUIBASE = "liquibase";
-
-    public static final String FLYWAY = "flyway";
-
     public static final String ACTUATOR_INDEX = "actuator-index";
 
     public static final String BEANS = "beans";

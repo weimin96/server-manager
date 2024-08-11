@@ -76,7 +76,6 @@ const props = defineProps({
     default: false,
   },
 });
-console.log(props.item);
 
 defineEmits(['filter-settings']);
 

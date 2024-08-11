@@ -1,4 +1,3 @@
-
 import NotificationcenterPlugin from '@stekoe/vue-toast-notificationcenter';
 import moment from 'moment';
 import * as Vue from 'vue';
