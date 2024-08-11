@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 /manager-ui/package-lock.json
+/manager-ui/node_modules
