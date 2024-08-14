@@ -1,0 +1,30 @@
+<!doctype html>
+<html class="h-full">
+  <head>
+    <base href="/" th:href="${baseUrl}" />
+    <meta charset="utf-8" />
+    <title th:text="${uiSettings.title}">Server Manager</title>
+    <link
+      rel="shortcut icon"
+      th:href="${uiSettings.favicon}"
+      type="image/png"
+    />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta
+      content="#42d3a5"
+      name="theme-color"
+      th:content="${uiSettings.theme.color}"
+    />
+    <link href="./variables.css" rel="stylesheet" />
+    <script lang="javascript" src="sba-settings.js"></script>
+    <script type="module" crossorigin src="./assets/sba-B24gOrF0.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/index-7BSwP-W3.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-CyMZE6XG.css">
+    <link rel="stylesheet" crossorigin href="./assets/sba-BmntB0Lw.css">
+  </head>
+  <body class="h-full">
+    <div id="app"></div>
+  </body>
+</html>

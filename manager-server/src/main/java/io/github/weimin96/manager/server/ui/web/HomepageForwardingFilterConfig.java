@@ -18,4 +18,6 @@ public class HomepageForwardingFilterConfig {
 	 */
 	List<String> routesExcludes;
 
+	List<String> routesIncludes;
+
 }

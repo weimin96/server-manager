@@ -31,13 +31,9 @@ const DEFAULT_CONFIG = {
     },
   },
   user: null,
-  extensions: [],
   csrf: {
     parameterName: '_csrf',
     headerName: 'X-XSRF-TOKEN',
-  },
-  use: function (ext) {
-    this.extensions.push(ext);
   },
 };
 

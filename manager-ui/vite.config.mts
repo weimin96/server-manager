@@ -7,7 +7,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import postcss from './postcss.config';
 
 const frontendDir = resolve(__dirname, 'src');
-const outDir = resolve(__dirname, 'target/dist');
+const outDir = resolve(__dirname, '../manager-server/src/main/resources/META-INF/server-ui/');
 
 export default defineConfig(({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };

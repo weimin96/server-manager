@@ -23,18 +23,10 @@ public class AdminServerUiProperties {
 
 	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/server-ui/" };
 
-	private static final String[] CLASSPATH_EXTENSION_RESOURCE_LOCATIONS = {
-			"classpath:/META-INF/server-ui/extensions/" };
-
 	/**
 	 * ui文件路径
 	 */
 	private String[] resourceLocations = CLASSPATH_RESOURCE_LOCATIONS;
-
-	/**
-	 * ui插件文件路径.
-	 */
-	private String[] extensionResourceLocations = CLASSPATH_EXTENSION_RESOURCE_LOCATIONS;
 
 	/**
 	 * Locations of SBA ui template.

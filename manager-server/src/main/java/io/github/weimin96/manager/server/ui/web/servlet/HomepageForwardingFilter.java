@@ -38,16 +38,16 @@ public class HomepageForwardingFilter implements Filter {
 
 	private final HomepageForwardingMatcher<HttpServletRequest> matcher;
 
-	public HomepageForwardingFilter(String homepage, List<String> excludedRoutes) {
+	public HomepageForwardingFilter(String homepage, List<String> routes, List<String> excludedRoutes) {
 		this.homepage = homepage;
 		UrlPathHelper urlPathHelper = new UrlPathHelper();
-		this.matcher = new HomepageForwardingMatcher<>(excludedRoutes, HttpServletRequest::getMethod,
+		this.matcher = new HomepageForwardingMatcher<>(routes, excludedRoutes, HttpServletRequest::getMethod,
 				urlPathHelper::getPathWithinApplication,
 				(r) -> MediaType.parseMediaTypes(r.getHeader(HttpHeaders.ACCEPT)));
 	}
 
 	public HomepageForwardingFilter(HomepageForwardingFilterConfig filterConfig) {
-		this(filterConfig.getHomepage(), filterConfig.getRoutesExcludes());
+		this(filterConfig.getHomepage(),  filterConfig.getRoutesIncludes(), filterConfig.getRoutesExcludes());
 	}
 
 	@Override

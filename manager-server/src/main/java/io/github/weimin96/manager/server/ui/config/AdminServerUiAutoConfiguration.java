@@ -7,6 +7,7 @@ import io.github.weimin96.manager.server.config.ServerManagerProperties;
 import io.github.weimin96.manager.server.config.ServerManagerWebClientConfiguration;
 import io.github.weimin96.manager.server.ui.web.HomepageForwardingFilterConfig;
 import io.github.weimin96.manager.server.ui.web.UiController;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -35,18 +36,17 @@ import static java.util.Arrays.asList;
 /**
  * @author pwm
  */
+@Slf4j
 @AutoConfiguration(after = ServerManagerWebClientConfiguration.class)
 @Conditional(ServerManagerCondition.class)
 @ConditionalOnBean(ServerManagerMarkerConfiguration.Marker.class)
 @EnableConfigurationProperties(AdminServerUiProperties.class)
 public class AdminServerUiAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminServerUiAutoConfiguration.class);
-
-    private static final List<String> DEFAULT_UI_ROUTES = asList("/about/**", "/applications/**", "/instances/**",
+    private static final List<String> DEFAULT_UI_ROUTES = asList("/applications/**", "/instances/**",
             "/journal/**", "/wallboard/**", "/external/**");
 
-    private static final List<String> DEFAULT_UI_ROUTE_EXCLUDES = asList("/extensions/**",
+    private static final List<String> DEFAULT_UI_ROUTE_EXCLUDES = asList(
             "/instances/*/actuator/heapdump", "/instances/*/actuator/logfile");
 
     private final AdminServerUiProperties adminUi;
@@ -69,13 +69,13 @@ public class AdminServerUiAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public UiController homeUiController() throws IOException {
-
+    public UiController homeUiController() {
         UiController.Settings uiSettings = UiController.Settings.builder().brand(this.adminUi.getBrand()).title(this.adminUi.getTitle())
                 .loginIcon(this.adminUi.getLoginIcon())
                 .favicon(this.adminUi.getFavicon())
                 .faviconDanger(this.adminUi.getFaviconDanger())
                 .enableToasts(this.adminUi.getEnableToasts())
+                .routes(DEFAULT_UI_ROUTES)
                 .rememberMeEnabled(this.adminUi.isRememberMeEnabled())
                 .availableLanguages(this.adminUi.getAvailableLanguages())
                 .externalViews(this.adminUi.getExternalViews())
@@ -129,21 +129,23 @@ public class AdminServerUiAutoConfiguration {
                 boolean webfluxBasePathSet = webFluxBasePath != null;
                 String homepage = webfluxBasePathSet ? webFluxBasePath + "/" : this.adminServer.path("/");
 
+                List<String> routesIncludes = DEFAULT_UI_ROUTES.stream()
+                        .map((path) -> webfluxBasePathSet ? webFluxBasePath + path : this.adminServer.path(path))
+                        .collect(Collectors.toList());
+                routesIncludes.add("");
+
                 List<String> routesExcludes = Stream
                         .concat(DEFAULT_UI_ROUTE_EXCLUDES.stream(), this.adminUi.getAdditionalRouteExcludes().stream())
                         .map((path) -> webfluxBasePathSet ? webFluxBasePath + path : this.adminServer.path(path))
                         .collect(Collectors.toList());
 
-                return new HomepageForwardingFilterConfig(homepage, routesExcludes);
+                return new HomepageForwardingFilterConfig(homepage, routesExcludes, routesIncludes);
             }
 
             @Override
             public void addResourceHandlers(org.springframework.web.reactive.config.ResourceHandlerRegistry registry) {
                 registry.addResourceHandler(this.adminServer.path("/**"))
                         .addResourceLocations(this.adminUi.getResourceLocations())
-                        .setCacheControl(this.adminUi.getCache().toCacheControl());
-                registry.addResourceHandler(this.adminServer.path("/extensions/**"))
-                        .addResourceLocations(this.adminUi.getExtensionResourceLocations())
                         .setCacheControl(this.adminUi.getCache().toCacheControl());
             }
 
@@ -176,14 +178,15 @@ public class AdminServerUiAutoConfiguration {
             }
 
             @Bean
-            public HomepageForwardingFilterConfig homepageForwardingFilterConfig() throws IOException {
+            public HomepageForwardingFilterConfig homepageForwardingFilterConfig() {
                 String homepage = this.adminServer.path("/");
-
+                List<String> routesIncludes = DEFAULT_UI_ROUTES.stream()
+                        .map(this.adminServer::path).collect(Collectors.toList());
                 List<String> routesExcludes = Stream
                         .concat(DEFAULT_UI_ROUTE_EXCLUDES.stream(), this.adminUi.getAdditionalRouteExcludes().stream())
                         .map(this.adminServer::path).collect(Collectors.toList());
 
-                return new HomepageForwardingFilterConfig(homepage, routesExcludes);
+                return new HomepageForwardingFilterConfig(homepage, routesExcludes, routesIncludes);
             }
 
             @Override
@@ -191,9 +194,6 @@ public class AdminServerUiAutoConfiguration {
                     org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry registry) {
                 registry.addResourceHandler(this.adminServer.path("/**"))
                         .addResourceLocations(this.adminUi.getResourceLocations())
-                        .setCacheControl(this.adminUi.getCache().toCacheControl());
-                registry.addResourceHandler(this.adminServer.path("/extensions/**"))
-                        .addResourceLocations(this.adminUi.getExtensionResourceLocations())
                         .setCacheControl(this.adminUi.getCache().toCacheControl());
             }
 

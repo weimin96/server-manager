@@ -3,6 +3,7 @@ package io.github.weimin96.manager.server.ui.web.reactive;
 
 import io.github.weimin96.manager.server.ui.web.HomepageForwardingFilterConfig;
 import io.github.weimin96.manager.server.ui.web.HomepageForwardingMatcher;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -16,22 +17,21 @@ import java.util.List;
 /**
  * @author pwm
  */
+@Slf4j
 public class HomepageForwardingFilter implements WebFilter {
-
-	private static final Logger log = LoggerFactory.getLogger(HomepageForwardingFilter.class);
 
 	private final String homepage;
 
 	private final HomepageForwardingMatcher<ServerHttpRequest> matcher;
 
-	public HomepageForwardingFilter(String homepage,List<String> routeExcludes) {
+	public HomepageForwardingFilter(String homepage, List<String> routeIncludes, List<String> routeExcludes) {
 		this.homepage = homepage;
-		this.matcher = new HomepageForwardingMatcher<>(routeExcludes, ServerHttpRequest::getMethodValue,
+		this.matcher = new HomepageForwardingMatcher<>(routeIncludes, routeExcludes, ServerHttpRequest::getMethodValue,
 				(r) -> r.getPath().pathWithinApplication().toString(), (r) -> r.getHeaders().getAccept());
 	}
 
 	public HomepageForwardingFilter(HomepageForwardingFilterConfig filterConfig) {
-		this(filterConfig.getHomepage(), filterConfig.getRoutesExcludes());
+		this(filterConfig.getHomepage(),  filterConfig.getRoutesIncludes(), filterConfig.getRoutesExcludes());
 	}
 
 	@Override

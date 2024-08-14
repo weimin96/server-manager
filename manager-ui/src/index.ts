@@ -44,19 +44,6 @@ globalThis.SBA.use = ({ install }) => {
   });
 };
 
-sbaConfig.extensions.js.forEach((extension) => {
-  const script = document.createElement('script');
-  script.src = `extensions/${extension.resourcePath}`;
-  document.head.appendChild(script);
-});
-
-sbaConfig.extensions.css.forEach((extension) => {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = `extensions/${extension.resourcePath}`;
-  document.head.appendChild(link);
-});
-
 moment.locale(navigator.language.split('-')[0]);
 
 const installables = [Notifications, ...views];
