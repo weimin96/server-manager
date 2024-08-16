@@ -6,6 +6,7 @@ spring:
 #      context-path: /admin
 #      server:
 #        enabled: true
+
 manager:
   server:
     context-path: /admin
