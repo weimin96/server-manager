@@ -5,11 +5,6 @@
       <sba-sticky-subnav>
         <div class="container mx-auto flex">
           <ApplicationStats />
-          <ApplicationNotificationCenter
-            v-if="hasNotificationFiltersSupport"
-            :notification-filters="notificationFilters"
-            @filter-remove="removeFilter"
-          />
           <div class="flex-1">
             <sba-input
               v-model="routerState.q"
@@ -106,9 +101,6 @@
 
               <template v-if="isGroupedByApplication" #actions>
                 <ApplicationListItemAction
-                  :has-notification-filters-support="
-                    hasNotificationFiltersSupport
-                  "
                   :item="
                     applicationStore.findApplicationByInstanceId(
                       group.instances[0].id,
@@ -122,9 +114,6 @@
                 <InstancesList :instances="group.instances">
                   <template #actions="{ instance }">
                     <ApplicationListItemAction
-                      :has-notification-filters-support="
-                        hasNotificationFiltersSupport
-                      "
                       :item="instance"
                       class="md:hidden"
                       @filter-settings="toggleNotificationFilterSettings"
@@ -157,7 +146,6 @@
 
 <script lang="ts" setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { useNotificationCenter } from '@stekoe/vue-toast-notificationcenter';
 import { groupBy, sortBy, transform } from 'lodash-es';
 import { computed, nextTick, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -175,7 +163,6 @@ import { concatMap, mergeWith, Subject, timer } from '@/utils/rxjs';
 import { useRouterState } from '@/utils/useRouterState';
 import { useSubscription } from '@/utils/useSubscription';
 import ApplicationListItemAction from '@/views/applications/ApplicationListItemAction.vue';
-import ApplicationNotificationCenter from '@/views/applications/ApplicationNotificationCenter.vue';
 import ApplicationStats from '@/views/applications/ApplicationStats.vue';
 import ApplicationStatusHero from '@/views/applications/ApplicationStatusHero.vue';
 import InstancesList from '@/views/applications/InstancesList.vue';
@@ -225,7 +212,6 @@ const router = useRouter();
 const route = useRoute();
 const { applications, applicationsInitialized, applicationStore } =
   useApplicationStore();
-const notificationCenter = useNotificationCenter({});
 const expandedGroups = ref([props.selected]);
 const groupingFunction = ref(groupingFunctions.application);
 
@@ -236,7 +222,6 @@ const hasActiveFilter = computed(() => {
   return routerState.q?.length > 0;
 });
 const notificationFilterSubject = new Subject();
-const hasNotificationFiltersSupport = NotificationFilter.isSupported();
 const notificationFilters = ref([]);
 
 useSubscription(
@@ -251,18 +236,11 @@ useSubscription(
       },
       error: (error) => {
         console.warn('Fetching notification filters failed with error:', error);
-        notificationCenter.error(
-          t('applications.fetching_notification_filters_failed'),
-        );
       },
     }),
 );
 
 async function fetchNotificationFilters() {
-  if (hasNotificationFiltersSupport) {
-    const response = await NotificationFilter.getFilters();
-    return response.data;
-  }
   return [];
 }
 
@@ -397,12 +375,6 @@ async function addFilter({ object, ttl }) {
     const response = await NotificationFilter.addFilter(object, ttl);
     let notificationFilter = response.data;
     notificationFilterSubject.next(notificationFilter);
-    notificationCenter.success(
-      `${t('applications.notifications_suppressed_for', {
-        name:
-          notificationFilter.applicationName || notificationFilter.instanceId,
-      })} <strong>${notificationFilter.expiry.fromNow(true)}</strong>.`,
-    );
   } catch (error) {
     console.warn('Adding notification filter failed:', error);
   } finally {
@@ -414,7 +386,6 @@ async function removeFilter(activeFilter) {
   try {
     await activeFilter.delete();
     notificationFilterSubject.next(activeFilter.id);
-    notificationCenter.success(t('applications.notification_filter.removed'));
   } catch (error) {
     console.warn('Deleting notification filter failed:', error);
   } finally {

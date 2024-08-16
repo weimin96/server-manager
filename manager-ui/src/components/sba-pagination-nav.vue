@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <sba-button-group

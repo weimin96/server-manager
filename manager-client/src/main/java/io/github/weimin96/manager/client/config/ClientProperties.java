@@ -18,12 +18,13 @@ import java.time.temporal.ChronoUnit;
 public class ClientProperties {
 
 	/**
-	 * admin地址
+	 * server地址
+	 * TODO 通过 Nacos 获取
 	 */
 	private String[] url = new String[] {};
 
 	/**
-	 * The admin rest-apis path.
+	 * server 实例api地址
 	 */
 	private String apiPath = "instances";
 

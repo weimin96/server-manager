@@ -9,16 +9,6 @@
       </sba-button>
     </router-link>
     <sba-button
-      v-if="hasNotificationFiltersSupport"
-      :id="`nf-settings-${item.name || item.id}`"
-      :title="$t('applications.actions.notification_filters')"
-      @click.stop="$emit('filter-settings', item)"
-    >
-      <font-awesome-icon
-        :icon="hasActiveNotificationFilter ? 'bell-slash' : 'bell'"
-      />
-    </sba-button>
-    <sba-button
       v-if="item.isUnregisterable"
       class="btn-unregister"
       :title="$t('applications.actions.unregister')"
@@ -45,7 +35,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useNotificationCenter } from '@stekoe/vue-toast-notificationcenter';
 import { inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { RouteLocationNamedRaw } from 'vue-router';
@@ -60,20 +49,11 @@ import {
 
 const $sbaModal = inject('$sbaModal');
 const { t } = useI18n();
-const notificationCenter = useNotificationCenter({});
 
 const props = defineProps({
   item: {
     type: [Application, Instance],
     required: true,
-  },
-  hasActiveNotificationFilter: {
-    type: Boolean,
-    default: false,
-  },
-  hasNotificationFiltersSupport: {
-    type: Boolean,
-    default: false,
   },
 });
 
@@ -82,17 +62,13 @@ defineEmits(['filter-settings']);
 let journalLink: RouteLocationNamedRaw;
 let actionHandler: ActionHandler;
 if (props.item instanceof Application) {
-  actionHandler = new ApplicationActionHandler(
-    $sbaModal,
-    t,
-    notificationCenter,
-  );
+  actionHandler = new ApplicationActionHandler($sbaModal, t);
   journalLink = {
     name: 'journal',
     query: { application: props.item.name },
   };
 } else if (props.item instanceof Instance) {
-  actionHandler = new InstanceActionHandler($sbaModal, t, notificationCenter);
+  actionHandler = new InstanceActionHandler($sbaModal, t);
   journalLink = { name: 'journal', query: { instanceId: props.item.id } };
 }
 </script>

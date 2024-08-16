@@ -1,7 +1,5 @@
-import { isEmpty, merge } from 'lodash-es';
+import { merge } from 'lodash-es';
 import { createI18n } from 'vue-i18n';
-
-import sbaConfig from '../sba-config';
 
 const context = import.meta.glob('../**/(*.)?i18n.*.json', { eager: true });
 const messages = Object.keys(context)
@@ -19,12 +17,7 @@ const messages = Object.keys(context)
   .reduce((prev, cur) => merge(prev, cur), {});
 
 export function getAvailableLocales() {
-  const valueFromServer = sbaConfig.uiSettings.availableLanguages;
-
-  const strings = Object.keys(messages);
-  return isEmpty(valueFromServer)
-    ? strings
-    : valueFromServer.filter((language) => strings.includes(language));
+  return Object.keys(messages);
 }
 
 let browserLanguage = navigator.language;

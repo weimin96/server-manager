@@ -5,5 +5,14 @@ declare module '*.vue' {
   export default component;
 }
 
-// declare module '@/services/application';
-// declare module '@/utils/*';
+interface ImportMeta {
+  // Vite 特有的 import.meta.glob 方法
+  glob(
+    pattern: string,
+    options?: {
+      eager?: boolean;
+      import?: (module: any) => any;
+      as?: string;
+    },
+  ): Record<string, () => Promise<any>>;
+}

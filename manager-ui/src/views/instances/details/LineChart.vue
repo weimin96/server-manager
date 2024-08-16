@@ -1,5 +1,3 @@
-
-
 <template>
   <canvas id="chart" ref="chart" />
 </template>

@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <div v-if="error" class="message is-danger">

@@ -52,18 +52,18 @@ public class InstanceProperties {
 	private String healthUrl;
 
 	/**
-	 * Name to register with. Defaults to ${spring.application.name}
+	 * 应用名称
 	 */
 	@Value("${spring.application.name:spring-boot-application}")
 	private String name = "spring-boot-application";
 
 	/**
-	 * Should the registered urls be built with server.address or with hostname.
+	 * 如果注册的url是用服务器构建的。地址或主机名（IP, HOST_NAME, CANONICAL_HOST_NAME）。 默认IP
 	 */
-	private ServiceHostType serviceHostType = ServiceHostType.CANONICAL_HOST_NAME;
+	private ServiceHostType serviceHostType = ServiceHostType.IP;
 
 	/**
-	 * Metadata that should be associated with this application
+	 * 元数据
 	 */
 	private Map<String, String> metadata = new LinkedHashMap<>();
 

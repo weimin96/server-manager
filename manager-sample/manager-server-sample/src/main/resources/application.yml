@@ -14,7 +14,4 @@ manager:
 #    ui:
 #      cache:
 #        no-cache: true
-#      extension-resource-locations: file:C:/Users/pwm/Documents/project/Java Project/server-manager/manager-ui/target/dist/
-#      template-location: file:C:/Users/pwm/Documents/project/Java Project/server-manager/manager-ui/target/dist/
 #      cache-templates: false
-#      resource-locations: file:C:/Users/pwm/Documents/project/Java Project/server-manager/manager-ui/target/dist/

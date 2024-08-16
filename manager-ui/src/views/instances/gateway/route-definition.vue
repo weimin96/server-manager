@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="route-definition-container">
     <div class="route-definition">

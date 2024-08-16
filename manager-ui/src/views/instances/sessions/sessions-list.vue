@@ -1,5 +1,3 @@
-
-
 <template>
   <table class="sessions table w-full">
     <thead>

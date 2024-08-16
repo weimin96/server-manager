@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="formatted" v-html="formatted" />
 </template>

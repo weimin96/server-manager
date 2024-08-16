@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="inline-flex">
     <div class="btn-group">

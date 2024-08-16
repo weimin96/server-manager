@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-panel v-if="hasLoaded" :title="$t('instances.details.gc.title')">
     <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />

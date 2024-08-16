@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-panel :title="$t('instances.details.health.title')" :loading="loading">
     <template #actions>

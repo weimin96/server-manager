@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="tree">
     <div class="row row--head">

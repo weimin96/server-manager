@@ -1,5 +1,3 @@
-
-
 <template>
   <section class="section">
     <global-filters :instance="instance" />

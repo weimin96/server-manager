@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-panel :title="$t('instances.details.info.title')" :loading="loading">
     <sba-alert

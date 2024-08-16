@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <sba-panel :header-sticks-below="'#navigation'" :title="metricName">

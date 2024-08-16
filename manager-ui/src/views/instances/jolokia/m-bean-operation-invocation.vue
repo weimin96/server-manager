@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-modal :model-value="showModal" @close="abort">
     <template #header>

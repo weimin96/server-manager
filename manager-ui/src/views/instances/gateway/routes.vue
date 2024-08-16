@@ -1,5 +1,3 @@
-
-
 <template>
   <div :class="{ 'is-loading': isLoading }">
     <sba-panel

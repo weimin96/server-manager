@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="datasource-chart">
     <svg class="datasource-chart__svg" />

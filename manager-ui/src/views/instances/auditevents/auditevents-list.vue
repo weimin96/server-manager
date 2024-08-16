@@ -1,5 +1,3 @@
-
-
 <template>
   <table class="auditevents table w-full">
     <thead>

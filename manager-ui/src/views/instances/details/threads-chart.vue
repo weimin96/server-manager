@@ -1,5 +1,3 @@
-
-
 <template>
   <LineChart
     label="timestamp"

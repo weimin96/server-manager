@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <div v-if="loading" class="mt-4 mb-2">

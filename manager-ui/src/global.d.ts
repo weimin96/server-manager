@@ -11,12 +11,14 @@ declare global {
 
   interface Window {
     SBA: SBASettings;
+    csrf: string;
+    uiSettings: {
+      icon: string;
+      title: string;
+      theme: string;
+    };
+    param: any;
   }
-
-  type Extension = {
-    resourcePath: string;
-    resourceLocation: string;
-  };
 
   type UITheme = {
     color: string;
@@ -60,14 +62,12 @@ declare global {
   type UISettings = {
     title: string;
     brand: string;
-    loginIcon: string;
+    icon: string;
     favicon: string;
     faviconDanger: string;
     pollTimer: PollTimer;
     uiTheme: UITheme;
-    notificationFilterEnabled: boolean;
     rememberMeEnabled: boolean;
-    availableLanguages: string[];
     routes: string[];
     externalViews: ExternalView[];
     viewSettings: ViewSettings[];
@@ -79,10 +79,6 @@ declare global {
     user: {
       name: string;
       [key: string]: any;
-    };
-    extensions: {
-      js: Extension[];
-      css: Extension[];
     };
     csrf: {
       headerName: string;

@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="-mx-4 -my-3">
     <template v-for="(bean, index) in beans" :key="bean.name">

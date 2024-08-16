@@ -1,5 +1,3 @@
-
-
 <template>
   <div id="app">
     <SbaNavbar :error="error" />

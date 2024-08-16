@@ -53,7 +53,7 @@ public class RegistrationApplicationListener implements InitializingBean, Dispos
 	}
 
 	@EventListener
-	@Order(Ordered.LOWEST_PRECEDENCE)
+	@Order()
 	public void onApplicationReady(ApplicationReadyEvent event) {
 		if (autoRegister) {
 			startRegisterTask();
@@ -61,7 +61,7 @@ public class RegistrationApplicationListener implements InitializingBean, Dispos
 	}
 
 	@EventListener
-	@Order(Ordered.LOWEST_PRECEDENCE)
+	@Order()
 	public void onClosedContext(ContextClosedEvent event) {
 		if (event.getApplicationContext().getParent() == null
 				|| "bootstrap".equals(event.getApplicationContext().getParent().getId())) {

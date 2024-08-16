@@ -147,7 +147,7 @@ public class ServerManagerWebClientConfiguration {
 
             if (instanceAuth.isEnabled()) {
                 return new BasicAuthHttpHeaderProvider(instanceAuth.getDefaultUserName(),
-                        instanceAuth.getDefaultPassword(), instanceAuth.getServiceMap());
+                        instanceAuth.getDefaultPassword());
             }
             else {
                 return new BasicAuthHttpHeaderProvider();

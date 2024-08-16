@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="cache-chart">
     <svg class="cache-chart__svg" />

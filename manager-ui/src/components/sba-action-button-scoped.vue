@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="inline-flex rounded items-start -space-x-px">
     <sba-toggle-scope-button

@@ -57,7 +57,7 @@ export default {
   data: () => ({
     hasLoaded: false,
     error: null,
-    contexts: null
+    contexts: null,
   }),
   created() {
     this.fetchMappings();

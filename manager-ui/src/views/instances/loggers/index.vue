@@ -1,5 +1,3 @@
-
-
 <template>
   <loggers
     :instance-count="application.instances.length"

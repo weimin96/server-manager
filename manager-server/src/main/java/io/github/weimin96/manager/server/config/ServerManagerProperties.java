@@ -3,6 +3,7 @@ package io.github.weimin96.manager.server.config;
 import io.github.weimin96.manager.server.utils.Util;
 import io.github.weimin96.manager.server.web.client.BasicAuthHttpHeaderProvider;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
 
@@ -21,17 +22,32 @@ import static java.util.Arrays.asList;
  * @since 2024/8/2 22:30
  */
 @Data
-@ConfigurationProperties("manager.server")
+@ConfigurationProperties(prefix = "manager.server")
 public class ServerManagerProperties {
 
+    /**
+     * server服务地址上下文
+     */
     private String contextPath = "";
 
+    /**
+     * 服务信息配置
+     */
     private ServerProperties server = new ServerProperties();
 
+    /**
+     * 监控信息
+     */
     private MonitorProperties monitor = new MonitorProperties();
 
+    /**
+     * 请求转发配置
+     */
     private InstanceProxyProperties instanceProxy = new InstanceProxyProperties();
 
+    /**
+     * 授权信息
+     */
     private InstanceAuthProperties instanceAuth = new InstanceAuthProperties();
 
     private String[] probedEndpoints = { "health", "env", "metrics", "httptrace:trace", "httptrace", "threaddump:dump",
@@ -151,32 +167,19 @@ public class ServerManagerProperties {
     public static class InstanceAuthProperties {
 
         /**
-         * Whether or not to use configuration properties as a source for instance
-         * credentials <br/>
-         * Default: true
+         * 是否启用登录验证 默认启用
          */
         private boolean enabled = true;
 
         /**
-         * Default username used for authentication to each instance. Individual values
-         * for specific instances can be overriden using
-         * `spring.boot.admin.instance-auth.service-map.*.user-name`. <br/>
-         * Default: null
+         * 登录验证用户名
          */
         private String defaultUserName = null;
 
         /**
-         * Default userpassword used for authentication to each instance. Individual
-         * values for specific instances can be overriden using
-         * `spring.boot.admin.instance-auth.service-map.*.user-password`. <br/>
-         * Default: null
+         * 登录验证密码
          */
         private String defaultPassword = null;
-
-        /**
-         * Map of instance credentials per registered service name
-         */
-        private Map<String, BasicAuthHttpHeaderProvider.InstanceCredentials> serviceMap = new HashMap<>();
 
     }
 }

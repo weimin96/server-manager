@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="table-container">
     <table v-if="servletFilters.length" class="table is-fullwidth">

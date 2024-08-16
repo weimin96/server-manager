@@ -1,5 +1,3 @@
-
-
 <template>
   <section class="wallboard section">
     <div

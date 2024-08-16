@@ -71,13 +71,11 @@ public class AdminServerUiAutoConfiguration {
     @ConditionalOnMissingBean
     public UiController homeUiController() {
         UiController.Settings uiSettings = UiController.Settings.builder().brand(this.adminUi.getBrand()).title(this.adminUi.getTitle())
-                .loginIcon(this.adminUi.getLoginIcon())
+                .icon(this.adminUi.getIcon())
                 .favicon(this.adminUi.getFavicon())
                 .faviconDanger(this.adminUi.getFaviconDanger())
-                .enableToasts(this.adminUi.getEnableToasts())
                 .routes(DEFAULT_UI_ROUTES)
                 .rememberMeEnabled(this.adminUi.isRememberMeEnabled())
-                .availableLanguages(this.adminUi.getAvailableLanguages())
                 .externalViews(this.adminUi.getExternalViews())
                 .pollTimer(this.adminUi.getPollTimer())
                 .viewSettings(this.adminUi.getViewSettings())

@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-panel class="shadow-xl">
     <template v-if="!activeFilter">

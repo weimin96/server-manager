@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-instance-section :error="error" :loading="!hasLoaded">
     <sba-panel v-if="!isOldMetrics && availableMetrics.length > 0">

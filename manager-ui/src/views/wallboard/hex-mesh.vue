@@ -1,5 +1,3 @@
-
-
 <template>
   <div ref="root" v-on-resize="onResize" class="hex-mesh">
     <svg

@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
         //   target: 'http://localhost:8080/admin',
         //   changeOrigin: true,
         // },
-        '^/(applications|instances|notifications/|extensions/)': {
+        '^/(applications|instances/)': {
           target: 'http://localhost:8080/admin',
           changeOrigin: true,
           bypass: (req) => {

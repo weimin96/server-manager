@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="table-container">
     <table class="table w-full">

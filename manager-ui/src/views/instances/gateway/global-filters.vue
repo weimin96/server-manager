@@ -1,5 +1,3 @@
-
-
 <template>
   <div :class="{ 'is-loading': isLoading }">
     <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />

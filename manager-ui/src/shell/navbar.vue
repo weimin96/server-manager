@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-navbar :brand="brand" class="text-sm lg:text-base">
     <sba-navbar-nav>

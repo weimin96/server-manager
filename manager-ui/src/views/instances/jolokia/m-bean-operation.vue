@@ -1,5 +1,3 @@
-
-
 <template>
   <button
     :title="$t('instances.jolokia.execute')"

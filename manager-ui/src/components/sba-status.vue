@@ -1,5 +1,3 @@
-
-
 <template>
   <div :aria-label="status" class="application-status">
     <font-awesome-icon

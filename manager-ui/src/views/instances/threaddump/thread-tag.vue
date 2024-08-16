@@ -1,5 +1,3 @@
-
-
 <template>
   <span
     class="w-6 inline-block text-center mr-1 rounded"

@@ -1,5 +1,3 @@
-
-
 <template>
   <li
     class="tree-item"

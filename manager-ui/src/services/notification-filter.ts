@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-import sbaConfig from '@/sba-config';
 import axios from '@/utils/axios';
 import uri from '@/utils/uri';
 
@@ -43,18 +42,14 @@ class NotificationFilter {
     return axios.delete(uri`notifications/filters/${this.id}`);
   }
 
-  static isSupported() {
-    return Boolean(sbaConfig.uiSettings.notificationFilterEnabled);
-  }
-
   static async getFilters() {
     return axios.get('notifications/filters', {
       transformResponse: NotificationFilter._transformResponse,
     });
   }
 
-  static async addFilter(object, ttl) {
-    const params = { ttl };
+  static async addFilter(object, ttl: NotificationFilter) {
+    const params = ttl;
     if ('name' in object) {
       params.applicationName = object.name;
     } else if ('id' in object) {

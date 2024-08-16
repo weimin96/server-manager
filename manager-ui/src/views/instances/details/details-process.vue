@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-panel v-if="hasLoaded" :title="$t('instances.details.process.title')">
     <div>

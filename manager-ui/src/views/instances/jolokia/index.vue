@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-instance-section
     :error="error"

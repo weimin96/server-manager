@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-instance-section :error="err" :loading="!hasLoaded">
     <sba-panel>

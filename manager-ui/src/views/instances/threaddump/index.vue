@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-instance-section :error="errorFetch" :loading="!hasLoaded">
     <template v-if="threads" #before>

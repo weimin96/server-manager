@@ -2,10 +2,7 @@ import { AxiosInstance } from 'axios';
 import saveAs from 'file-saver';
 import { Observable, concat, from, ignoreElements } from 'rxjs';
 
-import axios, {
-  redirectOn401,
-  registerErrorToastInterceptor,
-} from '../utils/axios.js';
+import axios, { redirectOn401 } from '../utils/axios.js';
 import waitForPolyfill from '../utils/eventsource-polyfill';
 import logtail from '../utils/logtail';
 import uri from '../utils/uri';
@@ -45,7 +42,6 @@ class Instance {
           !isInstanceActuatorRequest(error.config.baseURL + error.config.url),
       ),
     );
-    registerErrorToastInterceptor(this.axios);
   }
 
   get isUnregisterable() {

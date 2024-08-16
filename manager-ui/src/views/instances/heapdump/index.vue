@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-instance-section>
     <template #before>

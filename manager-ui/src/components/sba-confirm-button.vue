@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-button
     v-on-clickaway="abort"

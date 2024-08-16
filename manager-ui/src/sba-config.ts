@@ -9,16 +9,11 @@ const DEFAULT_CONFIG = {
       backgroundEnabled: true,
       color: '#42d3a5',
     },
-    notifications: {
-      enabled: true,
-    },
     rememberMeEnabled: true,
     externalViews: [] as ExternalView[],
     favicon: 'assets/img/favicon.png',
     faviconDanger: 'assets/img/favicon-danger.png',
-    notificationFilterEnabled: false,
     routes: [],
-    availableLanguages: [],
     viewSettings: [],
     pollTimer: {
       cache: 2500,

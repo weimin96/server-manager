@@ -13,7 +13,6 @@ export class InstanceActionHandler implements ActionHandler {
   constructor(
     private $sbaModal: any,
     private t: any,
-    private notificationCenter: any,
   ) {}
 
   async unregister(item: Instance) {
@@ -24,20 +23,7 @@ export class InstanceActionHandler implements ActionHandler {
     if (!isConfirmed) {
       return;
     }
-
-    try {
-      await item.unregister();
-      this.notificationCenter.success(
-        this.t('instances.unregister_successful', { name: item.id }),
-      );
-    } catch (error) {
-      this.notificationCenter.error(
-        this.t('instances.unregister_failed', {
-          name: item.id || item.name,
-          error: error.response.status,
-        }),
-      );
-    }
+    await item.unregister();
   }
 
   async shutdown(item: Instance) {
@@ -48,20 +34,7 @@ export class InstanceActionHandler implements ActionHandler {
     if (!isConfirmed) {
       return;
     }
-
-    try {
-      await item.shutdown();
-      this.notificationCenter.success(
-        this.t('instances.shutdown_successful', { name: item.id }),
-      );
-    } catch (error) {
-      this.notificationCenter.error(
-        this.t('instances.shutdown_failed', {
-          name: item.id || item.name,
-          error: error.response.status,
-        }),
-      );
-    }
+    await item.shutdown();
   }
 
   async restart(item: Instance) {
@@ -72,20 +45,7 @@ export class InstanceActionHandler implements ActionHandler {
     if (!isConfirmed) {
       return;
     }
-
-    try {
-      await item.restart();
-      this.notificationCenter.success(
-        this.t('instances.restarted', { name: item.id }),
-      );
-    } catch (error) {
-      this.notificationCenter.error(
-        this.t('instances.restart_failed', {
-          name: item.id || item.name,
-          error: error.response.status,
-        }),
-      );
-    }
+    await item.restart();
   }
 }
 
@@ -93,7 +53,6 @@ export class ApplicationActionHandler implements ActionHandler {
   constructor(
     private $sbaModal: any,
     private t: any,
-    private notificationCenter: any,
   ) {}
 
   async restart(application: Application) {
@@ -104,20 +63,7 @@ export class ApplicationActionHandler implements ActionHandler {
     if (!isConfirmed) {
       return;
     }
-
-    try {
-      await application.restart();
-      this.notificationCenter.success(
-        this.t('applications.restarted', { name: application.name }),
-      );
-    } catch (error) {
-      this.notificationCenter.error(
-        this.t('applications.restart_failed', {
-          name: application.name,
-          error: error.response.status,
-        }),
-      );
-    }
+    await application.restart();
   }
 
   async shutdown(application: Application) {
@@ -128,20 +74,7 @@ export class ApplicationActionHandler implements ActionHandler {
     if (!isConfirmed) {
       return;
     }
-
-    try {
-      await application.shutdown();
-      this.notificationCenter.success(
-        this.t('applications.shutdown_successful', { name: application.name }),
-      );
-    } catch (error) {
-      this.notificationCenter.error(
-        this.t('applications.shutdown_failed', {
-          name: application.name,
-          error: error.response.status,
-        }),
-      );
-    }
+    await application.shutdown();
   }
 
   async unregister(application: Application) {
@@ -152,21 +85,6 @@ export class ApplicationActionHandler implements ActionHandler {
     if (!isConfirmed) {
       return;
     }
-
-    try {
-      await application.unregister();
-      this.notificationCenter.success(
-        this.t('applications.unregister_successful', {
-          name: application.name,
-        }),
-      );
-    } catch (error) {
-      this.notificationCenter.error(
-        this.t('applications.unregister_failed', {
-          name: application.name,
-          error: error.response.status,
-        }),
-      );
-    }
+    await application.unregister();
   }
 }

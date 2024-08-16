@@ -1,4 +1,3 @@
-import NotificationcenterPlugin from '@stekoe/vue-toast-notificationcenter';
 import moment from 'moment';
 import * as Vue from 'vue';
 import { createApp, h, onBeforeMount, onBeforeUnmount, reactive } from 'vue';
@@ -16,13 +15,11 @@ import {
   useApplicationStore,
 } from './composables/useApplicationStore.js';
 import i18n from './i18n';
-import Notifications from './notifications.js';
 import SbaModalPlugin from './plugins/modal';
-import sbaConfig from './sba-config';
 import views from './views';
 
 import eventBus from '@/services/bus';
-import sbaShell from '@/shell';
+import sbaShell from '@/shell/index.vue';
 
 const applicationStore = createApplicationStore();
 const viewRegistry = createViewRegistry();
@@ -46,7 +43,7 @@ globalThis.SBA.use = ({ install }) => {
 
 moment.locale(navigator.language.split('-')[0]);
 
-const installables = [Notifications, ...views];
+const installables = [...views];
 installables.forEach((installable) => {
   installable.install({
     viewRegistry,
@@ -91,9 +88,6 @@ const app = createApp({
 
 app.use(i18n);
 app.use(components);
-app.use(NotificationcenterPlugin, {
-  duration: 10_000,
-});
 app.use(SbaModalPlugin, { i18n });
 app.use(viewRegistry.createRouter());
 app.mount('#app');

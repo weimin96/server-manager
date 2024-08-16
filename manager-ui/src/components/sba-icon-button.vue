@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-button
     class="border-none sm:m-1 !bg-transparent"

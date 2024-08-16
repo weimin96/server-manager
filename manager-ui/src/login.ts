@@ -7,7 +7,7 @@ import Login from './login/login.vue';
 
 const app = createApp(Login, {
   csrf: window.csrf,
-  icon: window.uiSettings.loginIcon,
+  icon: window.uiSettings.icon,
   title: window.uiSettings.title,
   theme: window.uiSettings.theme,
   param: window.param,

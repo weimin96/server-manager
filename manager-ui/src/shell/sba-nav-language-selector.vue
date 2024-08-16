@@ -1,5 +1,3 @@
-
-
 <template>
   <sba-nav-dropdown :text="selectedLanguage.label">
     <sba-dropdown-item

@@ -1,5 +1,3 @@
-
-
 <template>
   <div v-if="application.instances.length > 1" class="absolute right-0 top-0">
     <sba-toggle-scope-button

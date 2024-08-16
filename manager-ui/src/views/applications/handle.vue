@@ -1,5 +1,3 @@
-
-
 <template>
   <span>
     <span v-if="downCount > 0" class="mr-2">

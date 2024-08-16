@@ -96,7 +96,7 @@ public class UiController {
 
         private final String brand;
 
-        private final String loginIcon;
+        private final String icon;
 
         private final String favicon;
 
@@ -106,20 +106,13 @@ public class UiController {
 
         private final AdminServerUiProperties.UiTheme theme;
 
-        private final boolean notificationFilterEnabled;
-
         private final boolean rememberMeEnabled;
-
-        private final List<String> availableLanguages;
 
         private final List<String> routes;
 
         private final List<ExternalView> externalViews;
 
         private final List<ViewSettings> viewSettings;
-
-        private final Boolean enableToasts;
-
     }
 
     @Data
