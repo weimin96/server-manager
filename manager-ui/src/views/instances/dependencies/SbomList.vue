@@ -1,6 +1,6 @@
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
-    <sba-panel
+  <sm-instance-section :error="error" :loading="!hasLoaded">
+    <sm-panel
       :key="sbomId"
       :header-sticks-below="'#subnavigation'"
       :title="`${sbomId} (${filterResultString})`"
@@ -74,20 +74,20 @@
           </tbody>
         </table>
       </div>
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import Instance from '@/services/instance';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section.vue';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
   name: 'SbomList',
   components: {
     FontAwesomeIcon,
-    SbaInstanceSection,
+    SmInstanceSection,
   },
   props: {
     instance: {

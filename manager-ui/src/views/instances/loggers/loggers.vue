@@ -1,25 +1,9 @@
-<!--
-  - Copyright 2014-2020 the original author or authors.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex gap-2">
-          <sba-toggle-scope-button
+          <sm-toggle-scope-button
             v-if="instanceCount >= 1"
             v-model="scope"
             :instance-count="instanceCount"
@@ -28,7 +12,7 @@
           />
 
           <div class="flex-1">
-            <sba-input
+            <sm-input
               v-model="filter.name"
               :placeholder="$t('term.filter')"
               name="filter"
@@ -41,7 +25,7 @@
                 <span v-text="filteredLoggers.length" /> /
                 <span v-text="loggerConfig.loggers.length" />
               </template>
-            </sba-input>
+            </sm-input>
           </div>
 
           <!-- FILTER -->
@@ -86,13 +70,13 @@
           </div>
           <!-- // FILTER -->
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel>
+    <sm-panel>
       <div v-if="failedInstances > 0" class="message is-warning">
         <div class="message-body">
-          <sba-alert
+          <sm-alert
             :title="
               $t('instances.loggers.fetch_failed_some_instances', {
                 failed: failedInstances,
@@ -112,17 +96,17 @@
           ({ logger, level }) => configureLogger(logger, level)
         "
       />
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
 import { ActionScope } from '@/components/ActionScope';
-import SbaAlert from '@/components/sba-alert';
+import SmAlert from '@/components/sm-alert';
 
 import { finalize, from, listen } from '@/utils/rxjs';
 import LoggersList from '@/views/instances/loggers/loggers-list';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const isClassName = (name) => /\.[A-Z]/.test(name);
 
@@ -148,7 +132,7 @@ const addLoggerCreationEntryIfLoggerNotPresent = (nameFilter, loggers) => {
 };
 
 export default {
-  components: { SbaAlert, SbaInstanceSection, LoggersList },
+  components: { SmAlert, SmInstanceSection, LoggersList },
   props: {
     instanceCount: {
       type: Number,

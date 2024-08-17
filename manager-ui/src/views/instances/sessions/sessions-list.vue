@@ -9,7 +9,7 @@
         <th v-html="$t('instances.sessions.max_inactive_interval')" />
         <th v-html="$t('instances.sessions.attributes')" />
         <th>
-          <sba-confirm-button
+          <sm-confirm-button
             v-if="sessions.length > 1"
             :class="{
               'is-loading': deletingAll === 'executing',
@@ -32,7 +32,7 @@
               <font-awesome-icon icon="trash" />&nbsp;
               <span v-text="$t('term.delete')" />
             </span>
-          </sba-confirm-button>
+          </sm-confirm-button>
         </th>
       </tr>
     </thead>

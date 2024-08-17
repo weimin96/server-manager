@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <SbaNavbar :error="error" />
-    <div class="sba-container">
+    <SmNavbar :error="error" />
+    <div class="sm-container">
       <router-view :applications="applications" :error="error" />
     </div>
   </div>
@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { useApplicationStore } from '@/composables/useApplicationStore';
-import SbaNavbar from '@/shell/navbar';
+import SmNavbar from '@/shell/navbar';
 
 defineProps({
   error: {
@@ -22,7 +22,7 @@ const { applications } = useApplicationStore();
 </script>
 
 <style scoped>
-.sba-container {
+.sm-container {
   @apply pt-14 h-full;
 }
 </style>

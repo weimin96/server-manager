@@ -1,21 +1,21 @@
 <template>
   <div>
     <div v-if="loading" class="mt-4 mb-2">
-      <sba-loading-spinner />
+      <sm-loading-spinner />
     </div>
     <template v-else>
       <div
         v-if="application.instances.length > 1"
         class="absolute right-0 top-0"
       >
-        <sba-toggle-scope-button
+        <sm-toggle-scope-button
           v-model="scope"
           :instance-count="application.instances.length"
           class="bg-white px-4 py-2 pt-3"
         />
       </div>
 
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
       <m-bean-attribute
         v-for="(attribute, name) in mBean.attr"

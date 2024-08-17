@@ -1,6 +1,6 @@
 <template>
   <div v-if="application.instances.length > 1" class="absolute right-0 top-0">
-    <sba-toggle-scope-button
+    <sm-toggle-scope-button
       v-model="scope"
       :instance-count="application.instances.length"
       class="bg-white px-4 py-2 pt-3"

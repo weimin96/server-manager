@@ -2,7 +2,7 @@ import { h } from 'vue';
 
 import './style.css';
 
-import sbaConfig from '@/sba-config';
+import SmConfig from '@/config';
 import ViewRegistry from '@/viewRegistry';
 
 export const addIframeView = (
@@ -48,7 +48,7 @@ export const addExternalLink = (
 
 export default {
   install({ viewRegistry }) {
-    const externalViews = sbaConfig.uiSettings.externalViews;
+    const externalViews = SmConfig.uiSettings.externalViews;
     externalViews.forEach((view) => {
       if (view.iframe) {
         addIframeView(viewRegistry, view);

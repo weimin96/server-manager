@@ -15,11 +15,11 @@ import {
   useApplicationStore,
 } from './composables/useApplicationStore.js';
 import i18n from './i18n';
-import SbaModalPlugin from './plugins/modal';
+import SmModalPlugin from './plugins/modal';
 import views from './views';
 
 import eventBus from '@/services/bus';
-import sbaShell from '@/shell/index.vue';
+import SmShell from '@/shell/index.vue';
 
 const applicationStore = createApplicationStore();
 const viewRegistry = createViewRegistry();
@@ -30,13 +30,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 globalThis.Vue = Vue;
-globalThis.SBA.viewRegistry = useViewRegistry();
-globalThis.SBA.useApplicationStore = useApplicationStore;
-globalThis.SBA.useI18n = () => i18n.global;
-globalThis.SBA.use = ({ install }) => {
+globalThis.SM.viewRegistry = useViewRegistry();
+globalThis.SM.useApplicationStore = useApplicationStore;
+globalThis.SM.useI18n = () => i18n.global;
+globalThis.SM.use = ({ install }) => {
   install({
-    viewRegistry: globalThis.SBA.viewRegistry,
-    applicationStore: globalThis.SBA.useApplicationStore,
+    viewRegistry: globalThis.SM.viewRegistry,
+    applicationStore: globalThis.SM.useApplicationStore,
     i18n: i18n.global,
   });
 };
@@ -75,7 +75,7 @@ const app = createApp({
 
     return () =>
       h(
-        sbaShell,
+        SmShell,
         reactive({
           applications,
           applicationsInitialized,
@@ -88,6 +88,6 @@ const app = createApp({
 
 app.use(i18n);
 app.use(components);
-app.use(SbaModalPlugin, { i18n });
+app.use(SmModalPlugin, { i18n });
 app.use(viewRegistry.createRouter());
 app.mount('#app');

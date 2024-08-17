@@ -3,7 +3,7 @@ import { createApp } from 'vue';
 import './login.css';
 
 import i18n from './i18n';
-import Login from './login/login.vue';
+import Login from './login/login';
 
 const app = createApp(Login, {
   csrf: window.csrf,

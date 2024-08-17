@@ -88,10 +88,10 @@ export default defineComponent({
     };
   },
   mounted() {
-    eventBus.on('sba-modal-close', this.closeModal);
+    eventBus.on('sm-modal-close', this.closeModal);
   },
   beforeUnmount() {
-    eventBus.off('sba-modal-close', this.closeModal);
+    eventBus.off('sm-modal-close', this.closeModal);
   },
   methods: {
     closeModal() {

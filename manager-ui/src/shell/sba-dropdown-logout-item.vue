@@ -1,6 +1,6 @@
 <template>
   <form action="logout" class="w-full" method="post">
-    <sba-dropdown-item as="button" type="submit">
+    <sm-dropdown-item as="button" type="submit">
       <input
         v-if="csrfToken"
         :name="csrfParameterName"
@@ -10,14 +10,14 @@
       <font-awesome-icon icon="sign-out-alt" />&nbsp;<span
         v-text="$t('navbar.logout')"
       />
-    </sba-dropdown-item>
+    </sm-dropdown-item>
   </form>
 </template>
 
 <script lang="ts" setup>
-import SbaDropdownItem from '@/components/sba-dropdown/sba-dropdown-item.vue';
+import SmDropdownItem from '@/components/sm-dropdown/sm-dropdown-item';
 
-import sbaConfig from '@/sba-config';
+import SmConfig from '@/config';
 
 const readCookie = (name) => {
   const match = document.cookie.match(
@@ -27,5 +27,5 @@ const readCookie = (name) => {
 };
 
 const csrfToken = readCookie('XSRF-TOKEN');
-const csrfParameterName = sbaConfig.csrf.parameterName;
+const csrfParameterName = SmConfig.csrf.parameterName;
 </script>

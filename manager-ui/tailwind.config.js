@@ -4,13 +4,13 @@ module.exports = {
   content: ['./index.html', './login.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   safelist: [
     {
-      pattern: /.*-sba-.*/,
+      pattern: /.*-sm-.*/,
     },
   ],
   theme: {
     extend: {
       colors: {
-        sba: {
+        sm: {
           DEFAULT: 'var(--main-500)',
           50: withOpacity('--main-50'),
           100: withOpacity('--main-100'),

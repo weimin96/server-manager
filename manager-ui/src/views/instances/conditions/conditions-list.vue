@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import ConditionsListDetails from '@/views/instances/conditions/conditions-list-details.vue';
+import ConditionsListDetails from '@/views/instances/conditions/conditions-list-details';
 
 export default {
   components: { ConditionsListDetails },

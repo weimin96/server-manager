@@ -75,7 +75,7 @@ class Application {
     this.axios = axios.create({
       baseURL: uri`applications/${this.name}`,
       headers: {
-        'X-SBA-REQUEST': true,
+        'X-sm-REQUEST': true,
       },
     });
     this.axios.interceptors.response.use(
@@ -104,7 +104,7 @@ class Application {
 
   static async list() {
     return axios.get('applications', {
-      headers: { Accept: 'application/json', 'X-SBA-REQUEST': true },
+      headers: { Accept: 'application/json', 'X-sm-REQUEST': true },
       transformResponse: Application._transformResponse,
     });
   }

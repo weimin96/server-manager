@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sba-panel :header-sticks-below="'#navigation'" :title="metricName">
+    <sm-panel :header-sticks-below="'#navigation'" :title="metricName">
       <template #actions>
         <div
           v-for="statistic in statistics"
@@ -63,7 +63,7 @@
                 class="flex-1"
                 v-text="getValue(measurements[idx], statistic)"
               />
-              <sba-icon-button
+              <sm-icon-button
                 :icon="'trash'"
                 class="self-end"
                 @click.stop="handleRemove(idx)"
@@ -72,7 +72,7 @@
           </div>
         </div>
       </div>
-    </sba-panel>
+    </sm-panel>
   </div>
 </template>
 
@@ -83,8 +83,8 @@ import prettyBytes from 'pretty-bytes';
 import { take } from 'rxjs/operators';
 import { useI18n } from 'vue-i18n';
 
-import SbaIconButton from '@/components/sba-icon-button.vue';
-import SbaPanel from '@/components/sba-panel.vue';
+import SmIconButton from '@/components/sm-icon-button.vue';
+import SmPanel from '@/components/sm-panel.vue';
 
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
@@ -118,7 +118,7 @@ export const toMillis = (value, baseUnit) => {
 
 export default {
   name: 'Metric',
-  components: { SbaIconButton, FontAwesomeIcon, SbaPanel },
+  components: { SmIconButton, FontAwesomeIcon, SmPanel },
   mixins: [subscribing],
   props: {
     metricName: {

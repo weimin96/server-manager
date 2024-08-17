@@ -1,11 +1,11 @@
 import { useModal } from './api';
 
-const SbaModalPlugin = {
+const SmModalPlugin = {
   install: (app, options = {}) => {
     const instance = useModal(options);
-    app.config.globalProperties.$sbaModal = instance;
-    app.provide('$sbaModal', instance);
+    app.config.globalProperties.$smModal = instance;
+    app.provide('$smModal', instance);
   },
 };
 
-export default SbaModalPlugin;
+export default SmModalPlugin;

@@ -1,14 +1,14 @@
 <template>
-  <sba-instance-section>
+  <sm-instance-section>
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="text-right">
-          <sba-button @click="downloadHeap()">
+          <sm-button @click="downloadHeap()">
             <font-awesome-icon icon="download" />&nbsp;
             <span v-text="$t('instances.heapdump.download')" />
-          </sba-button>
+          </sm-button>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
     <div
       class="m-auto flex relative items-center gap-2 py-3 pl-4 pr-10 leading-normal text-red-700 bg-red-100 rounded-lg shadow mb-3 backdrop-filter backdrop-blur-sm bg-opacity-80"
@@ -35,16 +35,16 @@
         <p v-text="$t('instances.heapdump.warn_dump_expensive')" />
       </div>
     </div>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
-  components: { SbaInstanceSection },
+  components: { SmInstanceSection },
   props: {
     instance: {
       type: Instance,

@@ -1,7 +1,7 @@
 <template>
-  <sba-panel :title="$t('instances.details.metadata.title')" :seamless="true">
-    <sba-key-value-table v-if="!isEmptyMetadata" :map="metadata" />
-  </sba-panel>
+  <sm-panel :title="$t('instances.details.metadata.title')" :seamless="true">
+    <sm-key-value-table v-if="!isEmptyMetadata" :map="metadata" />
+  </sm-panel>
 </template>
 
 <script>

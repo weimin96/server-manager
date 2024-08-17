@@ -11,12 +11,12 @@ export interface ActionHandler {
 
 export class InstanceActionHandler implements ActionHandler {
   constructor(
-    private $sbaModal: any,
+    private $smModal: any,
     private t: any,
   ) {}
 
   async unregister(item: Instance) {
-    const isConfirmed = await this.$sbaModal.confirm(
+    const isConfirmed = await this.$smModal.confirm(
       this.t('applications.actions.unregister'),
       this.t('instances.unregister', { name: item.id }),
     );
@@ -27,7 +27,7 @@ export class InstanceActionHandler implements ActionHandler {
   }
 
   async shutdown(item: Instance) {
-    const isConfirmed = await this.$sbaModal.confirm(
+    const isConfirmed = await this.$smModal.confirm(
       this.t('applications.actions.shutdown'),
       this.t('instances.shutdown', { name: item.id }),
     );
@@ -38,7 +38,7 @@ export class InstanceActionHandler implements ActionHandler {
   }
 
   async restart(item: Instance) {
-    const isConfirmed = await this.$sbaModal.confirm(
+    const isConfirmed = await this.$smModal.confirm(
       this.t('applications.actions.restart'),
       this.t('instances.restart', { name: item.id }),
     );
@@ -51,12 +51,12 @@ export class InstanceActionHandler implements ActionHandler {
 
 export class ApplicationActionHandler implements ActionHandler {
   constructor(
-    private $sbaModal: any,
+    private $smModal: any,
     private t: any,
   ) {}
 
   async restart(application: Application) {
-    const isConfirmed = await this.$sbaModal.confirm(
+    const isConfirmed = await this.$smModal.confirm(
       this.t('applications.actions.restart'),
       this.t('applications.restart', { name: application.name }),
     );
@@ -67,7 +67,7 @@ export class ApplicationActionHandler implements ActionHandler {
   }
 
   async shutdown(application: Application) {
-    const isConfirmed = await this.$sbaModal.confirm(
+    const isConfirmed = await this.$smModal.confirm(
       this.t('applications.actions.shutdown'),
       this.t('applications.shutdown', { name: application.name }),
     );
@@ -78,7 +78,7 @@ export class ApplicationActionHandler implements ActionHandler {
   }
 
   async unregister(application: Application) {
-    const isConfirmed = await this.$sbaModal.confirm(
+    const isConfirmed = await this.$smModal.confirm(
       this.t('applications.actions.unregister'),
       this.t('applications.unregister', { name: application.name }),
     );

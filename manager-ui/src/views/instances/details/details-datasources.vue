@@ -12,8 +12,8 @@
 <script>
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import detailsDatasource from '@/views/instances/details/details-datasource';
@@ -39,7 +39,7 @@ export default {
         .values;
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.datasource)
+      return timer(0, SmConfig.uiSettings.pollTimer.datasource)
         .pipe(
           concatMap(this.fetchDataSources),
           retryWhen((err) => {

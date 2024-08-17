@@ -8,7 +8,7 @@
       @click.stop="showDetails(instance)"
     >
       <div class="pr-3 md:w-16 text-center">
-        <sba-status
+        <sm-status
           :date="instance.statusTimestamp"
           :status="instance.statusInfo.status"
         />
@@ -20,7 +20,7 @@
             instance.registration.serviceUrl || instance.registration.healthUrl
           "
         />
-        <sba-tag
+        <sm-tag
           v-if="instance.registration.metadata?.['group']"
           class="ml-2"
           :value="instance.registration.metadata?.['group']"
@@ -35,7 +35,7 @@
           'overflow-x-scroll': Object.keys(instance.tags ?? {}).length > 0,
         }"
       >
-        <sba-tags :small="true" :tags="instance.tags" :wrap="false" />
+        <sm-tags :small="true" :tags="instance.tags" :wrap="false" />
       </div>
       <div
         class="hidden xl:block w-2/12 text-center"

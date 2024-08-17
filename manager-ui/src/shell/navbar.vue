@@ -1,58 +1,55 @@
 <template>
-  <sba-navbar :brand="brand" class="text-sm lg:text-base">
-    <sba-navbar-nav>
+  <sm-navbar :brand="brand" class="text-sm lg:text-base">
+    <sm-navbar-nav>
       <template v-for="item in topLevelViews" :key="item.id">
         <template v-if="item.children.length === 0">
-          <sba-nav-item
-            v-if="!item.href && item.name"
-            :to="{ name: item.name }"
-          >
+          <sm-nav-item v-if="!item.href && item.name" :to="{ name: item.name }">
             <component :is="item.handle" :error="error" />
-          </sba-nav-item>
-          <sba-nav-item
+          </sm-nav-item>
+          <sm-nav-item
             v-else-if="item.href !== '#'"
             :href="item.href"
             target="blank"
           >
             <component :is="item.handle" :error="error" />
-          </sba-nav-item>
-          <sba-nav-item v-else>
+          </sm-nav-item>
+          <sm-nav-item v-else>
             <component :is="item.handle" :error="error" />
-          </sba-nav-item>
+          </sm-nav-item>
         </template>
         <template v-else>
-          <sba-nav-dropdown :href="item.href">
+          <sm-nav-dropdown :href="item.href">
             <template #label>
               <component :is="item.handle" />
             </template>
             <template #default>
-              <sba-dropdown-item
+              <sm-dropdown-item
                 v-for="child in item.children"
                 :key="child.name"
                 :to="{ name: child.name }"
                 v-bind="{ ...child }"
               >
                 <component :is="child.handle" :error="error" />
-              </sba-dropdown-item>
+              </sm-dropdown-item>
             </template>
-          </sba-nav-dropdown>
+          </sm-nav-dropdown>
         </template>
       </template>
-    </sba-navbar-nav>
-  </sba-navbar>
+    </sm-navbar-nav>
+  </sm-navbar>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import SbaDropdownItem from '@/components/sba-dropdown/sba-dropdown-item.vue';
-import SbaNavDropdown from '@/components/sba-nav/sba-nav-dropdown.vue';
-import SbaNavItem from '@/components/sba-nav/sba-nav-item.vue';
-import SbaNavbarNav from '@/components/sba-navbar/sba-navbar-nav.vue';
-import SbaNavbar from '@/components/sba-navbar/sba-navbar.vue';
+import SmDropdownItem from '@/components/sm-dropdown/sm-dropdown-item.vue';
+import SmNavDropdown from '@/components/sm-nav/sm-nav-dropdown.vue';
+import SmNavItem from '@/components/sm-nav/sm-nav-item.vue';
+import SmNavbarNav from '@/components/sm-navbar/sm-navbar-nav.vue';
+import SmNavbar from '@/components/sm-navbar/sm-navbar.vue';
 
 import { useViewRegistry } from '@/composables/ViewRegistry';
-import sbaConfig from '@/sba-config';
+import SmConfig from '@/config';
 import { compareBy } from '@/utils/collections';
 
 defineProps({
@@ -64,7 +61,7 @@ defineProps({
 
 const { views } = useViewRegistry();
 
-const brand = sbaConfig.uiSettings.brand;
+const brand = SmConfig.uiSettings.brand;
 
 const topLevelViews = computed(() => {
   let rootViews = views

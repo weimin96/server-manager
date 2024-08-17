@@ -1,7 +1,7 @@
 <template>
   <div class="inline-flex">
     <div class="btn-group">
-      <sba-button
+      <sm-button
         v-for="levelOption in levelOptions"
         :key="levelOption"
         :class="cssClass(levelOption)"
@@ -9,7 +9,7 @@
         v-text="levelOption"
       />
     </div>
-    <sba-button
+    <sm-button
       class="ml-3"
       :class="{ 'is-loading': getStatusForLevel(null) === 'executing' }"
       :disabled="!isConfigured || !allowReset"

@@ -15,10 +15,10 @@
   -->
 
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
-      <sba-sticky-subnav>
-        <sba-input
+      <sm-sticky-subnav>
+        <sm-input
           v-model="filter"
           :placeholder="$t('term.filter')"
           name="filter"
@@ -27,8 +27,8 @@
           <template #prepend>
             <font-awesome-icon icon="filter" />
           </template>
-        </sba-input>
-      </sba-sticky-subnav>
+        </sm-input>
+      </sm-sticky-subnav>
     </template>
 
     <tree-graph
@@ -38,27 +38,27 @@
       :sbom-id="sbomId"
       :filter="filter"
     ></tree-graph>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import SbaInput from '@/components/sba-input';
-import SbaStickySubnav from '@/components/sba-sticky-subnav.vue';
+import SmInput from '@/components/sm-input';
+import SmStickySubnav from '@/components/sm-sticky-subnav';
 
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import TreeGraph from '@/views/instances/sbomdependencytrees/tree.vue';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import TreeGraph from '@/views/instances/sbomdependencytrees/tree';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
   components: {
     TreeGraph,
     FontAwesomeIcon,
-    SbaStickySubnav,
-    SbaInstanceSection,
-    SbaInput,
+    SmStickySubnav,
+    SmInstanceSection,
+    SmInput,
   },
   props: {
     instance: {

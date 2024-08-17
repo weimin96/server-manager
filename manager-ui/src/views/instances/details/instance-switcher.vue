@@ -4,7 +4,7 @@
       class="inline-flex justify-center items-center bg-gray-100 w-full rounded-md text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
       @click="showInstances = !showInstances"
     >
-      <sba-status
+      <sm-status
         :status="currentInstance.statusInfo.status"
         class="mr-1 hidden md:block"
       />
@@ -51,7 +51,7 @@
               class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
               @click.stop="switchToInstance(otherInstance)"
             >
-              <sba-status
+              <sm-status
                 :status="otherInstance.statusInfo.status"
                 class="mr-3"
               />

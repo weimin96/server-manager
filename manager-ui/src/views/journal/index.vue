@@ -16,7 +16,7 @@
       </div>
       <div>
         <label class="label" v-text="$t('journal.per_page.per_page')" />
-        <sba-select
+        <sm-select
           v-model="pageSize"
           :options="[
             { value: 10, label: 10 },
@@ -33,10 +33,10 @@
       </div>
     </div>
 
-    <sba-alert :error="error" />
+    <sm-alert :error="error" />
     {{ error }}
 
-    <sba-panel :seamless="true">
+    <sm-panel :seamless="true">
       <table class="table table-full table-striped">
         <thead>
           <tr>
@@ -105,9 +105,9 @@
           </template>
         </transition-group>
       </table>
-    </sba-panel>
+    </sm-panel>
 
-    <sba-pagination-nav
+    <sm-pagination-nav
       v-model="current"
       :page-count="pageCount"
       :page-size="pageSize"
@@ -120,7 +120,7 @@
 import { isEqual, uniq } from 'lodash-es';
 import moment from 'moment';
 
-import SbaAlert from '@/components/sba-alert';
+import SmAlert from '@/components/sm-alert.vue';
 
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
@@ -147,7 +147,7 @@ InstanceEvent.INFO_CHANGED = 'INFO_CHANGED';
 InstanceEvent.ENDPOINTS_DETECTED = 'ENDPOINTS_DETECTED';
 
 export default {
-  components: { SbaAlert },
+  components: { SmAlert },
   mixins: [subscribing],
   data: () => ({
     Event,

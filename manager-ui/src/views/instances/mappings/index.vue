@@ -1,7 +1,7 @@
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template v-for="(context, ctxName) in contexts" :key="ctxName">
-      <sba-panel :seamless="true" :title="ctxName">
+      <sm-panel :seamless="true" :title="ctxName">
         <dispatcher-mappings
           v-if="hasDispatcherServlets(context)"
           :key="`${ctxName}_dispatcherServlets`"
@@ -25,25 +25,25 @@
           :key="`${ctxName}_servletFilters`"
           :servlet-filters="context.mappings.servletFilters"
         />
-      </sba-panel>
+      </sm-panel>
     </template>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
-import SbaPanel from '@/components/sba-panel';
+import SmPanel from '@/components/sm-panel';
 
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
 import DispatcherMappings from '@/views/instances/mappings/DispatcherMappings';
 import ServletFilterMappings from '@/views/instances/mappings/ServletFilterMappings';
 import ServletMappings from '@/views/instances/mappings/ServletMappings';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
   components: {
-    SbaPanel,
-    SbaInstanceSection,
+    SmPanel,
+    SmInstanceSection,
     DispatcherMappings,
     ServletMappings,
     ServletFilterMappings,

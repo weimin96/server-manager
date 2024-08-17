@@ -1,5 +1,5 @@
 <template>
-  <sba-panel>
+  <sm-panel>
     <template v-if="applicationsCount > 0">
       <div class="flex flex-row md:flex-col items-center justify-center">
         <template v-if="statusInfo.allUp">
@@ -70,7 +70,7 @@
         />
       </div>
     </template>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>

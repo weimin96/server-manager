@@ -1,7 +1,7 @@
 <template>
   <Popover class="relative">
     <PopoverButton
-      :as="SbaButton"
+      :as="SmButton"
       :disabled="notificationFiltersLength === 0"
       :title="
         notificationFiltersLength > 0
@@ -17,7 +17,7 @@
 
     <PopoverPanel
       v-slot="{ close }"
-      :as="SbaPanel"
+      :as="SmPanel"
       class="absolute left-1/2 z-10 mt-3 w-screen max-w-xl -translate-x-1/2 transform px-4 sm:px-0 shadow-lg text-sm"
     >
       <div
@@ -68,8 +68,8 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import SbaButton from '@/components/sba-button';
-import SbaPanel from '@/components/sba-panel';
+import SmButton from '@/components/sm-button';
+import SmPanel from '@/components/sm-panel';
 
 const props = defineProps({
   notificationFilters: {

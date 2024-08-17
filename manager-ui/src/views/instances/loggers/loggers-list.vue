@@ -4,14 +4,14 @@
       <tr v-for="logger in loggers.slice(0, visibleLimit)" :key="logger.name">
         <td class="w-9/12">
           <span class="break-all" v-text="logger.name" />&nbsp;
-          <sba-tag
+          <sm-tag
             v-if="logger.isNew"
             class="tag is-primary is-uppercase"
             :value="$t('instances.loggers.new')"
           />
         </td>
         <td class="w-1/4">
-          <sba-logger-control
+          <sm-logger-control
             class="is-pulled-right"
             :level-options="levels"
             :value="logger.level"
@@ -68,12 +68,12 @@ import InfiniteLoading from 'v3-infinite-loading';
 
 import 'v3-infinite-loading/lib/style.css';
 
-import SbaTag from '@/components/sba-tag.vue';
+import SmTag from '@/components/sm-tag';
 
-import SbaLoggerControl from '@/views/instances/loggers/logger-control';
+import SmLoggerControl from '@/views/instances/loggers/logger-control';
 
 export default {
-  components: { FontAwesomeIcon, SbaTag, InfiniteLoading, SbaLoggerControl },
+  components: { FontAwesomeIcon, SmTag, InfiniteLoading, SmLoggerControl },
   props: {
     levels: {
       type: Array,

@@ -49,7 +49,7 @@ export const useModal = (globalProps = {}) => {
       );
 
       return new Promise((resolve) => {
-        eventBus.on('sba-modal-close', (result) => {
+        eventBus.on('sm-modal-close', (result) => {
           destroy();
           resolve(result);
         });

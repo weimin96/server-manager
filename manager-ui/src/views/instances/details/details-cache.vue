@@ -1,7 +1,7 @@
 <template>
-  <sba-panel v-if="hasLoaded" :title="`Cache: ${cacheName}`">
+  <sm-panel v-if="hasLoaded" :title="`Cache: ${cacheName}`">
     <div>
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
       <div v-if="current" class="level cache-current">
         <div
@@ -49,15 +49,15 @@
       </div>
       <cache-chart v-if="chartData.length > 0" :data="chartData" />
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>
 import moment from 'moment';
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import cacheChart from '@/views/instances/details/cache-chart';
@@ -163,7 +163,7 @@ export default {
       }
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.cache)
+      return timer(0, SmConfig.uiSettings.pollTimer.cache)
         .pipe(
           concatMap(this.fetchMetrics),
           retryWhen((err) => {

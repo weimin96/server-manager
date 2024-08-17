@@ -1,6 +1,6 @@
 <template>
   <form class="w-5/6 md:1/2 max-w-lg" method="post">
-    <sba-panel>
+    <sm-panel>
       <input
         v-if="csrf"
         :name="csrf.parameterName"
@@ -12,25 +12,25 @@
         <h1 class="title has-text-primary" v-text="title" />
       </div>
       <div class="relative border-t -ml-4 -mr-4 overflow-hidden">
-        <sba-wave class="bg-wave--login" />
+        <sm-wave class="bg-wave--login" />
         <div class="ml-4 mr-4 pt-2 z-10 relative">
-          <sba-alert :error="error" />
-          <sba-alert :error="logout" :severity="Severity.INFO" />
+          <sm-alert :error="error" />
+          <sm-alert :error="logout" :severity="Severity.INFO" />
           <div :class="{ 'has-errors': error }" class="pb-4 form-group">
-            <sba-input
+            <sm-input
               :label="t('login.placeholder.username')"
               autocomplete="username"
               name="username"
               type="text"
               autofocus
             />
-            <sba-input
+            <sm-input
               :label="t('login.placeholder.password')"
               autocomplete="current-password"
               name="password"
               type="password"
             />
-            <sba-checkbox
+            <sm-checkbox
               v-if="rememberMeEnabled"
               :label="t('login.remember_me')"
               class="justify-end"
@@ -42,12 +42,12 @@
 
       <template #footer>
         <div class="text-right">
-          <sba-button>
+          <sm-button>
             {{ t('login.button_login') }}
-          </sba-button>
+          </sm-button>
         </div>
       </template>
-    </sba-panel>
+    </sm-panel>
   </form>
 </template>
 
@@ -55,12 +55,12 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import SbaAlert, { Severity } from '@/components/sba-alert';
-import SbaButton from '@/components/sba-button';
-import SbaCheckbox from '@/components/sba-checkbox';
-import SbaInput from '@/components/sba-input';
-import SbaPanel from '@/components/sba-panel';
-import SbaWave from '@/components/sba-wave';
+import SmAlert, { Severity } from '@/components/sm-alert';
+import SmButton from '@/components/sm-button';
+import SmCheckbox from '@/components/sm-checkbox';
+import SmInput from '@/components/sm-input';
+import SmPanel from '@/components/sm-panel';
+import SmWave from '@/components/sm-wave';
 
 const i18n = useI18n();
 const t = i18n.t;

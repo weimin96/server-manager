@@ -1,12 +1,12 @@
 <template>
-  <sba-panel
+  <sm-panel
     v-if="hasLoaded"
     :title="
       $t('instances.details.datasource.title', { dataSource: dataSource })
     "
   >
     <div>
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
       <div v-if="current" class="level datasource-current">
         <div class="level-item has-text-centered">
@@ -40,7 +40,7 @@
       </div>
       <datasource-chart v-if="chartData.length > 0" :data="chartData" />
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>
@@ -48,8 +48,8 @@ import moment from 'moment';
 import { concatMap, delay, retryWhen, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import datasourceChart from '@/views/instances/details/datasource-chart';
 
@@ -94,7 +94,7 @@ export default {
       };
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.datasource)
+      return timer(0, SmConfig.uiSettings.pollTimer.datasource)
         .pipe(
           concatMap(this.fetchMetrics),
           retryWhen((err) => {

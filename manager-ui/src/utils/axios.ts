@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import sbaConfig from '../sba-config';
+import SmConfig from '../config';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-axios.defaults.xsrfHeaderName = sbaConfig.csrf.headerName;
+axios.defaults.xsrfHeaderName = SmConfig.csrf.headerName;
 
 export const redirectOn401 =
   (predicate: (error: any) => boolean = () => true) =>

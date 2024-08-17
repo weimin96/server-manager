@@ -1,19 +1,3 @@
-<!--
-  - Copyright 2014-2020 the original author or authors.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
   <aside
     :class="{ 'w-60': sidebarOpen }"
@@ -48,7 +32,7 @@
       <li
         v-for="group in enabledGroupedViews"
         :key="group.name"
-        :data-sba-group="group.id"
+        :data-sm-group="group.id"
         class="relative"
       >
         <router-link
@@ -99,7 +83,7 @@
           <li
             v-for="view in group.views"
             :key="view.name"
-            :data-sba-view="view.name"
+            :data-sm-view="view.name"
           >
             <router-link
               :to="{ name: view.name, params: { instanceId: instance.id } }"
@@ -119,7 +103,7 @@
 <script lang="ts">
 import { defineComponent, toRaw } from 'vue';
 
-import SbaButton from '@/components/sba-button.vue';
+import SmButton from '@/components/sm-button';
 
 import Application from '@/services/application';
 import Instance from '@/services/instance';
@@ -127,7 +111,7 @@ import { compareBy } from '@/utils/collections';
 import { VIEW_GROUP_ICON } from '@/views/ViewGroup';
 
 export default defineComponent({
-  components: { SbaButton },
+  components: { SmButton },
   props: {
     views: {
       type: Array,
@@ -206,17 +190,17 @@ export default defineComponent({
 
 <style scoped>
 .instance-info-block {
-  @apply bg-sba-50 bg-opacity-40 text-sba-900 flex items-center text-sm py-4 px-6 text-left overflow-hidden text-ellipsis rounded transition duration-300 ease-in-out cursor-pointer;
+  @apply bg-sm-50 bg-opacity-40 text-sm-900 flex items-center text-sm py-4 px-6 text-left overflow-hidden text-ellipsis rounded transition duration-300 ease-in-out cursor-pointer;
 }
 
 .navbar-link {
-  @apply cursor-pointer bg-sba-50 bg-opacity-40 duration-300 ease-in-out flex  items-center overflow-hidden py-4 rounded text-sm transition whitespace-nowrap;
+  @apply cursor-pointer bg-sm-50 bg-opacity-40 duration-300 ease-in-out flex  items-center overflow-hidden py-4 rounded text-sm transition whitespace-nowrap;
   @apply text-gray-700;
 }
 
 .navbar-link:hover,
 .navbar-link__active {
-  @apply bg-sba-50 bg-opacity-80 text-sba-900;
+  @apply bg-sm-50 bg-opacity-80 text-sm-900;
 }
 
 .navbar-link__group_item {

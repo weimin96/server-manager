@@ -1,8 +1,8 @@
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
-      <sba-sticky-subnav>
-        <sba-input
+      <sm-sticky-subnav>
+        <sm-input
           v-model="filter"
           :placeholder="$t('term.filter')"
           name="filter"
@@ -11,11 +11,11 @@
           <template #prepend>
             <font-awesome-icon icon="filter" />
           </template>
-        </sba-input>
-      </sba-sticky-subnav>
+        </sm-input>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel
+    <sm-panel
       v-for="bean in configurationPropertiesBeans"
       :key="bean.name"
       :header-sticks-below="'#subnavigation'"
@@ -36,8 +36,8 @@
           </tr>
         </table>
       </div>
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ import { isEmpty, mapKeys, pickBy } from 'lodash-es';
 
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const filterProperty = (needle) => (value, name) => {
   return (
@@ -117,7 +117,7 @@ const flattenConfigurationPropertiesBeans = (configprops) => {
 };
 
 export default {
-  components: { SbaInstanceSection },
+  components: { SmInstanceSection },
   props: {
     instance: {
       type: Instance,

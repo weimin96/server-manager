@@ -1,53 +1,53 @@
 import FontAwesomeIcon from './font-awesome-icon.js';
-import SbaActionButtonScoped from './sba-action-button-scoped.vue';
-import SbaAlert from './sba-alert.vue';
-import SbaButtonGroup from './sba-button-group.vue';
-import SbaButton from './sba-button.vue';
-import SbaCheckbox from './sba-checkbox.vue';
-import SbaConfirmButton from './sba-confirm-button.vue';
-import SbaFormattedObj from './sba-formatted-obj.vue';
-import SbaIconButton from './sba-icon-button.vue';
-import SbaInput from './sba-input.vue';
-import SbaKeyValueTable from './sba-key-value-table.vue';
-import SbaLoadingSpinner from './sba-loading-spinner.vue';
-import SbaModal from './sba-modal.vue';
-import SbaPaginationNav from './sba-pagination-nav.vue';
-import SbaPanel from './sba-panel.vue';
-import SbaSelect from './sba-select.vue';
-import SbaStatusBadge from './sba-status-badge.vue';
-import SbaStatus from './sba-status.vue';
-import SbaStickySubnav from './sba-sticky-subnav.vue';
-import SbaTag from './sba-tag.vue';
-import SbaTags from './sba-tags.vue';
-import SbaTimeAgo from './sba-time-ago.vue';
-import SbaToggleScopeButton from './sba-toggle-scope-button.vue';
-import SbaWave from './sba-wave.vue';
+import SmActionButtonScoped from './sm-action-button-scoped.vue';
+import SmAlert from './sm-alert.vue';
+import SmButtonGroup from './sm-button-group.vue';
+import SmButton from './sm-button.vue';
+import SmCheckbox from './sm-checkbox.vue';
+import SmConfirmButton from './sm-confirm-button.vue';
+import SmFormattedObj from './sm-formatted-obj.vue';
+import SmIconButton from './sm-icon-button.vue';
+import SmInput from './sm-input.vue';
+import SmKeyValueTable from './sm-key-value-table.vue';
+import SmLoadingSpinner from './sm-loading-spinner.vue';
+import SmModal from './sm-modal.vue';
+import SmPaginationNav from './sm-pagination-nav.vue';
+import SmPanel from './sm-panel.vue';
+import SmSelect from './sm-select.vue';
+import SmStatusBadge from './sm-status-badge.vue';
+import SmStatus from './sm-status.vue';
+import SmStickySubnav from './sm-sticky-subnav.vue';
+import SmTag from './sm-tag.vue';
+import SmTags from './sm-tags.vue';
+import SmTimeAgo from './sm-time-ago.vue';
+import SmToggleScopeButton from './sm-toggle-scope-button.vue';
+import SmWave from './sm-wave.vue';
 
 export const components = {
-  'sba-action-button-scoped': SbaActionButtonScoped,
-  'sba-alert': SbaAlert,
-  'sba-button-group': SbaButtonGroup,
-  'sba-button': SbaButton,
-  'sba-checkbox': SbaCheckbox,
-  'sba-confirm-button': SbaConfirmButton,
-  'sba-formatted-obj': SbaFormattedObj,
-  'sba-icon-button': SbaIconButton,
-  'sba-input': SbaInput,
-  'sba-select': SbaSelect,
-  'sba-key-value-table': SbaKeyValueTable,
-  'sba-loading-spinner': SbaLoadingSpinner,
-  'sba-modal': SbaModal,
-  'sba-pagination-nav': SbaPaginationNav,
-  'sba-panel': SbaPanel,
-  'sba-status-badge': SbaStatusBadge,
-  'sba-status': SbaStatus,
-  'sba-sticky-subnav': SbaStickySubnav,
-  'sba-tag': SbaTag,
-  'sba-tags': SbaTags,
-  'sba-time-ago': SbaTimeAgo,
-  'sba-toggle-scope-button': SbaToggleScopeButton,
+  'sm-action-button-scoped': SmActionButtonScoped,
+  'sm-alert': SmAlert,
+  'sm-button-group': SmButtonGroup,
+  'sm-button': SmButton,
+  'sm-checkbox': SmCheckbox,
+  'sm-confirm-button': SmConfirmButton,
+  'sm-formatted-obj': SmFormattedObj,
+  'sm-icon-button': SmIconButton,
+  'sm-input': SmInput,
+  'sm-select': SmSelect,
+  'sm-key-value-table': SmKeyValueTable,
+  'sm-loading-spinner': SmLoadingSpinner,
+  'sm-modal': SmModal,
+  'sm-pagination-nav': SmPaginationNav,
+  'sm-panel': SmPanel,
+  'sm-status-badge': SmStatusBadge,
+  'sm-status': SmStatus,
+  'sm-sticky-subnav': SmStickySubnav,
+  'sm-tag': SmTag,
+  'sm-tags': SmTags,
+  'sm-time-ago': SmTimeAgo,
+  'sm-toggle-scope-button': SmToggleScopeButton,
   'font-awesome-icon': FontAwesomeIcon,
-  'sba-wave': SbaWave,
+  'sm-wave': SmWave,
 };
 
 export default {

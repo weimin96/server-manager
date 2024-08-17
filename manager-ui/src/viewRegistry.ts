@@ -2,7 +2,7 @@ import { remove } from 'lodash-es';
 import { Text, VNode, h, markRaw, reactive, shallowRef, toRaw } from 'vue';
 import { Router, createRouter, createWebHistory } from 'vue-router';
 
-import sbaConfig from './sba-config';
+import SmConfig from './config';
 import { VIEW_GROUP, VIEW_GROUP_ICON } from './views/ViewGroup.js';
 
 let router: Router;
@@ -15,7 +15,7 @@ const createI18nTextVNode = (label: string) =>
   });
 
 // eslint-disable-next-line no-unused-vars
-type ViewFilterFunction = (view: SbaView) => boolean;
+type ViewFilterFunction = (view: SMView) => boolean;
 type ViewConfig = {
   isEnabled?: (obj?) => boolean;
   [key: string]: any;
@@ -24,9 +24,9 @@ type ViewConfig = {
 export default class ViewRegistry {
   private readonly _redirects: any[] = [];
 
-  private _views: SbaView[] = reactive([]);
+  private _views: SMView[] = reactive([]);
 
-  get views(): SbaView[] {
+  get views(): SMView[] {
     return this._views;
   }
 
@@ -44,7 +44,7 @@ export default class ViewRegistry {
   }
 
   createRouter() {
-    const routesKnownToBackend = sbaConfig.uiSettings.routes.map(
+    const routesKnownToBackend = SmConfig.uiSettings.routes.map(
       (r) => new RegExp(`^${r.replace('/**', '(/.*)?')}$`),
     );
     const unknownRoutes = this.routes.filter(
@@ -71,7 +71,7 @@ export default class ViewRegistry {
     return Array.prototype.find.call(this._views, (v) => v.name === name);
   }
 
-  addView(...views: View[]): SbaView[] {
+  addView(...views: View[]): SMView[] {
     return views.map((view) => this._addView(view));
   }
 
@@ -83,8 +83,8 @@ export default class ViewRegistry {
     }
   }
 
-  _addView(viewConfig: ViewConfig): SbaView {
-    const view = { ...viewConfig } as SbaView;
+  _addView(viewConfig: ViewConfig): SMView {
+    const view = { ...viewConfig } as SMView;
     view.hasChildren = !!viewConfig.children;
 
     if (!viewConfig.name) {
@@ -110,7 +110,7 @@ export default class ViewRegistry {
 
     if (!viewConfig.isEnabled) {
       view.isEnabled = () => {
-        const viewSettings = sbaConfig.uiSettings.viewSettings.find(
+        const viewSettings = SmConfig.uiSettings.viewSettings.find(
           (vs) => vs.name === viewConfig.name,
         );
         return !viewSettings || viewSettings.enabled === true;

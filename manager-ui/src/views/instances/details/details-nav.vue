@@ -1,5 +1,5 @@
 <template>
-  <sba-sticky-subnav>
+  <sm-sticky-subnav>
     <div class="flex">
       <div class="flex-2">
         <instance-switcher
@@ -8,8 +8,8 @@
         />
       </div>
       <div class="flex-1 text-right">
-        <sba-button-group>
-          <sba-button
+        <sm-button-group>
+          <sm-button
             :title="instance.registration.serviceUrl"
             class="border-gray-400 ml-1"
             @click="openLink(instance.registration.serviceUrl)"
@@ -28,9 +28,9 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </sba-button>
+          </sm-button>
 
-          <sba-button
+          <sm-button
             :title="instance.registration.managementUrl"
             class="border-gray-400 ml-1"
             @click="openLink(instance.registration.managementUrl)"
@@ -49,9 +49,9 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </sba-button>
+          </sm-button>
 
-          <sba-button
+          <sm-button
             :title="instance.registration.healthUrl"
             class="border-gray-400 ml-1"
             @click="openLink(instance.registration.healthUrl)"
@@ -70,15 +70,15 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </sba-button>
-        </sba-button-group>
+          </sm-button>
+        </sm-button-group>
       </div>
     </div>
-  </sba-sticky-subnav>
+  </sm-sticky-subnav>
 </template>
 
 <script>
-import SbaButtonGroup from '@/components/sba-button-group';
+import SmButtonGroup from '@/components/sm-button-group';
 
 import Application from '@/services/application';
 import Instance from '@/services/instance';
@@ -86,7 +86,7 @@ import InstanceSwitcher from '@/views/instances/details/instance-switcher';
 
 export default {
   name: 'DetailsNav',
-  components: { SbaButtonGroup, InstanceSwitcher },
+  components: { SmButtonGroup, InstanceSwitcher },
   props: {
     application: {
       type: Application,

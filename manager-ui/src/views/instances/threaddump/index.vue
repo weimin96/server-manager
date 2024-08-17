@@ -1,24 +1,24 @@
 <template>
-  <sba-instance-section :error="errorFetch" :loading="!hasLoaded">
+  <sm-instance-section :error="errorFetch" :loading="!hasLoaded">
     <template v-if="threads" #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="text-right">
-          <sba-button @click="downloadThreaddump">
+          <sm-button @click="downloadThreaddump">
             <font-awesome-icon icon="download" />&nbsp;
             <span v-text="$t('instances.threaddump.download')" />
-          </sba-button>
+          </sm-button>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
-    <sba-alert
+    <sm-alert
       v-if="errorDownload"
       :error="errorDownload"
       :title="$t('instances.threaddump.download_failed')"
     />
-    <sba-panel>
+    <sm-panel>
       <threads-list v-if="threads" :thread-timelines="threads" />
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -30,11 +30,11 @@ import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 import threadsList from '@/views/instances/threaddump/threads-list';
 
 export default {
-  components: { SbaInstanceSection, threadsList },
+  components: { SmInstanceSection, threadsList },
   mixins: [subscribing],
   props: {
     instance: {

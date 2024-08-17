@@ -1,27 +1,11 @@
-<!--
-  - Copyright 2014-2020 the original author or authors.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
-  <sba-panel :title="$t('instances.env.manager')">
+  <sm-panel :title="$t('instances.env.manager')">
     <div
       v-for="(prop, index) in managedProperties"
       :key="`managed-${index}`"
       class="flex gap-2 pb-2"
     >
-      <sba-input
+      <sm-input
         v-model="prop.name"
         :error="prop.validation"
         :list="allPropertyNames"
@@ -31,7 +15,7 @@
         type="text"
         @input="handlePropertyNameChange(prop, index)"
       />
-      <sba-input
+      <sm-input
         v-model="prop.input"
         :name="prop.name || 'new-prop-value'"
         class="flex-1"
@@ -58,17 +42,17 @@
             <font-awesome-icon icon="pencil-alt" />
           </span>
         </template>
-      </sba-input>
+      </sm-input>
     </div>
 
     <div class="flex gap-2 justify-end items-start">
-      <sba-toggle-scope-button
+      <sm-toggle-scope-button
         v-if="application.instances.length > 1"
         v-model="scope"
         :instance-count="application.instances.length"
       />
 
-      <sba-confirm-button
+      <sm-confirm-button
         :disabled="!hasManagedProperty || resetStatus === 'executing'"
         class="button is-light"
         @click="resetEnvironment"
@@ -82,8 +66,8 @@
           v-text="$t('instances.env.context_reset_failed')"
         />
         <span v-else v-text="$t('instances.env.context_reset')" />
-      </sba-confirm-button>
-      <sba-confirm-button
+      </sm-confirm-button>
+      <sm-confirm-button
         :disabled="
           hasErrorProperty ||
           !hasChangedProperty ||
@@ -101,9 +85,9 @@
           v-text="$t('instances.env.context_update_failed')"
         />
         <span v-else v-text="$t('instances.env.context_update')" />
-      </sba-confirm-button>
+      </sm-confirm-button>
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>

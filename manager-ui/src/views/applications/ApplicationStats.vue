@@ -1,10 +1,10 @@
 <template>
   <div class="hidden md:flex mr-1 gap-1">
-    <sba-tag
+    <sm-tag
       :label="$t('applications.applications')"
       :value="applicationsCount"
     />
-    <sba-tag :label="$t('applications.instances')" :value="instancesCount" />
+    <sm-tag :label="$t('applications.instances')" :value="instancesCount" />
   </div>
 </template>
 

@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
       viteStaticCopy({
         targets: [
           {
-            src: ['sba-settings.js', 'assets/'],
+            src: ['settings.js', 'assets/'],
             dest: outDir,
           },
         ],
@@ -45,10 +45,10 @@ export default defineConfig(({ mode }) => {
       outDir,
       rollupOptions: {
         input: {
-          sba: resolve(frontendDir, './index.html'),
+          sm: resolve(frontendDir, './index.html'),
           login: resolve(frontendDir, './login.html'),
         },
-        external: ['sba-settings.js', 'public/variables.css'],
+        external: ['settings.js', 'public/variables.css'],
       },
     },
     resolve: {
@@ -59,10 +59,6 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       proxy: {
-        // '^(/sba-settings.js|/variables.css)': {
-        //   target: 'http://localhost:8080/admin',
-        //   changeOrigin: true,
-        // },
         '^/(applications|instances/)': {
           target: 'http://localhost:8080/admin',
           changeOrigin: true,

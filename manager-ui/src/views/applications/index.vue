@@ -1,12 +1,12 @@
 <template>
   <div>
-    <sba-wave />
+    <sm-wave />
     <section>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="container mx-auto flex">
           <ApplicationStats />
           <div class="flex-1">
-            <sba-input
+            <sm-input
               v-model="routerState.q"
               :placeholder="t('term.filter')"
               name="filter"
@@ -15,49 +15,49 @@
               <template #prepend>
                 <font-awesome-icon icon="filter" />
               </template>
-            </sba-input>
+            </sm-input>
           </div>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
 
       <div class="container mx-auto py-6">
-        <sba-alert
+        <sm-alert
           v-if="error"
           :error="error"
           :title="t('applications.server_connection_failed')"
           class-names="mb-6"
           severity="WARN"
         />
-        <sba-panel v-if="!applicationsInitialized">
+        <sm-panel v-if="!applicationsInitialized">
           <p
             class="is-muted is-loading"
             v-text="t('applications.loading_applications')"
           />
-        </sba-panel>
+        </sm-panel>
 
         <ApplicationStatusHero v-if="applicationsInitialized" />
 
         <template v-if="applicationsInitialized">
-          <sba-panel
+          <sm-panel
             v-if="hasActiveFilter && grouped.length === 0"
             class="text-center"
           >
             {{ t('filter.no_results') }}
-          </sba-panel>
+          </sm-panel>
 
           <template v-else>
             <div v-if="groupNames.length > 1" class="text-right mb-6">
-              <sba-button-group>
-                <sba-button @click="() => setGroupingFunction('application')">
+              <sm-button-group>
+                <sm-button @click="() => setGroupingFunction('application')">
                   <font-awesome-icon icon="list" />
-                </sba-button>
-                <sba-button @click="() => setGroupingFunction('group')">
+                </sm-button>
+                <sm-button @click="() => setGroupingFunction('group')">
                   <font-awesome-icon icon="expand" />
-                </sba-button>
-              </sba-button-group>
+                </sm-button>
+              </sm-button-group>
             </div>
 
-            <sba-panel
+            <sm-panel
               v-for="group in grouped"
               :id="group.name"
               :key="group.name"
@@ -84,7 +84,7 @@
                     'mr-2 transition-[transform]': true,
                   }"
                 />
-                <sba-status-badge
+                <sm-status-badge
                   v-if="isGroupedByApplication"
                   class="mr-2"
                   :status="
@@ -121,7 +121,7 @@
                   </template>
                 </InstancesList>
               </template>
-            </sba-panel>
+            </sm-panel>
           </template>
 
           <NotificationFilterSettings
@@ -151,8 +151,8 @@ import { computed, nextTick, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
-import SbaStickySubnav from '@/components/sba-sticky-subnav.vue';
-import SbaWave from '@/components/sba-wave.vue';
+import SmStickySubnav from '@/components/sm-sticky-subnav.vue';
+import SmWave from '@/components/sm-wave.vue';
 
 import { useApplicationStore } from '@/composables/useApplicationStore';
 import Application from '@/services/application';
@@ -403,7 +403,7 @@ import { defineComponent } from 'vue';
 import { directive as onClickaway } from 'vue3-click-away';
 
 import Popper from '@/directives/popper';
-import handle from '@/views/applications/handle.vue';
+import handle from '@/views/applications/handle';
 
 export default defineComponent({
   directives: { Popper, onClickaway },

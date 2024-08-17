@@ -16,7 +16,7 @@
           <span class="is-breakable" v-text="cache.cacheManager" />
         </td>
         <td class="is-narrow text-right">
-          <sba-button
+          <sm-button
             class="button"
             :class="{
               'is-loading': clearing[cache.key] === 'executing',
@@ -38,7 +38,7 @@
               <font-awesome-icon icon="trash" class="mr-2" />
               <span v-text="$t('term.clear')" />
             </span>
-          </sba-button>
+          </sm-button>
         </td>
       </tr>
       <tr v-if="caches.length === 0">

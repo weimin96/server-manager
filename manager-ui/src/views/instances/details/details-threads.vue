@@ -1,7 +1,7 @@
 <template>
-  <sba-panel v-if="hasLoaded" :title="$t('instances.details.threads.title')">
+  <sm-panel v-if="hasLoaded" :title="$t('instances.details.threads.title')">
     <div>
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
       <div v-if="current" class="flex w-full">
         <div class="flex-1 text-center">
@@ -26,15 +26,15 @@
 
       <threads-chart v-if="chartData.length > 0" :data="chartData" />
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>
 import moment from 'moment';
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import threadsChart from '@/views/instances/details/threads-chart';
@@ -67,7 +67,7 @@ export default {
       };
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.threads)
+      return timer(0, SmConfig.uiSettings.pollTimer.threads)
         .pipe(
           concatMap(this.fetchMetrics),
           retryWhen((err) => {

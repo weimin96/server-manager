@@ -10,7 +10,7 @@ declare global {
   } & MessageEvent;
 
   interface Window {
-    SBA: SBASettings;
+    SM: SMSettings;
     csrf: string;
     uiSettings: {
       icon: string;
@@ -74,7 +74,7 @@ declare global {
     enableToasts: boolean;
   };
 
-  type SBASettings = {
+  type SMSettings = {
     uiSettings: UISettings;
     user: {
       name: string;
@@ -91,7 +91,7 @@ declare global {
     viewRegistry: ViewRegistry;
   };
 
-  type SbaView = {
+  type SMView = {
     id: string;
     name?: string;
     parent: string;

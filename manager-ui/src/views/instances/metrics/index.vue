@@ -1,6 +1,6 @@
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
-    <sba-panel v-if="!isOldMetrics && availableMetrics.length > 0">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
+    <sm-panel v-if="!isOldMetrics && availableMetrics.length > 0">
       <form class="grid grid-cols-6 gap-6">
         <div class="col-span-3">
           <div>
@@ -54,12 +54,12 @@
 
       <template #footer>
         <div class="text-right">
-          <sba-button type="primary" @click="handleSubmit">
+          <sm-button type="primary" @click="handleSubmit">
             {{ $t('instances.metrics.add_metric') }}
-          </sba-button>
+          </sm-button>
         </div>
       </template>
-    </sba-panel>
+    </sm-panel>
 
     <p
       v-if="stateFetchingTags === 'executing'"
@@ -78,19 +78,19 @@
       @remove="removeMetric"
       @type-select="handleTypeSelect"
     />
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
 import { sortBy } from 'lodash-es';
 
-import SbaButton from '@/components/sba-button.vue';
-import SbaPanel from '@/components/sba-panel.vue';
+import SmButton from '@/components/sm-button';
+import SmPanel from '@/components/sm-panel';
 
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
 import Metric from '@/views/instances/metrics/metric';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const ApiVersion = Object.freeze({
   V2: 'application/vnd.spring-boot.actuator.v2',
@@ -105,7 +105,7 @@ function isActuatorApiVersionSupported(headerContentType) {
 }
 
 export default {
-  components: { SbaButton, SbaPanel, SbaInstanceSection, Metric },
+  components: { SmButton, SmPanel, SmInstanceSection, Metric },
   props: {
     instance: {
       type: Instance,

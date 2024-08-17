@@ -16,10 +16,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, watch } from 'vue';
 
 import { useApplicationStore } from '@/composables/useApplicationStore';
-import sbaConfig from '@/sba-config';
+import SmConfig from '@/config';
 
-const favicon = sbaConfig.uiSettings.favicon;
-const faviconDanger = sbaConfig.uiSettings.faviconDanger;
+const favicon = SmConfig.uiSettings.favicon;
+const faviconDanger = SmConfig.uiSettings.faviconDanger;
 
 const { applications } = useApplicationStore();
 const downCount = computed(() => {

@@ -1,10 +1,10 @@
 <template>
-  <sba-panel
+  <sm-panel
     v-if="hasLoaded"
     :title="$t('instances.details.memory.title') + `: ${name}`"
   >
     <div>
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
       <div v-if="current" class="flex w-full">
         <div v-if="current.metaspace" class="flex-1 text-center">
@@ -55,7 +55,7 @@
 
       <MemChart v-if="chartData.length > 0" :data="chartData" />
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script lang="ts">
@@ -65,10 +65,10 @@ import { concatMap, delay, retryWhen, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { defineComponent } from 'vue';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
-import MemChart from '@/views/instances/details/mem-chart.vue';
+import MemChart from '@/views/instances/details/mem-chart';
 
 export default defineComponent({
   name: 'DetailsMemory',
@@ -135,7 +135,7 @@ export default defineComponent({
       };
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.memory)
+      return timer(0, SmConfig.uiSettings.pollTimer.memory)
         .pipe(
           concatMap(this.fetchMetrics),
           retryWhen((err) => {

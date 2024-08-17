@@ -1,15 +1,15 @@
 <template>
-  <sba-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :error="error" :loading="isLoading">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex gap-2">
-          <sba-input
+          <sm-input
             v-model.trim="filter.principal"
             :placeholder="$t('instances.auditevents.principal')"
             name="filter_principal"
             type="search"
           />
-          <sba-input
+          <sm-input
             v-model="filter.type"
             :list="[
               'AUTHENTICATION_FAILURE',
@@ -22,7 +22,7 @@
             type="search"
           />
 
-          <sba-input
+          <sm-input
             :value="formatDate(filter.after)"
             name="filter_datetime"
             placeholder="Date"
@@ -30,17 +30,17 @@
             @input="filter.after = parseDate($event.target.value)"
           />
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel :seamless="true">
+    <sm-panel :seamless="true">
       <auditevents-list
         :events="events"
         :instance="instance"
         :is-loading="isLoading"
       />
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -48,15 +48,15 @@ import { uniqBy } from 'lodash-es';
 import moment from 'moment';
 import { Subject, concatMap, debounceTime, mergeWith, tap, timer } from 'rxjs';
 
-import SbaInput from '@/components/sba-input';
-import SbaPanel from '@/components/sba-panel';
-import SbaStickySubnav from '@/components/sba-sticky-subnav';
+import SmInput from '@/components/sm-input';
+import SmPanel from '@/components/sm-panel';
+import SmStickySubnav from '@/components/sm-sticky-subnav';
 
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
 import AuditeventsList from '@/views/instances/auditevents/auditevents-list';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 class Auditevent {
   constructor({ timestamp, ...event }) {
@@ -93,10 +93,10 @@ class Auditevent {
 
 export default {
   components: {
-    SbaInput,
-    SbaInstanceSection,
-    SbaStickySubnav,
-    SbaPanel,
+    SmInput,
+    SmInstanceSection,
+    SmStickySubnav,
+    SmPanel,
     AuditeventsList,
   },
   mixins: [subscribing],

@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <sba-wave />
+    <sm-wave />
     <div class="h-full">
       <Sidebar
         v-if="instance"

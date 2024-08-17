@@ -1,7 +1,7 @@
 <template>
-  <sba-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :error="error" :loading="isLoading">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex -space-x-px">
           <select
             v-model="filter.type"
@@ -13,7 +13,7 @@
               v-text="$t('instances.sessions.session_id')"
             />
           </select>
-          <sba-input
+          <sm-input
             v-model="filter.value"
             input-class="!rounded-l-none"
             name="filter"
@@ -22,31 +22,31 @@
             @keyup.enter="fetchSessionsByUsername()"
           />
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel :seamless="true">
-      <sba-sessions-list
+    <sm-panel :seamless="true">
+      <sm-sessions-list
         :instance="instance"
         :is-loading="isLoading"
         :sessions="sessions"
         @deleted="fetch"
       />
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
 import { debounce, isEqual } from 'lodash-es';
 import moment from 'moment';
 
-import SbaPanel from '@/components/sba-panel';
-import SbaStickySubnav from '@/components/sba-sticky-subnav';
+import SmPanel from '@/components/sm-panel';
+import SmStickySubnav from '@/components/sm-sticky-subnav';
 
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import sbaSessionsList from '@/views/instances/sessions/sessions-list';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmSessionsList from '@/views/instances/sessions/sessions-list';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const regexUuid =
   /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
@@ -61,10 +61,10 @@ class Session {
 
 export default {
   components: {
-    SbaPanel,
-    SbaStickySubnav,
-    SbaInstanceSection,
-    sbaSessionsList,
+    SmPanel,
+    SmStickySubnav,
+    SmInstanceSection,
+    SmSessionsList,
   },
   props: {
     instance: {

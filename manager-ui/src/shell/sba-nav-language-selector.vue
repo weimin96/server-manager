@@ -1,21 +1,21 @@
 <template>
-  <sba-nav-dropdown :text="selectedLanguage.label">
-    <sba-dropdown-item
+  <sm-nav-dropdown :text="selectedLanguage.label">
+    <sm-dropdown-item
       v-for="lang in languages"
       :key="lang.locale"
       @click="() => localeChanged(lang)"
     >
       {{ lang.label }}
-    </sba-dropdown-item>
-  </sba-nav-dropdown>
+    </sm-dropdown-item>
+  </sm-nav-dropdown>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import SbaDropdownItem from '@/components/sba-dropdown/sba-dropdown-item.vue';
-import SbaNavDropdown from '@/components/sba-nav/sba-nav-dropdown.vue';
+import SmDropdownItem from '@/components/sm-dropdown/sm-dropdown-item';
+import SmNavDropdown from '@/components/sm-nav/sm-nav-dropdown';
 
 const { locale: currentLocale } = useI18n();
 

@@ -1,5 +1,5 @@
 <template>
-  <sba-instance-section
+  <sm-instance-section
     :error="error"
     :layout-options="{ noMargin: true, isFlex: true }"
     :loading="!hasLoaded"
@@ -38,7 +38,7 @@
               class="m-bean--header hero"
               @click="select(selectedDomain, mBean)"
             >
-              <sba-icon-button
+              <sm-icon-button
                 v-if="mBean === selectedMBean"
                 :icon="['far', 'times-circle']"
                 class="m-bean--header--close"
@@ -101,7 +101,7 @@
         </div>
       </div>
     </div>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -114,11 +114,11 @@ import { VIEW_GROUP } from '@/views/ViewGroup';
 import { MBean } from '@/views/instances/jolokia/MBean';
 import mBeanAttributes from '@/views/instances/jolokia/m-bean-attributes';
 import mBeanOperations from '@/views/instances/jolokia/m-bean-operations';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
   components: {
-    SbaInstanceSection,
+    SmInstanceSection,
     mBeanOperations,
     mBeanAttributes,
   },

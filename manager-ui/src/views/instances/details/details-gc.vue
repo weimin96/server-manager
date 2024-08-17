@@ -1,6 +1,6 @@
 <template>
-  <sba-panel v-if="hasLoaded" :title="$t('instances.details.gc.title')">
-    <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+  <sm-panel v-if="hasLoaded" :title="$t('instances.details.gc.title')">
+    <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
     <div v-if="current" class="flex w-full">
       <div class="flex-1 text-center">
@@ -22,15 +22,15 @@
         <p v-text="`${current.max.asSeconds().toFixed(4)}s`" />
       </div>
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>
 import moment from 'moment';
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import { toMillis } from '@/views/instances/metrics/metric';
@@ -67,7 +67,7 @@ export default {
       };
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.gc)
+      return timer(0, SmConfig.uiSettings.pollTimer.gc)
         .pipe(
           concatMap(this.fetchMetrics),
           retryWhen((err) => {

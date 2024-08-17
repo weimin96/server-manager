@@ -3,7 +3,7 @@
     <div
       class="flex gap-2 justify-end absolute w-full md:w-[28rem] top-14 right-0 bg-black/20 py-3 px-4 rounded-bl"
     >
-      <sba-input
+      <sm-input
         v-model="routerState.termFilter"
         class="flex-1"
         :placeholder="$t('term.filter')"
@@ -13,7 +13,7 @@
         <template #prepend>
           <font-awesome-icon icon="filter" />
         </template>
-      </sba-input>
+      </sm-input>
 
       <select
         v-if="healthStatus.size > 1"
@@ -33,7 +33,7 @@
       </select>
     </div>
 
-    <sba-alert
+    <sm-alert
       v-if="error"
       :error="error"
       :title="t('applications.server_connection_failed')"
@@ -41,7 +41,7 @@
       severity="WARN"
     />
 
-    <sba-loading-spinner v-if="!applicationsInitialized" />
+    <sm-loading-spinner v-if="!applicationsInitialized" />
 
     <template v-if="applicationsInitialized">
       <div
@@ -63,7 +63,7 @@
           <div :key="application.name" class="hex__body application">
             <div class="application__status-indicator" />
             <div class="application__header application__time-ago is-muted">
-              <sba-time-ago :date="application.statusTimestamp" />
+              <sm-time-ago :date="application.statusTimestamp" />
             </div>
             <div class="application__body">
               <h1 class="application__name" v-text="application.name" />
@@ -95,7 +95,7 @@ import { HealthStatus } from '@/HealthStatus';
 import { useApplicationStore } from '@/composables/useApplicationStore';
 import Application from '@/services/application';
 import { useRouterState } from '@/utils/useRouterState';
-import hexMesh from '@/views/wallboard/hex-mesh.vue';
+import hexMesh from '@/views/wallboard/hex-mesh';
 
 export default {
   components: { hexMesh },

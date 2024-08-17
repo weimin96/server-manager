@@ -11,9 +11,9 @@ export function removeElement(el) {
 export function createComponent(component, props, parentContainer, slots = {}) {
   let vNode = h(component, props, slots);
 
-  let container = parentContainer.querySelector('.sba-modal--wrapper');
+  let container = parentContainer.querySelector('.sm-modal--wrapper');
   container = container || document.createElement('div');
-  container.classList.add('sba-modal--wrapper');
+  container.classList.add('sm-modal--wrapper');
   parentContainer.appendChild(container);
   render(vNode, container);
 

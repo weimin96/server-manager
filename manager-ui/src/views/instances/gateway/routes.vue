@@ -1,6 +1,6 @@
 <template>
   <div :class="{ 'is-loading': isLoading }">
-    <sba-panel
+    <sm-panel
       v-if="routes"
       :header-sticks-below="'#subnavigation'"
       title="Routes"
@@ -10,7 +10,7 @@
         @routes-refreshed="fetchRoutes"
       />
 
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
       <div class="field">
         <p class="control is-expanded has-icons-left">
@@ -27,10 +27,10 @@
         :routes="routes"
         @route-deleted="fetchRoutes"
       />
-    </sba-panel>
-    <sba-panel title="Add Route">
+    </sm-panel>
+    <sm-panel title="Add Route">
       <add-route :instance="instance" @route-added="fetchRoutes" />
-    </sba-panel>
+    </sm-panel>
   </div>
 </template>
 

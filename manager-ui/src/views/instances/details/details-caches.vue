@@ -13,8 +13,8 @@
 import { uniq } from 'lodash-es';
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import detailsCache from '@/views/instances/details/details-cache';
@@ -40,7 +40,7 @@ export default {
       );
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.cache)
+      return timer(0, SmConfig.uiSettings.pollTimer.cache)
         .pipe(
           concatMap(this.fetchCaches),
           retryWhen((err) => {

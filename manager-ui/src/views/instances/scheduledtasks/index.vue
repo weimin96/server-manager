@@ -1,6 +1,6 @@
 <template>
-  <sba-instance-section :error="err" :loading="!hasLoaded">
-    <sba-panel>
+  <sm-instance-section :error="err" :loading="!hasLoaded">
+    <sm-panel>
       <div v-if="!hasData" class="message is-warning">
         <div
           class="message-body"
@@ -92,17 +92,17 @@
           </tbody>
         </table>
       </template>
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
-  components: { SbaInstanceSection },
+  components: { SmInstanceSection },
   props: {
     instance: {
       type: Instance,

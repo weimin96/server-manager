@@ -15,10 +15,10 @@
   -->
 
 <template>
-  <sba-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :error="error" :loading="isLoading">
     <template #before>
-      <sba-sticky-subnav>
-        <sba-input
+      <sm-sticky-subnav>
+        <sm-input
           v-model="filter"
           :placeholder="$t('term.filter')"
           name="filter"
@@ -30,17 +30,17 @@
           <template #append>
             {{ filterResultString }}
           </template>
-        </sba-input>
-      </sba-sticky-subnav>
+        </sm-input>
+      </sm-sticky-subnav>
     </template>
 
     <template v-for="context in filteredContexts" :key="context.name">
-      <sba-panel
+      <sm-panel
         :id="`${context.name}-context`"
         :header-sticks-below="'#subnavigation'"
         :title="context.name"
       >
-        <sba-panel
+        <sm-panel
           v-if="context.positiveMatches.length"
           :title="$t('instances.conditions.positive-matches')"
         >
@@ -48,8 +48,8 @@
             :key="`${context.name}-positiveMatches`"
             :conditional-beans="context.positiveMatches"
           />
-        </sba-panel>
-        <sba-panel
+        </sm-panel>
+        <sm-panel
           v-if="context.negativeMatches.length"
           :title="$t('instances.conditions.negative-matches')"
         >
@@ -57,23 +57,23 @@
             :key="`${context.name}-negativeMatches`"
             :conditional-beans="context.negativeMatches"
           />
-        </sba-panel>
-      </sba-panel>
+        </sm-panel>
+      </sm-panel>
     </template>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { isEmpty } from 'lodash-es';
 
-import SbaStickySubnav from '@/components/sba-sticky-subnav.vue';
+import SmStickySubnav from '@/components/sm-sticky-subnav';
 
 import Instance from '@/services/instance';
 import { compareBy } from '@/utils/collections';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import ConditionsList from '@/views/instances/conditions/conditions-list.vue';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import ConditionsList from '@/views/instances/conditions/conditions-list';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 class ConditionalBean {
   constructor(name, positiveMatches, negativeMatches) {
@@ -133,9 +133,9 @@ const mapContexts = (conditionsData) => {
 export default {
   components: {
     FontAwesomeIcon,
-    SbaStickySubnav,
+    SmStickySubnav,
     ConditionsList,
-    SbaInstanceSection,
+    SmInstanceSection,
   },
   props: {
     instance: {

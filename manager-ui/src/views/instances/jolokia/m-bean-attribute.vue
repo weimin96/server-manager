@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center gap-1">
-    <sba-input
+    <sm-input
       v-if="!hasComplexValue"
       ref="inputRef"
       v-model="input"
@@ -22,21 +22,21 @@
           <font-awesome-icon v-else icon="eye" />
         </button>
       </template>
-    </sba-input>
+    </sm-input>
 
-    <sba-button-group v-if="editing">
-      <sba-button @click="cancel">
+    <sm-button-group v-if="editing">
+      <sm-button @click="cancel">
         {{ $t('term.cancel') }}
-      </sba-button>
-      <sba-button
+      </sm-button>
+      <sm-button
         :class="{ 'is-loading': saving }"
         :disabled="value === input"
         primary
         @click="save"
       >
         {{ $t('term.save') }}
-      </sba-button>
-    </sba-button-group>
+      </sm-button>
+    </sm-button-group>
   </div>
 </template>
 

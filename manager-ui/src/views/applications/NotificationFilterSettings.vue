@@ -1,5 +1,5 @@
 <template>
-  <sba-panel class="shadow-xl">
+  <sm-panel class="shadow-xl">
     <template v-if="!activeFilter">
       <div class="field">
         <p class="control has-inline-text">
@@ -10,7 +10,7 @@
               })
             "
           />&nbsp;
-          <sba-select
+          <sm-select
             v-model="ttl"
             class="inline-flex"
             name="ttl"
@@ -21,14 +21,14 @@
       </div>
       <div class="field is-grouped is-grouped-right">
         <div class="control">
-          <sba-button
+          <sm-button
             :class="{ 'is-loading': actionState === 'executing' }"
             @click.stop="addFilter"
           >
             <font-awesome-icon icon="bell-slash" />&nbsp;<span
               v-text="t('term.suppress')"
             />
-          </sba-button>
+          </sm-button>
         </div>
       </div>
     </template>
@@ -53,18 +53,18 @@
       </div>
       <div class="field is-grouped is-grouped-right">
         <div class="control">
-          <sba-button
+          <sm-button
             :class="{ 'is-loading': actionState === 'executing' }"
             @click.stop="deleteActiveFilter"
           >
             <font-awesome-icon icon="bell" />&nbsp;<span
               v-text="t('term.unsuppress')"
             />
-          </sba-button>
+          </sm-button>
         </div>
       </div>
     </template>
-  </sba-panel>
+  </sm-panel>
 </template>
 <script>
 import { useI18n } from 'vue-i18n';

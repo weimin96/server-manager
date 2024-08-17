@@ -1,9 +1,9 @@
 <template>
-  <sba-instance-section :error="error">
+  <sm-instance-section :error="error">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex gap-2">
-          <sba-action-button-scoped
+          <sm-action-button-scoped
             :action-fn="clearCaches"
             :instance-count="application.instances.length"
             :show-info="false"
@@ -23,10 +23,10 @@
                 <span v-text="$t('term.clear')" />
               </span>
             </template>
-          </sba-action-button-scoped>
+          </sm-action-button-scoped>
 
           <div class="flex-1">
-            <sba-input
+            <sm-input
               v-model="filter"
               :placeholder="$t('term.filter')"
               name="filter"
@@ -42,13 +42,13 @@
                   <span v-text="caches.length" />
                 </span>
               </template>
-            </sba-input>
+            </sm-input>
           </div>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel>
+    <sm-panel>
       <caches-list
         :application="application"
         :caches="filteredCaches"
@@ -56,8 +56,8 @@
         :scope="scope"
         :is-loading="isLoading"
       />
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -69,7 +69,7 @@ import Application from '@/services/application';
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
 import CachesList from '@/views/instances/caches/caches-list';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const flattenCaches = (cacheData) => {
   if (isEmpty(cacheData.cacheManagers)) {
@@ -88,7 +88,7 @@ const flattenCaches = (cacheData) => {
 };
 
 export default {
-  components: { SbaInstanceSection, CachesList },
+  components: { SmInstanceSection, CachesList },
   props: {
     instance: {
       type: Instance,

@@ -13,7 +13,7 @@
       class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
       :aria-labelledby="'health-detail__' + name"
     >
-      <sba-status-badge :status="health.status" />
+      <sm-status-badge :status="health.status" />
 
       <dl v-if="details && details.length > 0" class="grid grid-cols-2 mt-2">
         <template v-for="detail in details" :key="detail.name">

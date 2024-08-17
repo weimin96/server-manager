@@ -73,9 +73,9 @@ public class UiController {
         return "index";
     }
 
-    @GetMapping(path = "/sba-settings.js", produces = "application/javascript")
-    public String sbaSettings() {
-        return "sba-settings.js";
+    @GetMapping(path = "/settings.js", produces = "application/javascript")
+    public String settings() {
+        return "settings.js";
     }
 
     @GetMapping(path = "/variables.css", produces = "text/css")

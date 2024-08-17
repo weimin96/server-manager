@@ -1,23 +1,23 @@
 <template>
-  <sba-panel v-if="hasLoaded" :title="$t('instances.details.process.title')">
+  <sm-panel v-if="hasLoaded" :title="$t('instances.details.process.title')">
     <div>
-      <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
       <div v-else class="-mx-4 -my-3">
-        <sba-key-value-table :map="tableData">
+        <sm-key-value-table :map="tableData">
           <template #uptime="value">
             <process-uptime :value="value.value" />
           </template>
-        </sba-key-value-table>
+        </sm-key-value-table>
       </div>
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>
 import { take } from 'rxjs/operators';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import processUptime from '@/views/instances/details/process-uptime';
@@ -112,7 +112,7 @@ export default {
       }
     },
     createSubscription() {
-      return timer(0, sbaConfig.uiSettings.pollTimer.process)
+      return timer(0, SmConfig.uiSettings.pollTimer.process)
         .pipe(
           concatMap(this.fetchCpuLoadMetrics),
           retryWhen((err) => {

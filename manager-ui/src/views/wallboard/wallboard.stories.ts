@@ -1,7 +1,7 @@
 import { vueRouter } from 'storybook-vue3-router';
 
 import Application from '../../services/application.js';
-import Wallboard from './index.vue';
+import Wallboard from './index';
 
 import { HealthStatus } from '@/HealthStatus';
 import { useApplicationStore } from '@/composables/useApplicationStore';

@@ -1,5 +1,5 @@
 <template>
-  <sba-action-button-scoped
+  <sm-action-button-scoped
     :instance-count="instanceCount"
     :action-fn="refreshContext"
     :show-info="false"
@@ -16,9 +16,9 @@
       />
       <span v-else v-text="$t('instances.env.context_refresh')" />
     </template>
-  </sba-action-button-scoped>
+  </sm-action-button-scoped>
 
-  <sba-modal v-model="isModalOpen" data-testid="refreshModal">
+  <sm-modal v-model="isModalOpen" data-testid="refreshModal">
     <template #header>
       <span v-text="$t('instances.env.context_refreshed')" />
     </template>
@@ -31,7 +31,7 @@
         {{ $t('term.ok') }}
       </button>
     </template>
-  </sba-modal>
+  </sm-modal>
 </template>
 
 <script>

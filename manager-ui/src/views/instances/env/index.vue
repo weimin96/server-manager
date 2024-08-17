@@ -1,23 +1,7 @@
-<!--
-  - Copyright 2014-2020 the original author or authors.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
-  <sba-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :error="error" :loading="isLoading">
     <template #before>
-      <sba-sticky-subnav v-if="env">
+      <sm-sticky-subnav v-if="env">
         <div class="flex">
           <div v-if="instance.hasEndpoint('refresh')" class="mr-1">
             <refresh
@@ -27,7 +11,7 @@
             />
           </div>
           <div class="flex-1">
-            <sba-input
+            <sm-input
               v-model="filter"
               :placeholder="$t('term.filter')"
               name="filter"
@@ -36,16 +20,16 @@
               <template #prepend>
                 <font-awesome-icon icon="filter" />
               </template>
-            </sba-input>
+            </sm-input>
           </div>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
     <template #default>
       <div v-if="env && env?.activeProfiles.length > 0" class="mb-6 gap-1 flex">
         <span v-for="profile in env.activeProfiles" :key="profile">
-          <sba-tag
+          <sm-tag
             :key="profile"
             :label="$t('instances.env.active_profile')"
             :value="profile"
@@ -53,7 +37,7 @@
         </span>
       </div>
 
-      <sba-env-manager
+      <sm-env-manager
         v-if="env && hasEnvManagerSupport"
         :application="application"
         :instance="instance"
@@ -62,16 +46,16 @@
         @update="fetchEnv"
       />
 
-      <sba-modal data-testid="refreshModal">
+      <sm-modal data-testid="refreshModal">
         <template #header>
           <span v-text="$t('instances.env.context_refreshed')" />
         </template>
         <template #body>
           <span v-html="$t('instances.env.refreshed_configurations')" />
         </template>
-      </sba-modal>
+      </sm-modal>
 
-      <sba-panel
+      <sm-panel
         v-for="propertySource in propertySources"
         :key="propertySource.name"
         :header-sticks-below="'#subnavigation'"
@@ -100,9 +84,9 @@
           </div>
         </div>
         <p v-else class="is-muted" v-text="$t('instances.env.no_properties')" />
-      </sba-panel>
+      </sm-panel>
     </template>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -111,9 +95,9 @@ import { pickBy } from 'lodash-es';
 import Application from '@/services/application';
 import Instance from '@/services/instance';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import sbaEnvManager from '@/views/instances/env/env-manager';
+import SmEnvManager from '@/views/instances/env/env-manager.vue';
 import refresh from '@/views/instances/env/refresh';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const filterProperty = (needle) => (property, name) => {
   return (
@@ -134,7 +118,7 @@ const filterPropertySource = (needle) => (propertySource) => {
 };
 
 export default {
-  components: { SbaInstanceSection, sbaEnvManager, refresh },
+  components: { SmInstanceSection, SmEnvManager, refresh },
   props: {
     instance: {
       type: Instance,

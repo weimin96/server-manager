@@ -1,5 +1,5 @@
 <template>
-  <sba-panel :title="$t('instances.details.health.title')" :loading="loading">
+  <sm-panel :title="$t('instances.details.health.title')" :loading="loading">
     <template #actions>
       <router-link
         :to="{ name: 'journal', query: { instanceId: instance.id } }"
@@ -10,7 +10,7 @@
     </template>
 
     <template #default>
-      <sba-alert
+      <sm-alert
         :error="error"
         class="border-l-4"
         :title="$t('term.fetch_failed')"
@@ -56,7 +56,7 @@
         </template>
       </div>
     </template>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script lang="ts">

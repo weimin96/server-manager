@@ -1,7 +1,7 @@
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex items-center justify-end gap-1">
           <div class="flex-1">
             <span v-text="$t('instances.logfile.label')" />&nbsp;
@@ -27,7 +27,7 @@
           </div>
 
           <div class="mx-3 btn-group">
-            <sba-button :disabled="atTop" @click="scrollToTop">
+            <sm-button :disabled="atTop" @click="scrollToTop">
               <svg
                 class="h-4 w-4"
                 fill="none"
@@ -42,8 +42,8 @@
                   stroke-linejoin="round"
                 />
               </svg>
-            </sba-button>
-            <sba-button :disabled="atBottom" @click="scrollToBottom">
+            </sm-button>
+            <sm-button :disabled="atBottom" @click="scrollToBottom">
               <svg
                 class="h-4 w-4"
                 fill="none"
@@ -58,15 +58,15 @@
                   stroke-linejoin="round"
                 />
               </svg>
-            </sba-button>
+            </sm-button>
           </div>
 
-          <sba-button class="hidden md:block" @click="downloadLogfile()">
+          <sm-button class="hidden md:block" @click="downloadLogfile()">
             <font-awesome-icon icon="download" />&nbsp;
             <span v-text="$t('instances.logfile.download')" />
-          </sba-button>
+          </sm-button>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
     <div
@@ -75,7 +75,7 @@
     >
       <table class="table-striped" />
     </div>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -84,8 +84,8 @@ import { chunk } from 'lodash-es';
 import prettyBytes from 'pretty-bytes';
 import { debounceTime, fromEvent } from 'rxjs';
 
+import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
-import sbaConfig from '@/sba-config';
 import Instance from '@/services/instance';
 import autolink from '@/utils/autolink';
 import {
@@ -97,10 +97,10 @@ import {
   tap,
 } from '@/utils/rxjs';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
-  components: { SbaInstanceSection },
+  components: { SmInstanceSection },
   mixins: [subscribing],
   props: {
     instance: {
@@ -154,7 +154,7 @@ export default {
     createSubscription() {
       this.error = null;
       return this.instance
-        .streamLogfile(sbaConfig.uiSettings.pollTimer.logfile)
+        .streamLogfile(SmConfig.uiSettings.pollTimer.logfile)
         .pipe(
           tap(
             (part) => (this.skippedBytes = this.skippedBytes || part.skipped),

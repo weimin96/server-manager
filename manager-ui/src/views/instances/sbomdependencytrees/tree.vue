@@ -15,18 +15,18 @@
   -->
 
 <template>
-  <sba-instance-section :error="error" :loading="isLoading">
-    <sba-panel :title="sbomId">
+  <sm-instance-section :error="error" :loading="isLoading">
+    <sm-panel :title="sbomId">
       <div ref="treeContainer" class="x-scroller"></div>
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script lang="ts">
 import { debounce } from 'lodash';
 import { computed, onMounted, ref, watch } from 'vue';
 
-import SbaPanel from '@/components/sba-panel.vue';
+import SmPanel from '@/components/sm-panel';
 
 import Instance from '@/services/instance';
 import {
@@ -39,11 +39,11 @@ import {
   filterTree,
   normalizeData,
 } from '@/views/instances/sbomdependencytrees/sbomUtils';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section.vue';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
   name: 'TreeGraph',
-  components: { SbaInstanceSection, SbaPanel },
+  components: { SmInstanceSection, SmPanel },
   props: {
     sbomId: {
       type: String,

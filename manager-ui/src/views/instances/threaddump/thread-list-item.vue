@@ -81,7 +81,7 @@
                     `${frame.className}.${frame.methodName}(${frame.fileName}:${frame.lineNumber})`
                   "
                 />
-                <sba-tag
+                <sm-tag
                   v-if="frame.nativeMethod"
                   :key="`frame-${thread.threadId}-${idx}-native`"
                   value="native"

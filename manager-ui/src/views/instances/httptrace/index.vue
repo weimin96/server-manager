@@ -1,25 +1,9 @@
-<!--
-  - Copyright 2014-2020 the original author or authors.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex gap-2">
-          <sba-input
+          <sm-input
             v-model="filter.uri"
             :placeholder="$t('term.filter')"
             class="flex-1"
@@ -36,28 +20,28 @@
                 <span v-text="traces.length" />
               </span>
             </template>
-          </sba-input>
+          </sm-input>
 
-          <sba-input v-model="limit" :min="0" class="w-32" type="number">
+          <sm-input v-model="limit" :min="0" class="w-32" type="number">
             <template #prepend>
               {{ $t('instances.httptrace.limit') }}
             </template>
-          </sba-input>
+          </sm-input>
 
           <div class="grid grid-rows-2 grid-flow-col gap-x-2 text-sm">
-            <sba-checkbox
+            <sm-checkbox
               v-model="filter.showSuccess"
               :label="$t('instances.httptrace.filter.success')"
             />
-            <sba-checkbox
+            <sm-checkbox
               v-model="filter.showClientErrors"
               :label="$t('instances.httptrace.filter.client_errors')"
             />
-            <sba-checkbox
+            <sm-checkbox
               v-model="filter.showServerErrors"
               :label="$t('instances.httptrace.filter.server_errors')"
             />
-            <sba-checkbox
+            <sm-checkbox
               v-if="actuatorPath"
               v-model="filter.excludeActuator"
               :label="
@@ -68,23 +52,23 @@
             />
           </div>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel>
-      <sba-traces-chart
+    <sm-panel>
+      <sm-traces-chart
         :traces="filteredTraces"
         class="mb-6"
         @selected="updateSelection"
       />
 
-      <sba-traces-list
+      <sm-traces-list
         :new-traces-count="newTracesCount"
         :traces="listedTraces"
         @show-new-traces="showNewTraces"
       />
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -92,15 +76,15 @@ import { debounce, mapKeys } from 'lodash-es';
 import moment from 'moment';
 import { take } from 'rxjs/operators';
 
-import SbaCheckbox from '@/components/sba-checkbox';
+import SmCheckbox from '@/components/sm-checkbox.vue';
 
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import sbaTracesChart from '@/views/instances/httptrace/traces-chart';
-import sbaTracesList from '@/views/instances/httptrace/traces-list';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmTracesChart from '@/views/instances/httptrace/traces-chart';
+import SmTracesList from '@/views/instances/httptrace/traces-list';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 const addToFilter = (oldFilter, addedFilter) =>
   !oldFilter
@@ -195,10 +179,10 @@ class Trace {
 
 export default {
   components: {
-    SbaCheckbox,
-    SbaInstanceSection,
-    sbaTracesList,
-    sbaTracesChart,
+    SmCheckbox,
+    SmInstanceSection,
+    SmTracesList,
+    SmTracesChart,
   },
   mixins: [subscribing],
   props: {

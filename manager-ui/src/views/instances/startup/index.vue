@@ -1,9 +1,9 @@
 <template>
-  <sba-instance-section :error="error">
+  <sm-instance-section :error="error">
     <template #before>
-      <sba-sticky-subnav>
+      <sm-sticky-subnav>
         <div class="flex gap-2">
-          <sba-button v-if="!isExpanded" @click="expandTree">
+          <sm-button v-if="!isExpanded" @click="expandTree">
             <svg
               class="h-4 w-4"
               fill="currentColor"
@@ -15,8 +15,8 @@
                 fill-rule="evenodd"
               />
             </svg>
-          </sba-button>
-          <sba-button v-if="isExpanded" @click="expandTree">
+          </sm-button>
+          <sm-button v-if="isExpanded" @click="expandTree">
             <svg
               class="h-4 w-4"
               fill="currentColor"
@@ -28,9 +28,9 @@
                 fill-rule="evenodd"
               />
             </svg>
-          </sba-button>
+          </sm-button>
           <div class="flex-1">
-            <sba-input
+            <sm-input
               v-model="filter"
               :placeholder="
                 $t('term.filter') +
@@ -46,13 +46,13 @@
                 <span v-text="filteredSize" /> /
                 <span v-text="totalSize" />
               </template>
-            </sba-input>
+            </sm-input>
           </div>
         </div>
-      </sba-sticky-subnav>
+      </sm-sticky-subnav>
     </template>
 
-    <sba-panel>
+    <sm-panel>
       <div class="-mx-4 -my-3">
         <tree-table
           v-if="hasLoaded"
@@ -63,19 +63,19 @@
           @change="saveTreeState"
         />
       </div>
-    </sba-panel>
-  </sba-instance-section>
+    </sm-panel>
+  </sm-instance-section>
 </template>
 
 <script>
 import Instance from '@/services/instance';
 import { StartupActuatorService } from '@/services/startup-actuator';
 import { VIEW_GROUP } from '@/views/ViewGroup';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 import TreeTable from '@/views/instances/startup/tree-table';
 
 export default {
-  components: { SbaInstanceSection, TreeTable },
+  components: { SmInstanceSection, TreeTable },
   props: {
     instance: {
       type: Instance,

@@ -286,7 +286,7 @@ export const createDependencyTree = async (
   d3.select(treeContainer)
     .append('div')
     .attr('id', 'tooltip')
-    .attr('class', 'bg-sba-100 rounded')
+    .attr('class', 'bg-sm-100 rounded')
     .attr('style', 'position: absolute; opacity: 0; font-size: 0.85rem;');
 
   const { gLink, gNode } = createGlobalLinkAndNode(svg);

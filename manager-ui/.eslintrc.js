@@ -22,6 +22,7 @@ module.exports = {
     'vue/no-v-html': 'off',
     'vue/no-reserved-component-names': 'off',
     'vue/no-v-text-v-html-on-component': 'off',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     quotes: [2, 'single', { avoidEscape: true }],
   },
   globals: {

@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-1 w-full justify-end">
-    <sba-button primary @click="() => close(true)" v-text="labelOk" />
-    <sba-button
+    <sm-button primary @click="() => close(true)" v-text="labelOk" />
+    <sm-button
       class="button"
       @click="() => close(false)"
       v-text="labelCancel"
@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import SbaButton from '@/components/sba-button';
+import SmButton from '@/components/sm-button';
 
 import eventBus from '@/services/bus';
 
 export default {
-  components: { SbaButton },
+  components: { SmButton },
   props: {
     labelCancel: {
       type: String,
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     close(result) {
-      eventBus.emit('sba-modal-close', result);
+      eventBus.emit('sm-modal-close', result);
     },
   },
 };

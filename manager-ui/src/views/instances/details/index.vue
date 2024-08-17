@@ -1,5 +1,5 @@
 <template>
-  <sba-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
       <details-nav :application="application" :instance="instance" />
       <details-hero :instance="instance" />
@@ -46,7 +46,7 @@
         <details-caches v-if="hasCaches" :instance="instance" />
       </div>
     </div>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -64,11 +64,11 @@ import detailsMetadata from '@/views/instances/details/details-metadata';
 import DetailsNav from '@/views/instances/details/details-nav';
 import detailsProcess from '@/views/instances/details/details-process';
 import detailsThreads from '@/views/instances/details/details-threads';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 export default {
   components: {
-    SbaInstanceSection,
+    SmInstanceSection,
     DetailsNav,
     DetailsHero,
     detailsHealth,

@@ -1,5 +1,5 @@
 <template>
-  <sba-modal :model-value="showModal" @close="abort">
+  <sm-modal :model-value="showModal" @close="abort">
     <template #header>
       {{ state }}
       <template v-if="state === STATE_COMPLETED">
@@ -15,7 +15,7 @@
       <template v-if="state === STATE_INPUT_ARGS">
         <section @keyup.ctrl.enter="invoke(args)">
           <template v-for="(arg, idx) in descriptor.args" :key="arg.name">
-            <sba-input
+            <sm-input
               v-model="args[idx]"
               :hint="arg.desc !== arg.name ? arg.desc : undefined"
               class="mb-1"
@@ -24,13 +24,13 @@
                 <span v-text="arg.name" />:&nbsp;
                 <small v-text="arg.type" />
               </template>
-            </sba-input>
+            </sm-input>
           </template>
         </section>
       </template>
 
       <template v-else-if="state === STATE_EXECUTING">
-        <sba-loading-spinner />
+        <sm-loading-spinner />
       </template>
 
       <template v-else-if="state === STATE_COMPLETED">
@@ -42,7 +42,7 @@
       </template>
 
       <template v-else-if="state === STATE_FAILED">
-        <div class="p-2 mb-2 rounded bg-sba-100">
+        <div class="p-2 mb-2 rounded bg-sm-100">
           <strong>
             <font-awesome-icon class="pr-1" icon="exclamation-triangle" />
             <span v-text="$t('instances.jolokia.execution_failed')" />
@@ -62,28 +62,28 @@
     <template #footer>
       <template v-if="state === STATE_INPUT_ARGS">
         <div class="flex flex-row gap-1">
-          <sba-button primary @click="invoke(args)">
+          <sm-button primary @click="invoke(args)">
             {{ $t('instances.jolokia.execute') }}
-          </sba-button>
-          <sba-button @click="abort">
+          </sm-button>
+          <sm-button @click="abort">
             {{ $t('term.cancel') }}
-          </sba-button>
+          </sm-button>
         </div>
       </template>
 
       <template v-else-if="state === STATE_COMPLETED">
-        <sba-button primary @click="abort">
+        <sm-button primary @click="abort">
           {{ $t('term.close') }}
-        </sba-button>
+        </sm-button>
       </template>
 
       <template v-else-if="state === STATE_FAILED">
-        <sba-button primary @click="abort">
+        <sm-button primary @click="abort">
           {{ $t('instances.jolokia.close') }}
-        </sba-button>
+        </sm-button>
       </template>
     </template>
-  </sba-modal>
+  </sm-modal>
 </template>
 
 <script>

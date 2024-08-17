@@ -1,6 +1,6 @@
 <template>
-  <sba-panel :title="$t('instances.details.info.title')" :loading="loading">
-    <sba-alert
+  <sm-panel :title="$t('instances.details.info.title')" :loading="loading">
+    <sm-alert
       v-if="error"
       :error="error"
       class="border-l-4"
@@ -11,7 +11,7 @@
         <tr v-for="(value, key) in info" :key="key">
           <td class="info__key" v-text="key" />
           <td>
-            <sba-formatted-obj :value="value" />
+            <sm-formatted-obj :value="value" />
           </td>
         </tr>
       </table>
@@ -21,7 +21,7 @@
         v-text="$t('instances.details.info.no_info_provided')"
       />
     </div>
-  </sba-panel>
+  </sm-panel>
 </template>
 
 <script>

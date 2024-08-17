@@ -1,8 +1,8 @@
 <template>
-  <sba-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :error="error" :loading="isLoading">
     <template #before>
-      <sba-sticky-subnav>
-        <sba-input
+      <sm-sticky-subnav>
+        <sm-input
           v-model="filter"
           :placeholder="$t('term.filter')"
           name="filter"
@@ -14,16 +14,16 @@
           <template #append>
             {{ filterResultString }}
           </template>
-        </sba-input>
-      </sba-sticky-subnav>
+        </sm-input>
+      </sm-sticky-subnav>
     </template>
 
     <template v-for="context in filteredContexts" :key="context.name">
-      <sba-panel :header-sticks-below="'#subnavigation'" :title="context.name">
+      <sm-panel :header-sticks-below="'#subnavigation'" :title="context.name">
         <beans-list :key="`${context.name}-beans`" :beans="context.beans" />
-      </sba-panel>
+      </sm-panel>
     </template>
-  </sba-instance-section>
+  </sm-instance-section>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ import { compareBy } from '@/utils/collections';
 import shortenClassname from '@/utils/shortenClassname';
 import { VIEW_GROUP } from '@/views/ViewGroup';
 import BeansList from '@/views/instances/beans/beans-list';
-import SbaInstanceSection from '@/views/instances/shell/sba-instance-section';
+import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
 class Bean {
   constructor(name, bean) {
@@ -63,7 +63,7 @@ const flattenContexts = (beanData) => {
 };
 
 export default {
-  components: { SbaInstanceSection, BeansList },
+  components: { SmInstanceSection, BeansList },
   props: {
     instance: {
       type: Instance,

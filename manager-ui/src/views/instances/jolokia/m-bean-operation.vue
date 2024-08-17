@@ -20,7 +20,7 @@
     </div>
   </button>
 
-  <sba-modal v-model="isModalOpen" data-testid="mBeanOperationModal">
+  <sm-modal v-model="isModalOpen" data-testid="mBeanOperationModal">
     <template #header>
       <span
         v-html="
@@ -29,12 +29,12 @@
       />
     </template>
     <template #footer>
-      <sba-button @click="closeModal">{{ $t('term.close') }}</sba-button>
-      <sba-button primary @click="executeOperation($event)"
+      <sm-button @click="closeModal">{{ $t('term.close') }}</sm-button>
+      <sm-button primary @click="executeOperation($event)"
         >{{ $t('term.ok') }}
-      </sba-button>
+      </sm-button>
     </template>
-  </sba-modal>
+  </sm-modal>
 </template>
 
 <script>

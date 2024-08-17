@@ -1,8 +1,8 @@
 <template>
   <div :class="{ 'is-loading': isLoading }">
-    <sba-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
+    <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
 
-    <sba-panel :header-sticks-below="'#subnavigation'" title="Global Filters">
+    <sm-panel :header-sticks-below="'#subnavigation'" title="Global Filters">
       <div v-if="globalFilters.length > 0" class="field">
         <p class="control is-expanded has-icons-left">
           <input v-model="filterCriteria" class="input" type="search" />
@@ -42,7 +42,7 @@
           </tr>
         </tbody>
       </table>
-    </sba-panel>
+    </sm-panel>
   </div>
 </template>
 
