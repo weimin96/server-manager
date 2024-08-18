@@ -53,7 +53,7 @@ public class ClientManagerAutoConfiguration {
     public ApplicationRegistrator registrator(RegistrationClient registrationClient, ClientProperties client,
                                               ApplicationFactory applicationFactory) {
 
-        return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client.getAdminUrl(),
+        return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client.getServerUrl(),
                 client.isRegisterOnce());
     }
 

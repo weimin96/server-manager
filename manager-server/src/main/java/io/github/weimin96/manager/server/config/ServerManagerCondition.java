@@ -18,14 +18,14 @@ public class ServerManagerCondition extends SpringBootCondition {
         ServerManagerProperties properties = getProperties(context);
         if (!properties.getServer().isEnabled()) {
             return ConditionOutcome
-                    .noMatch("'manager.admin.enabled' is false.");
+                    .noMatch("'manager.server.enabled' is false.");
         }
         return ConditionOutcome.match();
     }
 
     private ServerManagerProperties getProperties(ConditionContext context) {
         ServerManagerProperties properties = new ServerManagerProperties();
-        Binder.get(context.getEnvironment()).bind("manager.admin", Bindable.ofInstance(properties));
+        Binder.get(context.getEnvironment()).bind("manager.server", Bindable.ofInstance(properties));
         return properties;
     }
 }

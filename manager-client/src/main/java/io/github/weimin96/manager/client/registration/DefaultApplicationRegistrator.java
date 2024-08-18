@@ -19,33 +19,33 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
 
     private final ApplicationFactory applicationFactory;
 
-    private final String[] adminUrls;
+    private final String[] serverUrls;
 
     private final boolean registerOnce;
 
     private final RegistrationClient registrationClient;
 
     public DefaultApplicationRegistrator(ApplicationFactory applicationFactory, RegistrationClient registrationClient,
-                                         String[] adminUrls, boolean registerOnce) {
+                                         String[] serverUrls, boolean registerOnce) {
         this.applicationFactory = applicationFactory;
-        this.adminUrls = adminUrls;
+        this.serverUrls = serverUrls;
         this.registerOnce = registerOnce;
         this.registrationClient = registrationClient;
     }
 
     /**
-     * Registers the client application at spring-boot-admin-server.
+     * 注册客户端
      *
-     * @return true if successful registration on at least one admin server
+     * @return 成功或失败
      */
     @Override
     public boolean register() {
         Application application = this.applicationFactory.createApplication();
         boolean isRegistrationSuccessful = false;
 
-        for (String adminUrl : this.adminUrls) {
-            LongAdder attempt = this.attempts.computeIfAbsent(adminUrl, (k) -> new LongAdder());
-            boolean successful = register(application, adminUrl, attempt.intValue() == 0);
+        for (String serverUrl : this.serverUrls) {
+            LongAdder attempt = this.attempts.computeIfAbsent(serverUrl, (k) -> new LongAdder());
+            boolean successful = register(application, serverUrl, attempt.intValue() == 0);
 
             if (!successful) {
                 attempt.increment();
@@ -61,23 +61,23 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
         return isRegistrationSuccessful;
     }
 
-    protected boolean register(Application application, String adminUrl, boolean firstAttempt) {
+    protected boolean register(Application application, String serverUrl, boolean firstAttempt) {
         try {
-            String id = this.registrationClient.register(adminUrl, application);
+            String id = this.registrationClient.register(serverUrl, application);
             if (this.registeredId.compareAndSet(null, id)) {
-                log.info("Application registered itself as {}", id);
+                log.info("注册应用 {}", id);
             } else {
-                log.debug("Application refreshed itself as {}", id);
+                log.debug("注册应用 {}", id);
             }
             return true;
         } catch (Exception ex) {
             if (firstAttempt) {
                 log.warn(
-                        "Failed to register application as {} at spring-boot-admin ({}): {}. Further attempts are logged on DEBUG level",
-                        application, this.adminUrls, ex.getMessage());
+                        "注册失败 {} - ({}): {}. ",
+                        application, this.serverUrls, ex.getMessage());
             } else {
-                log.debug("Failed to register application as {} at spring-boot-admin ({}): {}", application,
-                        this.adminUrls, ex.getMessage());
+                log.debug("注册失败 {} - ({}): {}", application,
+                        this.serverUrls, ex.getMessage());
             }
             return false;
         }
@@ -90,15 +90,15 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
             return;
         }
 
-        for (String adminUrl : this.adminUrls) {
+        for (String serverUrl : this.serverUrls) {
             try {
-                this.registrationClient.deregister(adminUrl, id);
+                this.registrationClient.deregister(serverUrl, id);
                 this.registeredId.compareAndSet(id, null);
                 if (this.registerOnce) {
                     break;
                 }
             } catch (Exception ex) {
-                log.warn("Failed to deregister application (id={}) at spring-boot-admin ({}): {}", id, adminUrl,
+                log.warn("注销应用失败 (id={}) - ({}): {}", id, serverUrl,
                         ex.getMessage());
             }
         }

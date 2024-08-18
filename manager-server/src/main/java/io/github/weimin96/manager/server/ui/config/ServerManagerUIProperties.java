@@ -1,7 +1,7 @@
 
 package io.github.weimin96.manager.server.ui.config;
 
-import io.github.weimin96.manager.server.ui.web.UiController;
+import io.github.weimin96.manager.server.ui.web.UIController;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 @ConfigurationProperties("manager.server.ui")
-public class AdminServerUiProperties {
+public class ServerManagerUIProperties {
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/META-INF/server-ui/"};
 
@@ -76,12 +76,12 @@ public class AdminServerUiProperties {
     /**
      * 额外的导航栏视图
      */
-    private List<UiController.ExternalView> externalViews = new ArrayList<>();
+    private List<UIController.ExternalView> externalViews = new ArrayList<>();
 
     /**
      * 额外的导航栏路由
      */
-    private List<UiController.ViewSettings> viewSettings = new ArrayList<>();
+    private List<UIController.ViewSettings> viewSettings = new ArrayList<>();
 
     /**
      * 是否启用记住密码

@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Lazy;
 @AutoConfiguration(after =WebClientAutoConfiguration.class)
 @Conditional(ServerManagerCondition.class)
 @ConditionalOnBean(ServerManagerMarkerConfiguration.Marker.class)
-@ImportAutoConfiguration({ServerManagerWebClientConfiguration.class, ServerManagerWebConfiguration.class})
+@ImportAutoConfiguration({ServerManagerWebClientConfiguration.class, ServerManagerWebConfiguration.class, AuthConfig.class})
 @EnableConfigurationProperties(ServerManagerProperties.class)
 @Lazy(false)
 public class ServerManagerAutoConfiguration {

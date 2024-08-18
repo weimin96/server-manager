@@ -10,6 +10,9 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * @author pwm
+ */
 public class HomepageForwardingMatcher<T> implements Predicate<T> {
 
 	private final List<Pattern> includeRoutes;

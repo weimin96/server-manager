@@ -12,6 +12,10 @@ manager:
     context-path: /admin
     server:
       enabled: true
+    instance-auth:
+      default-user-name: admin
+      default-password: 123
+      enabled: true
 #    ui:
 #      cache:
 #        no-cache: true

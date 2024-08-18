@@ -3,17 +3,22 @@ package io.github.weimin96.manager.server.ui.web;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import io.github.weimin96.manager.server.ui.config.AdminServerUiProperties;
+import io.github.weimin96.manager.server.config.ServerManagerProperties;
+import io.github.weimin96.manager.server.ui.config.ServerManagerUIProperties;
 import io.github.weimin96.manager.server.utils.Util;
-import io.github.weimin96.manager.server.web.AdminController;
+import io.github.weimin96.manager.server.web.ServerController;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.WebSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import java.security.Principal;
 import java.util.List;
@@ -25,16 +30,19 @@ import static java.util.Collections.singletonMap;
 /**
  * @author pwm
  */
-@AdminController
-public class UiController {
+@ServerController
+public class UIController {
 
     private final String publicUrl;
 
     private final Settings uiSettings;
 
-    public UiController(String publicUrl, Settings uiSettings) {
+    private final ServerManagerProperties properties;
+
+    public UIController(String publicUrl, Settings uiSettings, ServerManagerProperties properties) {
         this.publicUrl = publicUrl;
         this.uiSettings = uiSettings;
+        this.properties = properties;
     }
 
     @ModelAttribute(value = "baseUrl", binding = false)
@@ -88,6 +96,22 @@ public class UiController {
         return "login";
     }
 
+    @PostMapping(path = "/login", produces = MediaType.TEXT_HTML_VALUE)
+    public Mono<String> doLogin(LoginForm loginForm, WebSession session) {
+        if (!properties.getInstanceAuth().isEnabled()) {
+            return Mono.just("redirect:" + publicUrl + "/");
+        }
+        String username = loginForm.getUsername();
+        String password = loginForm.getPassword();
+        if (StringUtils.hasText(username) && username.equals(properties.getInstanceAuth().getDefaultUserName())
+                && StringUtils.hasText(password) && password.equals(properties.getInstanceAuth().getDefaultPassword())) {
+            session.getAttributes().put("authenticated", true);
+            return Mono.just("redirect:" + publicUrl + "/");
+        } else {
+            return Mono.just("redirect:" + publicUrl+ "/login?error");
+        }
+    }
+
     @Data
     @Builder
     public static class Settings {
@@ -102,9 +126,9 @@ public class UiController {
 
         private final String faviconDanger;
 
-        private final AdminServerUiProperties.PollTimer pollTimer;
+        private final ServerManagerUIProperties.PollTimer pollTimer;
 
-        private final AdminServerUiProperties.UiTheme theme;
+        private final ServerManagerUIProperties.UiTheme theme;
 
         private final boolean rememberMeEnabled;
 
@@ -178,6 +202,14 @@ public class UiController {
             this.enabled = enabled;
         }
 
+    }
+
+    @Data
+    static class LoginForm {
+
+        private String username;
+
+        private String password;
     }
 
 }

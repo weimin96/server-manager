@@ -75,16 +75,16 @@ public class ClientProperties {
 	private boolean registerOnce = true;
 
 	/**
-	 * 启用Spring Boot Admin Client。
+	 * 启用 Client。
 	 */
 	private boolean enabled = true;
 
-	public String[] getAdminUrl() {
-		String[] adminUrls = this.url.clone();
-		for (int i = 0; i < adminUrls.length; i++) {
-			adminUrls[i] += "/" + this.apiPath;
+	public String[] getServerUrl() {
+		String[] serverUrls = this.url.clone();
+		for (int i = 0; i < serverUrls.length; i++) {
+			serverUrls[i] += "/" + this.apiPath;
 		}
-		return adminUrls;
+		return serverUrls;
 	}
 
 	public boolean isAutoDeregistration(Environment environment) {

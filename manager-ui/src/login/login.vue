@@ -42,7 +42,7 @@
 
       <template #footer>
         <div class="text-right">
-          <sm-button>
+          <sm-button @click="login">
             {{ t('login.button_login') }}
           </sm-button>
         </div>

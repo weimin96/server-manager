@@ -28,15 +28,15 @@ public class ReactiveRegistrationClient implements RegistrationClient {
 	}
 
 	@Override
-	public String register(String adminUrl, Application application) {
-		Map<String, Object> response = this.webclient.post().uri(adminUrl).headers(this::setRequestHeaders)
+	public String register(String serverUrl, Application application) {
+		Map<String, Object> response = this.webclient.post().uri(serverUrl).headers(this::setRequestHeaders)
 				.bodyValue(application).retrieve().bodyToMono(RESPONSE_TYPE).timeout(this.timeout).block();
 		return response.get("id").toString();
 	}
 
 	@Override
-	public void deregister(String adminUrl, String id) {
-		this.webclient.delete().uri(adminUrl + '/' + id).retrieve().toBodilessEntity().timeout(this.timeout).block();
+	public void deregister(String serverUrl, String id) {
+		this.webclient.delete().uri(serverUrl + '/' + id).retrieve().toBodilessEntity().timeout(this.timeout).block();
 	}
 
 	protected void setRequestHeaders(HttpHeaders headers) {

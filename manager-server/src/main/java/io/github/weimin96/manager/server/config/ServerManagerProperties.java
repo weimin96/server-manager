@@ -17,7 +17,7 @@ import java.util.Set;
 import static java.util.Arrays.asList;
 
 /**
- * admin 配置类
+ * server 配置类
  * @author panwm
  * @since 2024/8/2 22:30
  */

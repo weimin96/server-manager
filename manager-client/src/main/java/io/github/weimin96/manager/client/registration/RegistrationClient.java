@@ -6,8 +6,8 @@ package io.github.weimin96.manager.client.registration;
  */
 public interface RegistrationClient {
 
-	String register(String adminUrl, Application self);
+	String register(String serverUrl, Application self);
 
-	void deregister(String adminUrl, String id);
+	void deregister(String serverUrl, String id);
 
 }

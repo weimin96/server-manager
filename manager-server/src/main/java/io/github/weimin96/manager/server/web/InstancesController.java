@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @Slf4j
 @ResponseBody
-@AdminController
+@ServerController
 @RequestMapping
 public class InstancesController {
 

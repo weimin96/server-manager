@@ -6,6 +6,7 @@ import io.github.weimin96.manager.server.services.InstanceRegistry;
 import io.github.weimin96.manager.server.web.ApplicationsController;
 import io.github.weimin96.manager.server.web.InstancesController;
 import io.github.weimin96.manager.server.web.client.InstanceWebClient;
+import io.github.weimin96.manager.server.web.reactive.ServerControllerHandlerMapping;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -62,9 +63,9 @@ public class ServerManagerWebConfiguration {
         }
 
         @Bean
-        public RequestMappingHandlerMapping adminHandlerMapping(
+        public RequestMappingHandlerMapping serverHandlerMapping(
                 RequestedContentTypeResolver webFluxContentTypeResolver) {
-            org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping mapping = new io.github.weimin96.manager.server.web.reactive.AdminControllerHandlerMapping(
+            org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping mapping = new ServerControllerHandlerMapping(
                     this.properties.getContextPath());
             mapping.setOrder(0);
             mapping.setContentTypeResolver(webFluxContentTypeResolver);
@@ -95,8 +96,8 @@ public class ServerManagerWebConfiguration {
         }
 
         @Bean
-        public org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping adminHandlerMapping(ContentNegotiationManager contentNegotiationManager) {
-            org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping mapping = new io.github.weimin96.manager.server.web.servlet.AdminControllerHandlerMapping(properties.getContextPath());
+        public org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping serverHandlerMapping(ContentNegotiationManager contentNegotiationManager) {
+            org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping mapping = new io.github.weimin96.manager.server.web.servlet.ServerControllerHandlerMapping(properties.getContextPath());
             mapping.setOrder(0);
             // 内容协商管理器 根据request 的accept header来选择返回的数据类型
             mapping.setContentNegotiationManager(contentNegotiationManager);

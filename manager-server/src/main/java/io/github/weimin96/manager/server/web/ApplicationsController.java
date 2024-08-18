@@ -19,7 +19,7 @@ import java.time.Duration;
  * @author panwm
  * @since 2024/8/2 23:10
  */
-@AdminController
+@ServerController
 @ResponseBody
 @Slf4j
 public class ApplicationsController {

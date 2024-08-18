@@ -1,7 +1,7 @@
 package io.github.weimin96.manager.server.web.reactive;
 
 import io.github.weimin96.manager.server.utils.Util;
-import io.github.weimin96.manager.server.web.AdminController;
+import io.github.weimin96.manager.server.web.ServerController;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.result.condition.PatternsRequestCondition;
@@ -19,17 +19,17 @@ import static java.util.stream.Collectors.toList;
  * @author panwm
  * @since 2024/8/4 0:16
  */
-public class AdminControllerHandlerMapping extends RequestMappingHandlerMapping {
+public class ServerControllerHandlerMapping extends RequestMappingHandlerMapping {
 
     private final String contextPath;
 
-    public AdminControllerHandlerMapping(String contextPath) {
+    public ServerControllerHandlerMapping(String contextPath) {
         this.contextPath = contextPath;
     }
 
     @Override
     protected boolean isHandler(Class<?> beanType) {
-        return AnnotatedElementUtils.hasAnnotation(beanType, AdminController.class);
+        return AnnotatedElementUtils.hasAnnotation(beanType, ServerController.class);
     }
 
     @Override

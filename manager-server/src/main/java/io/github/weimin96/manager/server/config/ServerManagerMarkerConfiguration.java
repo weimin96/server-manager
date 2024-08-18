@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 标记配置类 与EnableManagerAdminServer注解、AdminServerManagerAutoConfiguration配置类结合使用
+ * 标记配置类 与EnableManagerServer注解、ServerManagerAutoConfiguration配置类结合使用
  * @author panwm
  * @since 2024/8/2 23:02
  */
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class ServerManagerMarkerConfiguration {
 
     @Bean
-    public Marker adminServerMarker() {
+    public Marker serverMarker() {
         return new Marker();
     }
 

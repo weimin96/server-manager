@@ -9,15 +9,6 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * This condition checks if the client should be enabled. Two properties are checked:
- * spring.boot.admin.client.enabled and spring.boot.admin.client.url. The following table
- * shows under which conditions the client is active. <pre>
- *           | enabled: false | enabled: true (default) |
- * --------- | -------------- | ----------------------- |
- * url empty | inactive       | inactive                |
- * (default) |                |                         |
- * --------- | -------------- | ----------------------- |
- * url set   | inactive       | active                  |
  * </pre>
  * @author pwm
  */

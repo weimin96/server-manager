@@ -23,15 +23,15 @@ public class BlockingRegistrationClient implements RegistrationClient {
 	}
 
 	@Override
-	public String register(String adminUrl, Application application) {
-		ResponseEntity<Map<String, Object>> response = this.restTemplate.exchange(adminUrl, HttpMethod.POST,
+	public String register(String serverUrl, Application application) {
+		ResponseEntity<Map<String, Object>> response = this.restTemplate.exchange(serverUrl, HttpMethod.POST,
 				new HttpEntity<>(application, this.createRequestHeaders()), RESPONSE_TYPE);
 		return response.getBody().get("id").toString();
 	}
 
 	@Override
-	public void deregister(String adminUrl, String id) {
-		this.restTemplate.delete(adminUrl + '/' + id);
+	public void deregister(String serverUi, String id) {
+		this.restTemplate.delete(serverUi + '/' + id);
 	}
 
 	protected HttpHeaders createRequestHeaders() {

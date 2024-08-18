@@ -2,7 +2,7 @@ package io.github.weimin96.manager.server.web.reactive;
 
 import io.github.weimin96.manager.server.domain.value.InstanceId;
 import io.github.weimin96.manager.server.services.InstanceRegistry;
-import io.github.weimin96.manager.server.web.AdminController;
+import io.github.weimin96.manager.server.web.ServerController;
 import io.github.weimin96.manager.server.web.HttpHeaderFilter;
 import io.github.weimin96.manager.server.web.InstanceWebProxy;
 import io.github.weimin96.manager.server.web.client.InstanceWebClient;
@@ -31,7 +31,7 @@ import java.util.Set;
  * @author panwm
  * @since 2024/8/4 23:42
  */
-@AdminController
+@ServerController
 public class InstancesProxyController {
 
     private static final String INSTANCE_MAPPED_PATH = "/instances/{instanceId}/actuator/**";
@@ -46,13 +46,13 @@ public class InstancesProxyController {
 
     private final InstanceWebProxy instanceWebProxy;
 
-    private final String adminContextPath;
+    private final String contextPath;
 
     private final HttpHeaderFilter httpHeadersFilter;
 
-    public InstancesProxyController(String adminContextPath, Set<String> ignoredHeaders, InstanceRegistry registry,
+    public InstancesProxyController(String contextPath, Set<String> ignoredHeaders, InstanceRegistry registry,
                                     InstanceWebClient instanceWebClient) {
-        this.adminContextPath = adminContextPath;
+        this.contextPath = contextPath;
         this.registry = registry;
         this.httpHeadersFilter = new HttpHeaderFilter(ignoredHeaders);
         this.instanceWebProxy = new InstanceWebProxy(instanceWebClient);
@@ -63,7 +63,7 @@ public class InstancesProxyController {
     public Mono<Void> endpointProxy(@PathVariable("instanceId") String instanceId, ServerHttpRequest request,
                                     ServerHttpResponse response) {
         InstanceWebProxy.ForwardRequest fwdRequest = createForwardRequest(request, request.getBody(),
-                this.adminContextPath + INSTANCE_MAPPED_PATH);
+                this.contextPath + INSTANCE_MAPPED_PATH);
 
         return this.instanceWebProxy.forward(this.registry.getInstance(InstanceId.of(instanceId)), fwdRequest,
                 (clientResponse) -> {
@@ -89,7 +89,7 @@ public class InstancesProxyController {
         }).cache();
 
         InstanceWebProxy.ForwardRequest fwdRequest = createForwardRequest(request, cachedBody,
-                this.adminContextPath + APPLICATION_MAPPED_PATH);
+                this.contextPath + APPLICATION_MAPPED_PATH);
 
         return this.instanceWebProxy.forward(this.registry.getInstances(applicationName), fwdRequest);
     }

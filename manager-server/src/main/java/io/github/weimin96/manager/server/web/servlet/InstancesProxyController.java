@@ -2,7 +2,7 @@ package io.github.weimin96.manager.server.web.servlet;
 
 import io.github.weimin96.manager.server.domain.value.InstanceId;
 import io.github.weimin96.manager.server.services.InstanceRegistry;
-import io.github.weimin96.manager.server.web.AdminController;
+import io.github.weimin96.manager.server.web.ServerController;
 import io.github.weimin96.manager.server.web.HttpHeaderFilter;
 import io.github.weimin96.manager.server.web.InstanceWebProxy;
 import io.github.weimin96.manager.server.web.client.InstanceWebClient;
@@ -39,7 +39,7 @@ import java.util.Set;
  * @author panwm
  * @since 2024/8/3 23:56
  */
-@AdminController
+@ServerController
 public class InstancesProxyController {
 
     private static final String INSTANCE_MAPPED_PATH = "/instances/{instanceId}/actuator/**";
