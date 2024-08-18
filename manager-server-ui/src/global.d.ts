@@ -71,15 +71,10 @@ declare global {
     routes: string[];
     externalViews: ExternalView[];
     viewSettings: ViewSettings[];
-    enableToasts: boolean;
   };
 
   type SMSettings = {
     uiSettings: UISettings;
-    user: {
-      name: string;
-      [key: string]: any;
-    };
     csrf: {
       headerName: string;
       parameterName: string;

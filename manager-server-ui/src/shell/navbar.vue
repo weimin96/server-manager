@@ -36,6 +36,9 @@
         </template>
       </template>
     </sm-navbar-nav>
+    <sm-navbar-nav class="ml-auto">
+      <sm-nav-usermenu v-if="showUserMenu" />
+    </sm-navbar-nav>
   </sm-navbar>
 </template>
 
@@ -49,7 +52,8 @@ import SmNavbarNav from '@/components/sm-navbar/sm-navbar-nav.vue';
 import SmNavbar from '@/components/sm-navbar/sm-navbar.vue';
 
 import { useViewRegistry } from '@/composables/ViewRegistry';
-import SmConfig from '@/config';
+import SmConfig, { getCurrentUser } from '@/config';
+import SmNavUsermenu from '@/shell/sm-nav-usermenu.vue';
 import { compareBy } from '@/utils/collections';
 
 defineProps({
@@ -60,6 +64,9 @@ defineProps({
 });
 
 const { views } = useViewRegistry();
+
+const currentUser = getCurrentUser();
+const showUserMenu = !!currentUser && Object.hasOwn(currentUser, 'name');
 
 const brand = SmConfig.uiSettings.brand;
 

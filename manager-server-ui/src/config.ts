@@ -25,7 +25,6 @@ const DEFAULT_CONFIG = {
       logfile: 1000,
     },
   },
-  user: null,
   csrf: {
     parameterName: '_csrf',
     headerName: 'X-XSRF-TOKEN',
@@ -35,7 +34,12 @@ const DEFAULT_CONFIG = {
 const mergedConfig = merge(DEFAULT_CONFIG, window.SM);
 
 export const getCurrentUser = () => {
-  return mergedConfig.user;
+  const username = localStorage.getItem('currentUser');
+  return { name: username };
+};
+
+export const setCurrentUser = (username: string) => {
+  localStorage.setItem('currentUser', username);
 };
 
 export default mergedConfig;

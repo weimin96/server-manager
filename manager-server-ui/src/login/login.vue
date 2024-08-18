@@ -1,5 +1,5 @@
 <template>
-  <form class="w-5/6 md:1/2 max-w-lg" method="post" action="api/login">
+  <form class="w-5/6 md:1/2 max-w-lg">
     <sm-panel>
       <input
         v-if="csrf"
@@ -14,10 +14,11 @@
       <div class="relative border-t -ml-4 -mr-4 overflow-hidden">
         <sm-wave class="bg-wave--login" />
         <div class="ml-4 mr-4 pt-2 z-10 relative">
-          <sm-alert :error="error" />
+          <sm-alert :error="message" />
           <sm-alert :error="logout" :severity="Severity.INFO" />
           <div :class="{ 'has-errors': error }" class="pb-4 form-group">
             <sm-input
+              v-model="username"
               :label="t('login.placeholder.username')"
               autocomplete="username"
               name="username"
@@ -25,6 +26,7 @@
               autofocus
             />
             <sm-input
+              v-model="password"
               :label="t('login.placeholder.password')"
               autocomplete="current-password"
               name="password"
@@ -42,9 +44,7 @@
 
       <template #footer>
         <div class="text-right">
-          <sm-button @click="login">
-            {{ t('login.button_login') }}
-          </sm-button>
+          <sm-button @click="login"> 登录 </sm-button>
         </div>
       </template>
     </sm-panel>
@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import SmAlert, { Severity } from '@/components/sm-alert';
@@ -61,6 +61,9 @@ import SmCheckbox from '@/components/sm-checkbox';
 import SmInput from '@/components/sm-input';
 import SmPanel from '@/components/sm-panel';
 import SmWave from '@/components/sm-wave';
+
+import { setCurrentUser } from '@/config';
+import User from '@/services/user';
 
 const i18n = useI18n();
 const t = i18n.t;
@@ -90,19 +93,30 @@ const props = defineProps({
 
 const { rememberMeEnabled } = window.uiSettings;
 
-const error = computed(() => {
-  let errors = props.param.error;
+const username = ref('');
+const password = ref('');
+const message = ref(null);
 
-  if (Array.isArray(errors)) {
-    if (errors.includes('401')) {
-      return t('login.error.login_required', { code: errors[0] });
-    } else {
-      return t('login.error.invalid_username_or_password');
-    }
-  } else {
-    return undefined;
-  }
-});
+const login = (event) => {
+  event.preventDefault();
+  User.login(username.value, password.value)
+    .then((response) => {
+      // 成功存储用户信息和设置请求头
+      localStorage.setItem('token', response.data);
+      setCurrentUser(username.value);
+      let url = window.location.href.replace('login.html', 'applications');
+      url = url.replace('login', 'applications');
+      window.location.href = url;
+    })
+    .catch((error) => {
+      // 失败提示
+      message.value = error.response.data;
+      localStorage.removeItem('token');
+      setTimeout(() => {
+        message.value = null;
+      }, 3000);
+    });
+};
 
 const logout = computed(() => {
   return props.param.logout !== undefined

@@ -6,7 +6,8 @@ import axios, { redirectOn401 } from '../utils/axios';
 import waitForPolyfill from '../utils/eventsource-polyfill';
 import uri from '../utils/uri';
 import Instance, { DOWN_STATES, UNKNOWN_STATES, UP_STATES } from './instance';
-import ErrorResponse from "@/services/error-response";
+
+import ErrorResponse from '@/services/error-response';
 
 const actuatorMimeTypes = [
   'application/vnd.spring-boot.actuator.v2+json',
@@ -111,17 +112,22 @@ class Application {
   }
 
   static getStream(): Observable<ApplicationStream | unknown> {
+    const token = localStorage.getItem('token');
     return concat(
       from(waitForPolyfill()).pipe(ignoreElements()),
       Observable.create((observer) => {
-        const eventSource = new EventSource('api/applications');
+        const eventSource = new EventSource(
+          uri`api/applications?Authorization=${token}`,
+        );
         eventSource.onmessage = (message) =>
           observer.next({
             ...message,
             data: Application._transformResponse(message.data),
           } as ApplicationStream);
 
-        eventSource.onerror = (err) => observer.error(err);
+        eventSource.onerror = (err) => {
+          observer.error(err);
+        };
         return () => eventSource.close();
       }),
     );

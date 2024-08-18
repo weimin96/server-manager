@@ -9,17 +9,19 @@ import io.github.weimin96.manager.server.utils.Util;
 import io.github.weimin96.manager.server.web.ServerController;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.WebSession;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -68,14 +70,6 @@ public class UIController {
         return this.uiSettings;
     }
 
-    @ModelAttribute(value = "user", binding = false)
-    public Map<String, Object> getUser(Principal principal) {
-        if (principal != null) {
-            return singletonMap("name", principal.getName());
-        }
-        return emptyMap();
-    }
-
     @GetMapping(path = "/", produces = MediaType.TEXT_HTML_VALUE)
     public String index() {
         return "index";
@@ -96,20 +90,26 @@ public class UIController {
         return "login";
     }
 
-    @PostMapping(path = "/api/login", produces = MediaType.TEXT_HTML_VALUE)
-    public Mono<String> doLogin(LoginForm loginForm, WebSession session) {
+    @PostMapping(path = "/api/login")
+    @ResponseBody
+    public Mono<ResponseEntity<String>> login(@RequestBody LoginForm loginForm,WebSession session) {
         if (!properties.getAuthority().isEnabled()) {
-            return Mono.just("redirect:" + publicUrl + "/");
+            return Mono.just(ResponseEntity.ok("success"));
         }
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
-        if (StringUtils.hasText(username) && username.equals(properties.getAuthority().getDefaultUserName())
-                && StringUtils.hasText(password) && password.equals(properties.getAuthority().getDefaultPassword())) {
-            session.getAttributes().put("authenticated", true);
-            return Mono.just("redirect:" + publicUrl + "/");
-        } else {
-            return Mono.just("redirect:" + publicUrl+ "/login?error");
-        }
+        return Mono.fromCallable(() -> {
+            boolean validUsername = StringUtils.hasText(username) && username.equals(properties.getAuthority().getDefaultUserName());
+            boolean validPassword = StringUtils.hasText(password) && password.equals(properties.getAuthority().getDefaultPassword());
+
+            if (validUsername && validPassword) {
+                session.getAttributes().put("authenticated", true);
+                String token = Base64Utils.encodeToString((username + ":" + password).getBytes(StandardCharsets.UTF_8));
+                return "Basic " + token;
+            } else {
+                throw new RuntimeException("Invalid credentials");
+            }
+        }).map(ResponseEntity::ok).onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登录失败")));
     }
 
     @Data

@@ -7,5 +7,5 @@ spring:
         authority:
           default-password: 123
           default-user-name: admin
-          enabled: false
+          enabled: true
         context-path: /admin

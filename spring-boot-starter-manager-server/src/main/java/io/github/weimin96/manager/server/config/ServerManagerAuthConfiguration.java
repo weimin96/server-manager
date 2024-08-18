@@ -1,6 +1,7 @@
 package io.github.weimin96.manager.server.config;
 
 import io.github.weimin96.manager.server.ui.config.ServerManagerUIProperties;
+import io.github.weimin96.manager.server.utils.Util;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebSession;
@@ -62,7 +64,7 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
                     // 已经登录，继续处理请求
                     return chain.filter(exchange);
                 } else {
-                    if (path.startsWith("/api") || path.startsWith(publicUrl + "/api")) {
+                    if (path.startsWith(publicUrl + "/api")) {
                         // 未授权，返回 JSON 格式的 401 错误
                         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                         exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
@@ -87,10 +89,13 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
 
     public boolean checkCredentials(ServerHttpRequest request, WebSession session) {
         Boolean authenticated = session.getAttribute("authenticated");
-        if (Boolean.TRUE.equals(authenticated)) {
+        if (authenticated != null && authenticated) {
             return true;
         }
-        String authorization = request.getHeaders().getFirst("Authorization");
+        String authorization = Util.getParam(request.getURI(), "Authorization");
+        if (!StringUtils.hasText(authorization)) {
+            authorization = request.getHeaders().getFirst("Authorization");
+        }
         if (authorization == null || !authorization.startsWith("Basic")) {
             return false;
         }
