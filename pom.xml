@@ -6,17 +6,17 @@
     <packaging>pom</packaging>
 
     <groupId>io.github.weimin96</groupId>
-    <artifactId>server-manager</artifactId>
+    <artifactId>spring-boot-starter-server-manager</artifactId>
     <version>${revision}</version>
 
-    <name>server-manager</name>
-    <description>server-manager 基于springboot的分布式的日志收集管理组件</description>
-    <url>https://github.com/weimin96/server-manager</url>
+    <name>spring-boot-starter-server-manager</name>
+    <description>spring-boot-starter-server-manager 基于springboot的分布式的服务监控管理组件</description>
+    <url>https://github.com/weimin96/spring-boot-starter-server-manager</url>
 
     <modules>
-        <module>manager-server</module>
-        <module>manager-client</module>
-        <module>manager-sample</module>
+        <module>spring-boot-starter-manager-server</module>
+        <module>spring-boot-starter-manager-client</module>
+        <module>spring-boot-starter-manager-sample</module>
     </modules>
 
     <properties>
@@ -41,13 +41,13 @@
 
     <scm>
         <url>
-            https://github.com/weimin96/server-manager
+            https://github.com/weimin96/spring-boot-starter-server-manager
         </url>
         <connection>
-            scm:git@github.com:weimin96/server-manager.git
+            scm:git@github.com:weimin96/spring-boot-starter-server-manager.git
         </connection>
         <developerConnection>
-            scm:git@github.com:weimin96/server-manager.git/issues
+            scm:git@github.com:weimin96/spring-boot-starter-server-manager.git/issues
         </developerConnection>
     </scm>
 

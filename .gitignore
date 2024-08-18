@@ -31,6 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/manager-ui/package-lock.json
-/manager-ui/node_modules
+/manager-server-ui/package-lock.json
+/manager-server-ui/node_modules
 .flattened-pom.xml

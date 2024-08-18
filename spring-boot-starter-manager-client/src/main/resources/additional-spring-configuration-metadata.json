@@ -1,0 +1,21 @@
+{
+  "hints": [
+    {
+      "name": "spring.boot.manager.client.instance.service-host-type",
+      "values": [
+        {
+          "value": "IP",
+          "description": "IP."
+        },
+        {
+          "value": "HOST_NAME",
+          "description": "HOST_NAME."
+        },
+        {
+          "value": "CANONICAL_HOST_NAME",
+          "description": "CANONICAL_HOST_NAME."
+        }
+      ]
+    }
+  ]
+}

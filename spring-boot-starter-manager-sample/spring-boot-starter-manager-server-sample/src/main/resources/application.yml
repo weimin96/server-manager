@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: server-sample
+  boot:
+    manager:
+      server:
+        authority:
+          default-password: 123
+          default-user-name: admin
+          enabled: true
+        context-path: /admin
