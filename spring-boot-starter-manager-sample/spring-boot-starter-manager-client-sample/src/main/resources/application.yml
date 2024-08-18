@@ -6,7 +6,9 @@ spring:
   boot:
     manager:
       client:
-        url: http://localhost:8080
+        url: http://localhost:8080/admin
+        username: admin
+        password: 123
 
 # 暴露监控端点
 management:

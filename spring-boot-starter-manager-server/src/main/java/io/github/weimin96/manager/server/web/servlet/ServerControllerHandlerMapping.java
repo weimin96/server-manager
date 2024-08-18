@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class ServerControllerHandlerMapping extends RequestMappingHandlerMapping {
 
-    private String contextPath;
+    private final String contextPath;
 
     public ServerControllerHandlerMapping(String contextPath) {
         this.contextPath = contextPath;

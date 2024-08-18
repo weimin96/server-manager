@@ -3,6 +3,7 @@ package io.github.weimin96.manager.client.registration;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -31,6 +32,10 @@ public class ReactiveRegistrationClient implements RegistrationClient {
 	public String register(String serverUrl, Application application) {
 		Map<String, Object> response = this.webclient.post().uri(serverUrl).headers(this::setRequestHeaders)
 				.bodyValue(application).retrieve().bodyToMono(RESPONSE_TYPE).timeout(this.timeout).block();
+		// TODO
+		if (response.get("code") == HttpStatus.UNAUTHORIZED) {
+			throw new IllegalStateException(HttpStatus.UNAUTHORIZED.name());
+		}
 		return response.get("id").toString();
 	}
 

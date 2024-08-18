@@ -26,6 +26,9 @@ public class BlockingRegistrationClient implements RegistrationClient {
 	public String register(String serverUrl, Application application) {
 		ResponseEntity<Map<String, Object>> response = this.restTemplate.exchange(serverUrl, HttpMethod.POST,
 				new HttpEntity<>(application, this.createRequestHeaders()), RESPONSE_TYPE);
+		if (response.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+			throw new IllegalStateException(String.valueOf(response.getStatusCode()));
+		}
 		return response.getBody().get("id").toString();
 	}
 

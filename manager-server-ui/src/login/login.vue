@@ -1,5 +1,5 @@
 <template>
-  <form class="w-5/6 md:1/2 max-w-lg" method="post">
+  <form class="w-5/6 md:1/2 max-w-lg" method="post" action="api/login">
     <sm-panel>
       <input
         v-if="csrf"

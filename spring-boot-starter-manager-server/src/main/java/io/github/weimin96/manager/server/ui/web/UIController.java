@@ -96,7 +96,7 @@ public class UIController {
         return "login";
     }
 
-    @PostMapping(path = "/login", produces = MediaType.TEXT_HTML_VALUE)
+    @PostMapping(path = "/api/login", produces = MediaType.TEXT_HTML_VALUE)
     public Mono<String> doLogin(LoginForm loginForm, WebSession session) {
         if (!properties.getAuthority().isEnabled()) {
             return Mono.just("redirect:" + publicUrl + "/");
@@ -205,7 +205,7 @@ public class UIController {
     }
 
     @Data
-    static class LoginForm {
+    public static class LoginForm {
 
         private String username;
 

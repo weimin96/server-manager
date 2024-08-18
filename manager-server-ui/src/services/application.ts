@@ -6,6 +6,7 @@ import axios, { redirectOn401 } from '../utils/axios';
 import waitForPolyfill from '../utils/eventsource-polyfill';
 import uri from '../utils/uri';
 import Instance, { DOWN_STATES, UNKNOWN_STATES, UP_STATES } from './instance';
+import ErrorResponse from "@/services/error-response";
 
 const actuatorMimeTypes = [
   'application/vnd.spring-boot.actuator.v2+json',
@@ -73,7 +74,7 @@ class Application {
     Object.assign(this, application);
     this.name = name;
     this.axios = axios.create({
-      baseURL: uri`applications/${this.name}`,
+      baseURL: uri`api/applications/${this.name}`,
       headers: {
         'X-sm-REQUEST': true,
       },
@@ -103,7 +104,7 @@ class Application {
   }
 
   static async list() {
-    return axios.get('applications', {
+    return axios.get('api/applications', {
       headers: { Accept: 'application/json', 'X-sm-REQUEST': true },
       transformResponse: Application._transformResponse,
     });
@@ -113,7 +114,7 @@ class Application {
     return concat(
       from(waitForPolyfill()).pipe(ignoreElements()),
       Observable.create((observer) => {
-        const eventSource = new EventSource('applications');
+        const eventSource = new EventSource('api/applications');
         eventSource.onmessage = (message) =>
           observer.next({
             ...message,
@@ -134,6 +135,12 @@ class Application {
     if (json instanceof Array) {
       const applications = json.map((j) => new Application(j));
       return sortBy(applications, [(item) => item.name]);
+    } else if (json instanceof Object) {
+      const errorResponse = new ErrorResponse(json);
+      if (errorResponse.error == 'Unauthorized') {
+        window.location.href = 'login';
+        return;
+      }
     }
     return new Application(json);
   }

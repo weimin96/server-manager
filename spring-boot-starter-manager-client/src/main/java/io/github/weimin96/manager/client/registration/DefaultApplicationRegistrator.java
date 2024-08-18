@@ -2,6 +2,7 @@
 package io.github.weimin96.manager.client.registration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -72,9 +73,14 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
             return true;
         } catch (Exception ex) {
             if (firstAttempt) {
-                log.warn(
-                        "注册失败 {} - ({}): {}. ",
-                        application, this.serverUrls, ex.getMessage());
+                if (ex instanceof IllegalStateException || (ex instanceof HttpClientErrorException && ((HttpClientErrorException) ex).getRawStatusCode() == 401)) {
+                    log.error("注册失败，请检查授权信息配置 `spring.boot.manager.authority`");
+                } else {
+                    log.warn(
+                            "注册失败 {} - ({}): {}. ",
+                            application, this.serverUrls, ex.getMessage());
+                }
+
             } else {
                 log.debug("注册失败 {} - ({}): {}", application,
                         this.serverUrls, ex.getMessage());

@@ -34,9 +34,9 @@ import java.util.Set;
 @ServerController
 public class InstancesProxyController {
 
-    private static final String INSTANCE_MAPPED_PATH = "/instances/{instanceId}/actuator/**";
+    private static final String INSTANCE_MAPPED_PATH = "/api/instances/{instanceId}/actuator/**";
 
-    private static final String APPLICATION_MAPPED_PATH = "/applications/{applicationName}/actuator/**";
+    private static final String APPLICATION_MAPPED_PATH = "/api/applications/{applicationName}/actuator/**";
 
     private final PathMatcher pathMatcher = new AntPathMatcher();
 

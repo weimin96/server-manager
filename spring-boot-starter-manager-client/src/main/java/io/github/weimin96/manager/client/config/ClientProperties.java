@@ -28,7 +28,7 @@ public class ClientProperties {
 	/**
 	 * server 实例api地址
 	 */
-	private String apiPath = "instances";
+	private String apiPath = "api/instances";
 
 	/**
 	 * 重复注册的时间间隔

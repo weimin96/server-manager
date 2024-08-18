@@ -32,7 +32,7 @@ class Instance {
     this.tags = instance.tags.values;
     this.axios = axios.create({
       withCredentials: true,
-      baseURL: uri`instances/${this.id}`,
+      baseURL: uri`api/instances/${this.id}`,
       headers: { Accept: actuatorMimeTypes },
     });
     this.axios.interceptors.response.use(
@@ -49,7 +49,7 @@ class Instance {
   }
 
   static async fetchEvents() {
-    return axios.get(uri`instances/events`, {
+    return axios.get(uri`api/instances/events`, {
       headers: { Accept: 'application/json' },
     });
   }
@@ -58,7 +58,7 @@ class Instance {
     return concat(
       from(waitForPolyfill()).pipe(ignoreElements()),
       Observable.create((observer) => {
-        const eventSource = new EventSource('instances/events');
+        const eventSource = new EventSource('api/instances/events');
         eventSource.onmessage = (message) =>
           observer.next({
             ...message,
@@ -73,7 +73,7 @@ class Instance {
   }
 
   static async get(id) {
-    return axios.get(uri`instances/${id}`, {
+    return axios.get(uri`api/instances/${id}`, {
       headers: { Accept: 'application/json' },
       transformResponse(data) {
         if (!data) {

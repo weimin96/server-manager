@@ -27,7 +27,6 @@ import java.util.Map;
 @Slf4j
 @ResponseBody
 @ServerController
-@RequestMapping
 public class InstancesController {
 
     private final InstanceRegistry registry;
@@ -56,7 +55,7 @@ public class InstancesController {
      * @param builder builder
      * @return Map
      */
-    @PostMapping(path = "/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/api/instances", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<Map<String, InstanceId>>> register(@RequestBody Registration registration,
                                                                   UriComponentsBuilder builder) {
         // 创建注册实例
@@ -73,7 +72,7 @@ public class InstancesController {
      * @param name 实例名称
      * @return 实例
      */
-    @GetMapping(path = "/instances", produces = MediaType.APPLICATION_JSON_VALUE, params = "name")
+    @GetMapping(path = "/api/instances", produces = MediaType.APPLICATION_JSON_VALUE, params = "name")
     public Flux<Instance> instances(@RequestParam("name") String name) {
         return registry.getInstances(name).filter(Instance::isRegistered);
     }
@@ -82,7 +81,7 @@ public class InstancesController {
      * 获取实例列表
      * @return 实例列表
      */
-    @GetMapping(path = "/instances", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/api/instances", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<Instance> instances() {
         log.debug("Deliver all registered instances");
         return registry.getInstances().filter(Instance::isRegistered);
@@ -93,7 +92,7 @@ public class InstancesController {
      * @param id 应用id
      * @return 实例
      */
-    @GetMapping(path = "/instances/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/api/instances/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<Instance>> instance(@PathVariable String id) {
         log.debug("Deliver registered instance with ID '{}'", id);
         return registry.getInstance(InstanceId.of(id)).filter(Instance::isRegistered).map(ResponseEntity::ok)
@@ -105,19 +104,19 @@ public class InstancesController {
      * @param id 实例id
      * @return ResponseEntity
      */
-    @DeleteMapping(path = "/instances/{id}")
+    @DeleteMapping(path = "/api/instances/{id}")
     public Mono<ResponseEntity<Void>> unregister(@PathVariable String id) {
         log.debug("Unregister instance with ID '{}'", id);
         return registry.deregister(InstanceId.of(id)).map((v) -> ResponseEntity.noContent().<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(path = "/instances/events", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/api/instances/events", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<InstanceEvent> events() {
         return eventStore.findAll();
     }
 
-    @GetMapping(path = "/instances/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/api/instances/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<InstanceEvent>> eventStream() {
         return Flux.from(eventStore).map((event) -> ServerSentEvent.builder(event).build()).mergeWith(ping());
     }
@@ -127,7 +126,7 @@ public class InstancesController {
      * @param id 应用id
      * @return ServerSentEvent
      */
-    @GetMapping(path = "/instances/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/api/instances/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<Instance>> instanceStream(@PathVariable String id) {
         return Flux.from(eventStore).filter((event) -> event.getInstance().equals(InstanceId.of(id)))
                 .flatMap((event) -> registry.getInstance(event.getInstance()))
