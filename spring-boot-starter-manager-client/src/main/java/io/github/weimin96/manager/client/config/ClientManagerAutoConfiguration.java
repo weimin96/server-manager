@@ -1,7 +1,8 @@
 
 package io.github.weimin96.manager.client.config;
 
-import io.github.weimin96.manager.client.endpoints.LogHistoryEndpoint;
+import io.github.weimin96.manager.client.endpoints.log.LogContentEndpoint;
+import io.github.weimin96.manager.client.endpoints.log.LogDirEndpoint;
 import io.github.weimin96.manager.client.registration.*;
 import io.github.weimin96.manager.client.registration.metadata.CompositeMetadataContributor;
 import io.github.weimin96.manager.client.registration.metadata.MetadataContributor;
@@ -48,6 +49,7 @@ import static org.springframework.web.reactive.function.client.ExchangeFilterFun
 @Conditional(ClientManagerCondition.class)
 @EnableConfigurationProperties({ClientProperties.class, InstanceProperties.class, ServerProperties.class,
         ManagementServerProperties.class})
+@ImportAutoConfiguration({LogDirEndpoint.class, LogContentEndpoint.class})
 public class ClientManagerAutoConfiguration {
 
     @Bean

@@ -5,8 +5,6 @@ Spring Boot Starter Server Manager
 
 ---
 
-health,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,loggers,auditevents,mappings,scheduledtasks,configprops,beans
-
 - health : 显示应用程序运行状况信息(必须)；
 - info：显示任意应用程序信息；
 - env： 公开 Spring 的 ConfigurableEnvironment 中的属性；
@@ -28,5 +26,7 @@ health,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,lo
 - quartz: 显示有关 Quartz Scheduler 作业的信息;
 - shutdown: 允许正常关闭应用程序。仅在使用 jar 包装时有效。默认情况下处于禁用状态;
 - startup: 显示 ApplicationStartup 收集的启动步骤数据。需要为 SpringApplication 配置 BufferingApplicationStartup
+- logcontent: 日志内容
+- logdir： 日志列表
 
 

@@ -1,12 +1,10 @@
-package io.github.weimin96.manager.client.endpoints;
+package io.github.weimin96.manager.client.endpoints.log;
 
 import org.springframework.core.env.PropertyResolver;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Properties;
 
 /**
@@ -38,21 +36,15 @@ public class LogDir {
         if (StringUtils.hasLength(value)) {
             properties.put(key, value);
         }
-
     }
 
     @Override
     public String toString() {
-        return (new File(this.path, "spring.log")).getPath();
+        return (new File(this.path)).getPath();
     }
 
     public static LogDir get(PropertyResolver propertyResolver) {
         String path = propertyResolver.getProperty("logging.file.path");
         return !StringUtils.hasLength(path) ? null : new LogDir(path);
-    }
-
-    public static void main(String[] args) throws UnknownHostException {
-        InetAddress localHost = InetAddress.getLocalHost();
-        System.out.println(localHost.getHostAddress());
     }
 }
