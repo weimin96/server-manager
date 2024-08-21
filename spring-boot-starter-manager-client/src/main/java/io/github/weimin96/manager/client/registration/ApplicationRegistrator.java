@@ -9,7 +9,7 @@ public interface ApplicationRegistrator {
 
 	/**
 	 * 注册
-	 * @return
+	 * @return boolean
 	 */
 	boolean register();
 
@@ -20,6 +20,7 @@ public interface ApplicationRegistrator {
 
 	/**
 	 * 获取注册的id
+	 * @return 注册的id
 	 */
 	String getRegisteredId();
 

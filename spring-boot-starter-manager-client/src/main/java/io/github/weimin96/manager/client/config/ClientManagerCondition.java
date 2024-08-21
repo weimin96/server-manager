@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * </pre>
+ * 客户端启动条件
  * @author pwm
  */
 public class ClientManagerCondition extends SpringBootCondition {
