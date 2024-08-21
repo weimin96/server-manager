@@ -30,14 +30,11 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
 
     private final ServerManagerProperties serverProperties;
 
-    private final ServerManagerUIProperties serverUi;
-
     private final String publicUrl;
 
     public ServerManagerAuthConfiguration(ServerManagerProperties serverProperties, ServerManagerUIProperties serverUi) {
         this.serverProperties = serverProperties;
-        this.serverUi = serverUi;
-        this.publicUrl = (this.serverUi.getPublicUrl() != null) ? this.serverUi.getPublicUrl()
+        this.publicUrl = (serverUi.getPublicUrl() != null) ? serverUi.getPublicUrl()
                 : this.serverProperties.getContextPath();
     }
 
@@ -49,7 +46,7 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
     );
 
     @Bean
-    public WebFilter authFilter() {
+    public WebFilter serverManagerAuthFilter() {
         return (exchange, chain) -> {
             String path = exchange.getRequest().getPath().toString();
             // 检查是否为白名单路径

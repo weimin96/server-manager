@@ -1,6 +1,7 @@
 
 package io.github.weimin96.manager.client.config;
 
+import io.github.weimin96.manager.client.endpoints.LogHistoryEndpoint;
 import io.github.weimin96.manager.client.registration.*;
 import io.github.weimin96.manager.client.registration.metadata.CompositeMetadataContributor;
 import io.github.weimin96.manager.client.registration.metadata.MetadataContributor;
@@ -12,6 +13,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServe
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
