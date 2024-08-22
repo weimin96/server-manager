@@ -2,6 +2,7 @@
 
 package io.github.weimin96.manager.client.config;
 
+import lombok.Data;
 import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
@@ -15,15 +16,19 @@ import java.time.temporal.ChronoUnit;
 /**
  * @author pwm
  */
-@lombok.Data
+@Data
 @ConfigurationProperties(prefix = "spring.boot.manager.client")
 public class ClientProperties {
 
 	/**
 	 * server地址
-	 * TODO 通过 Nacos 获取
 	 */
 	private String[] url = new String[] {};
+
+	/**
+	 * server 应用名称 使用nacos作为注册中心时生效
+	 */
+	private String serverApplicationName;
 
 	/**
 	 * server 实例api地址
