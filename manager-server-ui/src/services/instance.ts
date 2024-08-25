@@ -319,6 +319,18 @@ class Instance {
     );
   }
 
+  async logdir() {
+    return this.axios.get(uri`actuator/logdir`, {
+      headers: { Accept: 'application/json' },
+    });
+  }
+
+  async logContent(fileName) {
+    return this.axios.get(uri`actuator/logcontent/${fileName}`, {
+      headers: { Accept: '*/*' },
+    });
+  }
+
   async listMBeans() {
     return this.axios.get(uri`actuator/jolokia/list`, {
       headers: { Accept: 'application/json' },

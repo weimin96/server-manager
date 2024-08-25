@@ -82,6 +82,7 @@ public final class InstanceExchangeFilterFunctions {
 			}
 
 			String endpointId = requestUrl.getPathSegments().get(0);
+			// 校验是否存在Endpoint
 			Optional<Endpoint> endpoint = instance.getEndpoints().get(endpointId);
 
 			if (!endpoint.isPresent()) {

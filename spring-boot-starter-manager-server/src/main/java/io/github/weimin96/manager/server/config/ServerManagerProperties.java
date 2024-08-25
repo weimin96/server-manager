@@ -1,9 +1,7 @@
 package io.github.weimin96.manager.server.config;
 
 import io.github.weimin96.manager.server.utils.Util;
-import io.github.weimin96.manager.server.web.client.BasicAuthHttpHeaderProvider;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
 
@@ -18,6 +16,7 @@ import static java.util.Arrays.asList;
 
 /**
  * server 配置类
+ *
  * @author panwm
  * @since 2024/8/2 22:30
  */
@@ -50,9 +49,9 @@ public class ServerManagerProperties {
      */
     private InstanceAuthProperties authority = new InstanceAuthProperties();
 
-    private String[] probedEndpoints = { "health", "env", "metrics", "httptrace:trace", "httptrace", "threaddump:dump",
-            "threaddump", "jolokia", "info", "logfile", "refresh", "liquibase", "heapdump", "loggers",
-            "auditevents", "mappings", "scheduledtasks", "configprops", "caches", "beans" };
+    private String[] probedEndpoints = {"health", "env", "metrics", "httptrace:trace", "httptrace", "threaddump:dump",
+            "threaddump", "jolokia", "info", "logfile", "logdir", "logcontent", "refresh", "liquibase", "heapdump", "loggers",
+            "auditevents", "mappings", "scheduledtasks", "configprops", "caches", "beans"};
 
     public void setContextPath(String contextPath) {
         this.contextPath = Util.normalizePath(contextPath);

@@ -1,0 +1,8 @@
+{
+  "instances": {
+    "logdir": {
+      "label": "历史日志",
+      "download": "下载"
+    }
+  }
+}

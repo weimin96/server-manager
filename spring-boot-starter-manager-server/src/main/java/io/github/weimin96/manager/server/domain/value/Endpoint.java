@@ -18,6 +18,10 @@ public class Endpoint implements Serializable {
 
     public static final String LOGFILE = "logfile";
 
+    public static final String LOG_DIR = "logdir";
+
+    public static final String LOG_CONTENT= "logcontent";
+
     public static final String ENV = "env";
 
     public static final String HTTPTRACE = "httptrace";
@@ -46,6 +50,9 @@ public class Endpoint implements Serializable {
     }
 
     public static Endpoint of(String id, String url) {
+        if ("logcontent-filename".equals(id)) {
+            return new Endpoint("logcontent", url.replace("/{filename}", ""));
+        }
         return new Endpoint(id, url);
     }
 

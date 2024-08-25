@@ -2,6 +2,10 @@ package io.github.weimin96.manager.server.domain.events;
 
 import io.github.weimin96.manager.server.domain.value.InstanceId;
 import io.github.weimin96.manager.server.services.Registration;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
 
@@ -10,10 +14,10 @@ import java.time.Instant;
  * @author panwm
  * @since 2024/8/3 22:20
  */
-@lombok.Getter
-@lombok.Setter
-@lombok.EqualsAndHashCode(callSuper = true)
-@lombok.ToString(callSuper = true)
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class InstanceRegistrationUpdatedEvent extends InstanceEvent {
 
     public static final String TYPE = "REGISTRATION_UPDATED";

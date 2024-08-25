@@ -36,8 +36,6 @@ public class EventInstanceRepository implements InstanceRepository {
 
     private Disposable subscription;
 
-
-
     private final Retry retryOptimisticLockException = Retry.max(10)
             .doBeforeRetry((s) -> log.debug("Retrying after OptimisticLockingException", s.failure()))
             .filter(OptimisticLockingException.class::isInstance);
