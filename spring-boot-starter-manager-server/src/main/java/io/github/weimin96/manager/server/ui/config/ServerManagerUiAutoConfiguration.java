@@ -73,11 +73,9 @@ public class ServerManagerUiAutoConfiguration {
                 .favicon(this.serverUi.getFavicon())
                 .faviconDanger(this.serverUi.getFaviconDanger())
                 .routes(DEFAULT_UI_ROUTES)
-                .rememberMeEnabled(this.serverUi.isRememberMeEnabled())
                 .externalViews(this.serverUi.getExternalViews())
                 .pollTimer(this.serverUi.getPollTimer())
                 .viewSettings(this.serverUi.getViewSettings())
-                .theme(this.serverUi.getTheme())
                 .build();
 
         String publicUrl = (this.serverUi.getPublicUrl() != null) ? this.serverUi.getPublicUrl()

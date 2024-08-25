@@ -172,14 +172,12 @@ export default {
   width: 130px;
 }
 .httptraces__trace-method {
-  @apply font-mono;
   width: 100px;
 }
 .httptraces__trace-uri {
   width: auto;
 }
 .httptraces__trace-status {
-  @apply font-mono;
   width: 80px;
 }
 .httptraces__trace-contentType {

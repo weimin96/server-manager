@@ -71,11 +71,7 @@ defineProps({
 }
 
 .submenu-opener > button {
-  @apply flex items-center px-3 py-2 rounded hover:bg-sm-700;
-}
-
-.submenu-opener--active {
-  @apply bg-sm-700;
+  @apply flex items-center px-3 py-2 rounded;
 }
 
 .submenu-opener-label {
@@ -95,13 +91,13 @@ defineProps({
 }
 
 .submenu-opener--link {
-  @apply hover:bg-sm-700 rounded;
+  @apply rounded;
 }
 .submenu-opener--link > a {
   @apply px-3 py-2;
 }
 
 .submenu-opener--link .submenu-opener-button {
-  @apply px-3 py-3 hover:bg-sm-800 rounded-r rounded-l-none border-l border-black ml-auto w-auto;
+  @apply px-3 py-3 rounded-r rounded-l-none border-l border-black ml-auto w-auto;
 }
 </style>

@@ -32,13 +32,13 @@ export default {
       label: 'timestamp',
       datasets: {
         used: {
-          label: 'instances.details.memory.used',
+          label: '已用内存',
         },
         metaspace: {
-          label: 'instances.details.memory.metaspace',
+          label: '元空间内存',
         },
         committed: {
-          label: 'instances.details.memory.committed',
+          label: '分配内存',
         },
       },
       config: {

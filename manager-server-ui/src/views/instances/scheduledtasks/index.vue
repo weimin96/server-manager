@@ -23,7 +23,7 @@
             <tr>
               <td v-text="task.runnable.target" />
               <td
-                class="font-mono text-center text-sm"
+                class="text-center text-sm"
                 v-text="task.expression"
               />
             </tr>

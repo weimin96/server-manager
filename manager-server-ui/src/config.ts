@@ -5,11 +5,6 @@ const brand = '<img src="assets/img/icon-server-manager.svg">Server Manager';
 const DEFAULT_CONFIG = {
   uiSettings: {
     brand,
-    theme: {
-      backgroundEnabled: true,
-      color: '#42d3a5',
-    },
-    rememberMeEnabled: true,
     externalViews: [] as ExternalView[],
     favicon: 'assets/img/favicon.png',
     faviconDanger: 'assets/img/favicon-danger.png',

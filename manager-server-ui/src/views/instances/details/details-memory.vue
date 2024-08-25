@@ -68,7 +68,7 @@ import { defineComponent } from 'vue';
 import SmConfig from '@/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
-import MemChart from '@/views/instances/details/mem-chart';
+import MemChart from '@/views/instances/details/mem-chart.vue';
 
 export default defineComponent({
   name: 'DetailsMemory',

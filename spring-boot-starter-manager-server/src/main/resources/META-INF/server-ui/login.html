@@ -1,37 +1,42 @@
 <!doctype html>
-<html class="h-full">
-  <head>
-    <base href="/" th:href="${baseUrl}" />
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-    <meta content="telephone=no,email=no" name="format-detection" />
-    <meta content="#42d3a5" name="theme-color" />
+<html>
+<head>
+  <base href="/" th:href="${baseUrl}" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+  <meta content="telephone=no,email=no" name="format-detection" />
 
-    <link
-      rel="shortcut icon"
-      th:href="${uiSettings.favicon}"
-      type="image/png"
-    />
-    <title th:text="${uiSettings.title}">Server Manager - Login</title>
-    <script th:inline="javascript">
-      var csrf = /*[[${_csrf}]]*/ {};
-      var uiSettings = /*[[${uiSettings}]]*/ {};
-      var param = /*[[${param}]]*/ {};
-    </script>
-    <script type="module" crossorigin src="./assets/login-CltNNAN9.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/index-DF27jtur.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-DgPDIL_o.css">
-    <link rel="stylesheet" crossorigin href="./assets/login-Dhcx2NjS.css">
-  </head>
-  <body class="flex flex-col min-h-full h-full">
-    <div
-      class="absolute w-full h-full t-0 l-0 bg-white bg-opacity-40 backdrop-blur-sm z-0"
-    ></div>
-    <section
-      id="login"
-      class="relative z-10 flex items-center justify-center h-full"
-    ></section>
+<!--  <link rel="shortcut icon" th:href="${uiSettings.favicon}" type="image/png" />-->
+  <link rel="shortcut icon" href="./assets/favicon-OYEcJhSD.png" type="image/png" />
+<!--      <title th:text="${uiSettings.title}">Server Manager - Login</title>-->
+  <title>Server Manager - Login</title>
+      <script th:inline="javascript">
+        var csrf = /*[[${_csrf}]]*/ {};
+        var uiSettings = /*[[${uiSettings}]]*/ {};
+        var param = /*[[${param}]]*/ {};
+      </script>
+  <script type="module" crossorigin src="./assets/login-DKspn5Xt.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/axios-BZxpls_o.js">
+  <link rel="stylesheet" crossorigin href="./assets/axios-CU8haBtb.css">
+  <link rel="stylesheet" crossorigin href="./assets/login-Dx53aBfy.css">
+</head>
+<body class="text-gray-700 antialiased">
+<div>
+  <main>
+    <section class="relative w-full h-full py-4 min-h-screen">
+      <div
+        class="absolute top-0 w-full h-full bg-gray-800 bg-no-repeat bg-auto"
+        style="background-image: url('./assets/register_bg_2-AH3mfCwx.png')"
+      >
+        <div class="container mx-auto px-4 h-full">
+          <div id="login" class="flex content-center items-center justify-center h-full"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
 
-  </body>
+
+</body>
 </html>

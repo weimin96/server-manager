@@ -19,7 +19,7 @@
           })
         "
         :error="error"
-        :title="$t('term.fetch_failed')"
+        title="加载失败"
         class="mb-6 w-full"
       />
 
@@ -30,7 +30,7 @@
       >
         <div class="loading-spinner-wrapper-container">
           <sm-loading-spinner size="sm" />
-          {{ $t('term.fetching_data') }}
+          加载中
         </div>
       </div>
 

@@ -9,6 +9,7 @@ import SmFormattedObj from './sm-formatted-obj.vue';
 import SmIconButton from './sm-icon-button.vue';
 import SmInput from './sm-input.vue';
 import SmKeyValueTable from './sm-key-value-table.vue';
+import SmListBox from './sm-listbox.vue';
 import SmLoadingSpinner from './sm-loading-spinner.vue';
 import SmModal from './sm-modal.vue';
 import SmPaginationNav from './sm-pagination-nav.vue';
@@ -48,6 +49,7 @@ export const components = {
   'sm-toggle-scope-button': SmToggleScopeButton,
   'font-awesome-icon': FontAwesomeIcon,
   'sm-wave': SmWave,
+  'sm-list-box': SmListBox,
 };
 
 export default {

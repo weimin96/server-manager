@@ -1,78 +1,72 @@
 <template>
-  <form class="w-5/6 md:1/2 max-w-lg">
-    <sm-panel>
-      <input
-        v-if="csrf"
-        :name="csrf.parameterName"
-        :value="csrf.token"
-        type="hidden"
-      />
-      <div class="flex text-lg pb-3 items-center">
-        <img v-if="icon" :src="icon" class="w-8 h-8 mr-2" />
-        <h1 class="title has-text-primary" v-text="title" />
-      </div>
-      <div class="relative border-t -ml-4 -mr-4 overflow-hidden">
-        <sm-wave class="bg-wave--login" />
-        <div class="ml-4 mr-4 pt-2 z-10 relative">
-          <sm-alert :error="message" />
-          <sm-alert :error="logout" :severity="Severity.INFO" />
-          <div :class="{ 'has-errors': error }" class="pb-4 form-group">
-            <sm-input
-              v-model="username"
-              :label="t('login.placeholder.username')"
-              autocomplete="username"
-              name="username"
-              type="text"
-              autofocus
-            />
-            <sm-input
-              v-model="password"
-              :label="t('login.placeholder.password')"
-              autocomplete="current-password"
-              name="password"
-              type="password"
-            />
-            <sm-checkbox
-              v-if="rememberMeEnabled"
-              :label="t('login.remember_me')"
-              class="justify-end"
-              name="remember-me"
-            />
-          </div>
+  <div class="flex content-center items-center justify-center h-full">
+    <div class="w-full px-4">
+      <div
+        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0"
+      >
+        <div class="flex items-center">
+          <img
+            v-if="props.icon"
+            :src="props.icon"
+            class="flex-initial w-12 h-12 m-6"
+          />
+          <div class="flex-initial text-2xl font-semibold">{{ title }}</div>
+        </div>
+        <div class="flex-auto px-4 py-10 pt-0">
+          <form>
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-600 text-sm font-bold text-justify mb-2"
+                htmlFor="grid-password"
+              >
+                用户名
+              </label>
+              <input
+                v-model="username"
+                type="text"
+                class="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring-blue-500 w-full ease-linear transition-all duration-150"
+                placeholder="请输入用户名"
+                autofocus
+              />
+            </div>
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-600 text-sm font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                密码
+              </label>
+              <input
+                v-model="password"
+                type="password"
+                class="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring-blue-500 w-full ease-linear transition-all duration-150"
+                placeholder="请输入密码"
+                @keyup.enter="login"
+              />
+            </div>
+            <div class="text-center mt-6 w-96">
+              <button
+                class="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                type="button"
+                @click="login"
+              >
+                登录
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-
-      <template #footer>
-        <div class="text-right">
-          <sm-button @click="login"> 登录 </sm-button>
-        </div>
-      </template>
-    </sm-panel>
-  </form>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-
-import SmAlert, { Severity } from '@/components/sm-alert';
-import SmButton from '@/components/sm-button';
-import SmCheckbox from '@/components/sm-checkbox';
-import SmInput from '@/components/sm-input';
-import SmPanel from '@/components/sm-panel';
-import SmWave from '@/components/sm-wave';
+import { ref } from 'vue';
 
 import { setCurrentUser } from '@/config';
 import User from '@/services/user';
 
-const i18n = useI18n();
-const t = i18n.t;
-
 const props = defineProps({
-  param: {
-    type: Object,
-    default: () => ({}),
-  },
   icon: {
     type: String,
     default: undefined,
@@ -81,21 +75,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  csrf: {
-    type: Object,
-    default: undefined,
-  },
-  theme: {
-    type: Object,
-    default: undefined,
-  },
 });
-
-const { rememberMeEnabled } = window.uiSettings;
 
 const username = ref('');
 const password = ref('');
-const message = ref(null);
 
 const login = (event) => {
   event.preventDefault();
@@ -110,37 +93,8 @@ const login = (event) => {
     })
     .catch((error) => {
       // 失败提示
-      message.value = error.response.data;
+      ElMessage.error(error.response.data);
       localStorage.removeItem('token');
-      setTimeout(() => {
-        message.value = null;
-      }, 3000);
     });
 };
-
-const logout = computed(() => {
-  return props.param.logout !== undefined
-    ? t('login.logout_successful')
-    : undefined;
-});
 </script>
-
-<style scoped>
-.bg-wave--login {
-  @apply z-0 absolute left-0;
-  min-width: 100%;
-  height: 4rem;
-}
-
-.form-group {
-  @apply grid grid-cols-1 gap-2;
-}
-
-.form-group.has-errors label {
-  @apply text-red-500;
-}
-
-.form-group.has-errors input {
-  @apply focus:ring-red-500 focus:border-red-500 border-red-400;
-}
-</style>

@@ -42,7 +42,7 @@
       </template>
 
       <template v-else-if="state === STATE_FAILED">
-        <div class="p-2 mb-2 rounded bg-sm-100">
+        <div class="p-2 mb-2 rounded">
           <strong>
             <font-awesome-icon class="pr-1" icon="exclamation-triangle" />
             <span v-text="$t('instances.jolokia.execution_failed')" />

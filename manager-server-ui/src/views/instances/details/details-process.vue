@@ -45,23 +45,23 @@ export default {
     tableData() {
       return {
         pid: {
-          label: this.$t('instances.details.process.pid'),
+          label: '进程ID',
           value: this.pid,
         },
         uptime: {
-          label: this.$t('instances.details.process.uptime'),
+          label: '运行时间',
           value: toMillis(this.uptime.value, this.uptime.baseUnit),
         },
         processCpuLoad: {
-          label: this.$t('instances.details.process.process_cpu_usage'),
-          value: this.processCpuLoad?.toFixed(2),
+          label: '进程CPU使用率',
+          value: this.processCpuLoad?.toFixed(2) * 100 + '%',
         },
         systemCpuLoad: {
-          label: this.$t('instances.details.process.system_cpu_usage'),
-          value: this.systemCpuLoad?.toFixed(2),
+          label: '系统CPU使用率',
+          value: this.systemCpuLoad?.toFixed(2) * 100 + '%',
         },
         cpus: {
-          label: this.$t('instances.details.process.cpus'),
+          label: 'CPU核心数',
           value: this.systemCpuCount,
         },
       };

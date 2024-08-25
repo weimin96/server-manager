@@ -1,5 +1,5 @@
 <template>
-  <div v-if="backgroundEnabled" class="bg-wave">
+  <div class="bg-wave">
     <svg
       height="100%"
       preserveAspectRatio="none"
@@ -66,14 +66,12 @@
 </template>
 
 <script>
-import SmConfig from '@/config';
 
 export default {
   name: 'SmWave',
   data() {
     return {
       id: this._.uid,
-      backgroundEnabled: SmConfig.uiSettings.theme.backgroundEnabled,
     };
   },
 };

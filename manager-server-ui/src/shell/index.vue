@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <SmNavbar :error="error" />
-    <div class="sm-container">
+    <div class="pt-14 h-full">
       <router-view :applications="applications" :error="error" />
     </div>
   </div>
@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { useApplicationStore } from '@/composables/useApplicationStore';
-import SmNavbar from '@/shell/navbar';
+import SmNavbar from '@/shell/navbar.vue';
 
 defineProps({
   error: {
@@ -20,9 +20,3 @@ defineProps({
 
 const { applications } = useApplicationStore();
 </script>
-
-<style scoped>
-.sm-container {
-  @apply pt-14 h-full;
-}
-</style>

@@ -1,6 +1,10 @@
 <template>
   <div class="table-container">
     <table class="table w-full">
+      <colgroup>
+        <col class="w-80" />
+        <col class="w-20" />
+      </colgroup>
       <template
         v-for="(handlerMappings, dispatcherName) in dispatchers"
         :key="dispatcherName"
@@ -50,7 +54,7 @@
                   <small v-text="$t('instances.mappings.http-verb')" />
                 </th>
                 <td
-                  class="font-mono is-breakable"
+                  class="is-breakable"
                   v-text="
                     mapping.details.requestMappingConditions.methods.join(', ')
                   "
@@ -65,7 +69,7 @@
                   <small v-text="$t('instances.mappings.consumes')" />
                 </th>
                 <td
-                  class="font-mono is-breakable"
+                  class="is-breakable"
                   v-text="
                     mediaTypePredicates(
                       mapping.details.requestMappingConditions.consumes,
@@ -82,7 +86,7 @@
                   <small v-text="$t('instances.mappings.produces')" />
                 </th>
                 <td
-                  class="font-mono is-breakable"
+                  class="is-breakable"
                   v-text="
                     mediaTypePredicates(
                       mapping.details.requestMappingConditions.produces,
@@ -99,7 +103,7 @@
                   <small v-text="$t('instances.mappings.parameters')" />
                 </th>
                 <td
-                  class="font-mono is-breakable"
+                  class="is-breakable"
                   v-text="
                     paramPredicates(
                       mapping.details.requestMappingConditions.params,
@@ -116,7 +120,7 @@
                   <small v-text="$t('instances.mappings.headers')" />
                 </th>
                 <td
-                  class="font-mono is-breakable"
+                  class="is-breakable"
                   v-text="
                     paramPredicates(
                       mapping.details.requestMappingConditions.headers,

@@ -1,13 +1,13 @@
 <template>
   <aside
     :class="{ 'w-60': sidebarOpen }"
-    class="h-full flex flex-col bg-white border-r backdrop-filter backdrop-blur-lg bg-opacity-80 z-40 w-10 md:w-60 transition-all left-0 pb-14 fixed"
+    class="h-[calc(100vh-100px)] w-72 shadow-sm border border-gray-100 rounded-xl flex flex-col bg-white border-r backdrop-filter backdrop-blur-lg bg-opacity-80 z-40 transition-all ml-4 my-4 fixed"
   >
     <ul class="relative px-1 py-1 overflow-y-auto">
-      <!-- Instance info block -->
+      <!-- 头部信息 -->
       <li class="relative mb-1 hidden md:block">
         <router-link
-          :class="`instance-summary--${instance.statusInfo.status}`"
+          :class="`text-center instance-summary--${instance.statusInfo.status}`"
           :to="{
             name: 'instances/details',
             params: { instanceId: instance.id },
@@ -15,20 +15,23 @@
           class="instance-info-block"
         >
           <span class="overflow-hidden text-ellipsis">
-            <span class="font-bold" v-text="instance.registration.name" /><br />
+            <h6
+              class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-gray-900"
+              v-text="instance.registration.name"
+            />
             <small><em v-text="instance.id" /></small>
           </span>
         </router-link>
       </li>
 
-      <!-- sm: button toggle navigation -->
+      <!-- 导航菜单按钮 -->
       <li class="block md:hidden">
         <a class="navbar-link navbar-link__group" @click.stop="toggleSidebar">
           <font-awesome-icon :icon="['fas', 'bars']" />
         </a>
       </li>
 
-      <!-- The actual nav -->
+      <!-- 菜单列表 -->
       <li
         v-for="group in enabledGroupedViews"
         :key="group.name"
@@ -36,7 +39,7 @@
         class="relative"
       >
         <router-link
-          :class="{ 'navbar-link__active': isActiveGroup(group) }"
+          :class="{ 'navbar-link__group__active': isActiveGroup(group) }"
           :to="{
             name: group.views[0].name,
             params: { instanceId: instance.id },
@@ -47,6 +50,7 @@
         >
           <span v-html="group.icon" />
           <span
+            class="navbar-text"
             v-text="
               hasMultipleViews(group)
                 ? getGroupTitle(group.id)
@@ -60,7 +64,7 @@
               '': isActiveGroup(group),
             }"
             aria-hidden="true"
-            class="h-3 ml-auto hidden md:block"
+            class="h-3 ml-auto hidden md:block text-blue-500"
             data-prefix="fas"
             focusable="false"
             role="img"
@@ -103,7 +107,7 @@
 <script lang="ts">
 import { defineComponent, toRaw } from 'vue';
 
-import SmButton from '@/components/sm-button';
+import SmButton from '@/components/sm-button.vue';
 
 import Application from '@/services/application';
 import Instance from '@/services/instance';
@@ -190,24 +194,37 @@ export default defineComponent({
 
 <style scoped>
 .instance-info-block {
-  @apply bg-sm-50 bg-opacity-40 text-sm-900 flex items-center text-sm py-4 px-6 text-left overflow-hidden text-ellipsis rounded transition duration-300 ease-in-out cursor-pointer;
+  @apply bg-opacity-40 flex items-center text-sm py-4 px-6 text-left overflow-hidden text-ellipsis rounded transition duration-300 ease-in-out cursor-pointer;
 }
 
 .navbar-link {
-  @apply cursor-pointer bg-sm-50 bg-opacity-40 duration-300 ease-in-out flex  items-center overflow-hidden py-4 rounded text-sm transition whitespace-nowrap;
-  @apply text-gray-700;
+  @apply cursor-pointer bg-opacity-40 duration-300 ease-in-out flex  items-center overflow-hidden py-4 rounded-md text-sm transition whitespace-nowrap text-gray-500;
+}
+
+.navbar-link__active {
+  @apply text-black;
+  .navbar-text {
+    @apply text-black;
+  }
 }
 
 .navbar-link:hover,
-.navbar-link__active {
-  @apply bg-sm-50 bg-opacity-80 text-sm-900;
+.navbar-link__group__active {
+  @apply bg-opacity-80 bg-slate-100;
+  .navbar-text {
+    @apply text-black;
+  }
 }
 
 .navbar-link__group_item {
-  @apply h-6 mb-1 mt-1 pl-12 pr-6;
+  @apply h-6 mx-4 my-1 py-5 pl-12 pr-4;
 }
 
 .navbar-link__group {
-  @apply h-12 px-2 md:px-6;
+  @apply h-6 mx-4 my-1 py-6 px-4;
+}
+
+.navbar-text {
+  @apply text-gray-500;
 }
 </style>

@@ -54,11 +54,7 @@ defineProps({
 }
 
 .submenu-opener {
-  @apply flex items-center px-3 py-2 rounded bg-sm-700;
-}
-
-.submenu-opener--active {
-  @apply bg-sm-700;
+  @apply flex items-center px-3 py-2 rounded;
 }
 
 .submenu-opener-label {
@@ -82,6 +78,6 @@ defineProps({
 }
 
 .submenu-opener--link .submenu-opener-button {
-  @apply px-3 py-3 hover:bg-sm-800 rounded-r border-l border-black ml-auto w-auto;
+  @apply px-3 py-3 rounded-r border-l border-black ml-auto w-auto;
 }
 </style>

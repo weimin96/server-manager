@@ -14,6 +14,8 @@ import {
   faUndoAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDoubleRight';
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faBell } from '@fortawesome/free-solid-svg-icons/faBell';
@@ -55,6 +57,8 @@ export default FontAwesomeIcon;
 
 library.add(
   //solid
+  faAngleUp,
+  faAngleDown,
   faAngleDoubleRight,
   faAngleDoubleLeft,
   faBan,

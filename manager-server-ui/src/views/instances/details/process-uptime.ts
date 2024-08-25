@@ -23,7 +23,7 @@ export default {
       const duration = moment.duration(this.value + this.offset);
       return `${Math.floor(
         duration.asDays(),
-      )}d ${duration.hours()}h ${duration.minutes()}m ${duration.seconds()}s`;
+      )}天 ${duration.hours()}小时 ${duration.minutes()}分 ${duration.seconds()}秒`;
     },
   },
   watch: {

@@ -194,7 +194,7 @@ export default {
   @apply break-all block;
 }
 .tree .row .column--duration {
-  @apply text-sm font-mono text-right;
+  @apply text-sm text-right;
 }
 .tree-item {
   margin: 0;

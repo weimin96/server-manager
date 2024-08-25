@@ -15,26 +15,9 @@ declare global {
     uiSettings: {
       icon: string;
       title: string;
-      theme: string;
     };
     param: any;
   }
-
-  type UITheme = {
-    color: string;
-    palette: {
-      shade50: string;
-      shade100: string;
-      shade200: string;
-      shade300: string;
-      shade400: string;
-      shade500: string;
-      shade600: string;
-      shade700: string;
-      shade800: string;
-      shade900: string;
-    };
-  };
 
   type PollTimer = {
     cache: number;
@@ -66,8 +49,6 @@ declare global {
     favicon: string;
     faviconDanger: string;
     pollTimer: PollTimer;
-    uiTheme: UITheme;
-    rememberMeEnabled: boolean;
     routes: string[];
     externalViews: ExternalView[];
     viewSettings: ViewSettings[];

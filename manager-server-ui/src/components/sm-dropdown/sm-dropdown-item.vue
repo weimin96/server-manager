@@ -76,17 +76,3 @@ const onClick = ($event, close) => {
   close();
 };
 </script>
-
-<style scoped>
-.sm-dropdown-item {
-  @apply flex w-full items-center rounded-md px-2 py-2 hover:bg-sm-700 hover:text-white;
-}
-
-.sm-dropdown-item[aria-disabled='true'] {
-  @apply text-gray-400 hover:text-gray-400 hover:bg-transparent cursor-not-allowed;
-}
-
-.sm-dropdown-item[active='true'] {
-  @apply bg-sm-700 text-white;
-}
-</style>

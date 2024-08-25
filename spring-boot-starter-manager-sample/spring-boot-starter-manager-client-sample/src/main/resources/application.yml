@@ -6,10 +6,13 @@ spring:
   boot:
     manager:
       client:
-        url: http://localhost:8080/admin
         username: admin
         password: 123
-
+        server-application-name: server-sample
+        server-context-path: admin
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
 # 暴露监控端点
 management:
   endpoints:

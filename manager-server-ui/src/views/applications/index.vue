@@ -8,7 +8,6 @@
           <div class="flex-1">
             <sm-input
               v-model="routerState.q"
-              :placeholder="t('term.filter')"
               name="filter"
               type="search"
             >

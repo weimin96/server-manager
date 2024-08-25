@@ -1,7 +1,6 @@
 <template>
   <sm-instance-section :error="error" :loading="!hasLoaded">
     <template #before>
-      <details-nav :application="application" :instance="instance" />
       <details-hero :instance="instance" />
     </template>
 
@@ -61,7 +60,6 @@ import DetailsHero from '@/views/instances/details/details-hero';
 import detailsInfo from '@/views/instances/details/details-info';
 import detailsMemory from '@/views/instances/details/details-memory';
 import detailsMetadata from '@/views/instances/details/details-metadata';
-import DetailsNav from '@/views/instances/details/details-nav';
 import detailsProcess from '@/views/instances/details/details-process';
 import detailsThreads from '@/views/instances/details/details-threads';
 import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
@@ -69,7 +67,6 @@ import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 export default {
   components: {
     SmInstanceSection,
-    DetailsNav,
     DetailsHero,
     detailsHealth,
     detailsInfo,

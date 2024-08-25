@@ -36,14 +36,3 @@ defineProps({
   },
 });
 </script>
-
-<style scoped>
-.sm-nav-item {
-  @apply px-3 py-2 rounded lg:self-center hover:bg-sm-700;
-}
-</style>
-<style>
-.sm-nav-item.is-active {
-  @apply bg-sm-700;
-}
-</style>

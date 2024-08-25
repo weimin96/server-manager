@@ -75,7 +75,7 @@
               v-for="(frame, idx) in details.stackTrace"
               :key="`frame-${thread.threadId}-${idx}`"
             >
-              <div class="whitespace-pre font-mono">
+              <div class="whitespace-pre">
                 <span
                   v-text="
                     `${frame.className}.${frame.methodName}(${frame.fileName}:${frame.lineNumber})`

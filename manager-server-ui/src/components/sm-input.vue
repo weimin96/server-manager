@@ -115,7 +115,7 @@ export default {
     },
     autocomplete: {
       type: String,
-      default: undefined,
+      default: "off",
     },
   },
   emits: ['update:modelValue', 'input'],

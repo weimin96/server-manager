@@ -1,6 +1,10 @@
 <template>
   <div class="table-container">
-    <table v-if="servlets.length" class="table is-fullwidth">
+    <table v-if="servlets.length" class="table table-full">
+      <colgroup>
+        <col class="w-40" />
+        <col class="w-40" />
+      </colgroup>
       <thead>
         <tr>
           <th v-text="$t('instances.mappings.url_pattern')" />

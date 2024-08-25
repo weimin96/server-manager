@@ -1,6 +1,7 @@
 
 package io.github.weimin96.manager.client.config;
 
+import io.github.weimin96.manager.client.config.cloud.ClientManagerDiscoveryConfiguration;
 import io.github.weimin96.manager.client.endpoints.log.LogContentEndpoint;
 import io.github.weimin96.manager.client.endpoints.log.LogDirEndpoint;
 import io.github.weimin96.manager.client.registration.*;
@@ -26,10 +27,12 @@ import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoC
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -53,7 +56,16 @@ import static org.springframework.web.reactive.function.client.ExchangeFilterFun
 public class ClientManagerAutoConfiguration {
 
     @Bean
+    @ConditionalOnBean(DiscoveryClient.class)
     @ConditionalOnMissingBean
+    @Order(1)
+    public ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration(DiscoveryClient discoveryClient, ClientProperties clientProperties, InstanceProperties instanceProperties) {
+        return new ClientManagerDiscoveryConfiguration(discoveryClient, clientProperties, instanceProperties);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @Order(2)
     public ApplicationRegistrator registrator(RegistrationClient registrationClient, ClientProperties client,
                                               ApplicationFactory applicationFactory) {
 

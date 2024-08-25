@@ -1,8 +1,15 @@
 <template>
   <table class="table-auto w-full">
+    <colgroup>
+      <col class="w-80" />
+      <col class="w-20" />
+    </colgroup>
     <thead>
       <tr>
-        <th class="threads__thread-name" v-text="$t('term.name')" />
+        <th
+          class="threads__thread-name"
+          v-text="$t('term.name')"
+        />
         <th class="threads__timeline">
           <svg class="threads__scale" height="24px" />
         </th>
@@ -13,7 +20,7 @@
         <tr>
           <td class="threads__thread-name">
             <thread-tag :thread-state="thread.threadState" />
-            <span v-text="thread.threadName" />
+            <span :title="thread.threadName" v-text="thread.threadName" />
           </td>
           <td class="threads__timeline">
             <svg :id="`thread-${thread.threadId}`" height="32px" />
@@ -188,7 +195,7 @@ export default {
   table-layout: fixed;
 }
 .threads__thread-name {
-  width: 250px;
+  max-width: 230px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

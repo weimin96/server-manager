@@ -128,10 +128,6 @@ public class UIController {
 
         private final ServerManagerUIProperties.PollTimer pollTimer;
 
-        private final ServerManagerUIProperties.UiTheme theme;
-
-        private final boolean rememberMeEnabled;
-
         private final List<String> routes;
 
         private final List<ExternalView> externalViews;

@@ -31,6 +31,11 @@ public class ClientProperties {
 	private String serverApplicationName;
 
 	/**
+	 * server 上下文 使用nacos作为注册中心时生效
+	 */
+	private String serverContextPath;
+
+	/**
 	 * server 实例api地址
 	 */
 	private String apiPath = "api/instances";

@@ -12,7 +12,7 @@
         'py-1.5 px-2 ml-1': !small,
         'py-1.5 px-1.5 ml-1': small,
       }"
-      class="inline-flex bg-sm-200 rounded text-sm-900 justify-center items-center transition-all whitespace-nowrap"
+      class="inline-flex rounded justify-center items-center transition-all whitespace-nowrap"
       v-text="label"
     />
     <span

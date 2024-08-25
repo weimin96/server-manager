@@ -11,7 +11,6 @@
             class="block font-medium text-gray-700 px-3"
             v-text="statistic"
           />
-
           <div class="relative rounded-md shadow-sm">
             <select
               :value="statisticTypes[statistic]"

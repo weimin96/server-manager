@@ -4,7 +4,6 @@
       <sm-sticky-subnav>
         <sm-input
           v-model="filter"
-          :placeholder="$t('term.filter')"
           name="filter"
           type="search"
         >

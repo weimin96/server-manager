@@ -119,7 +119,7 @@ export default {
                     const style = this.colors[i];
 
                     return {
-                      text: this.t(dataset.label),
+                      text: dataset.label,
                       fillStyle: style.backgroundColor,
                       strokeStyle: style.borderColor,
                       lineWidth: 2,

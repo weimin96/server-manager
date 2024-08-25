@@ -189,14 +189,12 @@ export default {
   width: 130px;
 }
 .httpexchanges__exchange-method {
-  @apply font-mono;
   width: 100px;
 }
 .httpexchanges__exchange-uri {
   width: auto;
 }
 .httpexchanges__exchange-status {
-  @apply font-mono;
   width: 80px;
 }
 .httpexchanges__exchange-contentType {

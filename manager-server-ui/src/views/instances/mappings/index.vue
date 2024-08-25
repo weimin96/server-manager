@@ -1,7 +1,7 @@
 <template>
   <sm-instance-section :error="error" :loading="!hasLoaded">
     <template v-for="(context, ctxName) in contexts" :key="ctxName">
-      <sm-panel :seamless="true" :title="ctxName">
+      <sm-panel :seamless="true">
         <dispatcher-mappings
           v-if="hasDispatcherServlets(context)"
           :key="`${ctxName}_dispatcherServlets`"
