@@ -1,27 +1,40 @@
 <template>
   <sm-instance-section :error="error" :loading="!hasLoaded">
-    <div class="flex h-screen">
+    <div class="flex h-[calc(100vh-110px)] border bg-white">
       <!-- 左侧文件目录 -->
-      <div class="w-1/4 bg-gray-100 p-4 overflow-y-auto">
-        <ul>
+      <div class="basis-1/5 p-4 border border-gray-100">
+        <ul class="">
           <li
-            v-for="fileName in logList"
+            v-for="(fileName, index) in logList"
             :key="fileName"
-            class="cursor-pointer p-2 hover:bg-gray-200"
-            @click="selectFile(fileName)"
+            :class="[
+              active === index ? 'bg-slate-100 rounded' : '',
+              'bg-opacity-80 cursor-pointer py-2 px-3 hover:bg-slate-100 m-1 transition-all duration-300 ease-in-out',
+            ]"
+            @click="selectFile(fileName, index)"
           >
+            <font-awesome-icon
+              class="mr-1 text-orange-400"
+              :icon="['fas', 'file']"
+            />
             {{ fileName }}
           </li>
         </ul>
       </div>
       <!-- 右侧文件内容展示 -->
-      <div class="w-3/4 p-4">
+      <div class="basis-4/5 overflow-auto p-4 text-sm">
         <h2 class="text-2xl font-bold mb-4">
           {{ selectedFile || '请选择一个文件' }}
         </h2>
-        <div class="whitespace-pre-wrap">
-          {{ selectedFileContent || '没有内容可显示' }}
+        <div v-if="selectedFileContent" class="">
+          <div
+            v-for="(line, index) in processedLines"
+            :key="index"
+            class="py-0.5 whitespace-pre-wrap hover:bg-slate-200"
+            v-html="line"
+          ></div>
         </div>
+        <div v-else>没有内容可显示</div>
       </div>
     </div>
   </sm-instance-section>
@@ -46,7 +59,21 @@ export default {
     logList: [],
     selectedFile: undefined,
     selectedFileContent: undefined,
+    active: -1,
   }),
+  computed: {
+    processedLines() {
+      return this.selectedFileContent
+        ? this.selectedFileContent.map((line) => {
+            // 用 <span> 标签包裹 INFO 字样，并应用样式
+            return line.replace(
+              /(INFO)/g,
+              '<span class="info-text">\$1</span>',
+            );
+          })
+        : undefined;
+    },
+  },
   created() {
     this.getDirList();
   },
@@ -65,13 +92,16 @@ export default {
           this.error = error;
         });
     },
-    selectFile(fileName) {
+    selectFile(fileName, index) {
+      this.active = index;
       this.selectedFile = fileName;
       this.hasLoaded = false;
       this.instance
         .logContent(fileName)
         .then((res) => {
-          this.selectedFileContent = res.data;
+          this.selectedFileContent = res.data
+            ? res.data.split('\n')
+            : undefined;
           this.hasLoaded = true;
         })
         .catch((error) => {
@@ -97,21 +127,7 @@ export default {
 </script>
 
 <style lang="css">
-.log-viewer pre {
-  padding: 0 0.75em;
-  margin-bottom: 1px;
-}
-
-.log-viewer pre:hover {
-  background: #dbdbdb;
-}
-
-.log-viewer.wrap-lines pre {
-  @apply whitespace-pre-wrap;
-}
-
-.log-viewer {
-  background-color: #fff;
-  overflow: auto;
+.info-text {
+  color: #4e952a;
 }
 </style>

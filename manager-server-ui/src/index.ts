@@ -3,6 +3,7 @@ import * as Vue from 'vue';
 import { createApp, h, onBeforeMount, onBeforeUnmount, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import 'animate.css';
 
 import components from './components';
 import {

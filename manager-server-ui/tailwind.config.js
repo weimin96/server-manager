@@ -2,7 +2,8 @@ module.exports = {
   mode: 'jit',
   darkMode: 'class',
   content: ['./index.html', './login.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  theme: {},
+  theme: {
+  },
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };
 

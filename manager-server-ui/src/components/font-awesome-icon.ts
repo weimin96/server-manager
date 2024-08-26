@@ -15,7 +15,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDoubleRight';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons/faAngleUp';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown';
 import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faBell } from '@fortawesome/free-solid-svg-icons/faBell';
@@ -31,6 +30,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload';
 import { faExclamation } from '@fortawesome/free-solid-svg-icons/faExclamation';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
+import { faFile } from '@fortawesome/free-solid-svg-icons/faFile';
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 import { faFrownOpen } from '@fortawesome/free-solid-svg-icons/faFrownOpen';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons/faHeartbeat';
@@ -57,8 +57,8 @@ export default FontAwesomeIcon;
 
 library.add(
   //solid
+  faFile,
   faAngleUp,
-  faAngleDown,
   faAngleDoubleRight,
   faAngleDoubleLeft,
   faBan,
