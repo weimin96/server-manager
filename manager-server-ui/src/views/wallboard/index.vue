@@ -85,7 +85,7 @@
   </section>
 </template>
 
-<script lang="ts">
+<script>
 import classNames from 'classnames';
 import Fuse from 'fuse.js';
 import { computed } from 'vue';
@@ -95,7 +95,7 @@ import { HealthStatus } from '@/HealthStatus';
 import { useApplicationStore } from '@/composables/useApplicationStore';
 import Application from '@/services/application';
 import { useRouterState } from '@/utils/useRouterState';
-import hexMesh from '@/views/wallboard/hex-mesh';
+import hexMesh from '@/views/wallboard/hex-mesh.vue';
 
 export default {
   components: { hexMesh },
@@ -122,7 +122,7 @@ export default {
     );
 
     const filteredApplications = computed(() => {
-      function filterByTerm(): Application[] {
+      function filterByTerm() {
         if (routerState.termFilter.length > 0) {
           return fuse.value.search(routerState.termFilter).map((sr) => sr.item);
         } else {
@@ -130,10 +130,10 @@ export default {
         }
       }
 
-      function filterByStatus(result: Application[]) {
+      function filterByStatus(result) {
         if (routerState.statusFilter !== 'none') {
           return result.filter(
-            (application: Application) =>
+            (application) =>
               application.status === routerState.statusFilter,
           );
         }
@@ -164,7 +164,7 @@ export default {
   },
   methods: {
     classNames,
-    classForApplication(application: Application) {
+    classForApplication(application) {
       if (!application) {
         return null;
       }
@@ -188,7 +188,7 @@ export default {
       }
       return '';
     },
-    select(application: Application) {
+    select(application) {
       if (application.instances.length === 1) {
         this.$router.push({
           name: 'instances/details',

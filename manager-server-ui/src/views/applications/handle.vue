@@ -15,11 +15,9 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed, watch } from 'vue';
 
+import faviconDanger from '@/assets/img/favicon-danger.png';
+import favicon from '@/assets/img/favicon.png';
 import { useApplicationStore } from '@/composables/useApplicationStore';
-import SmConfig from '@/config';
-
-const favicon = SmConfig.uiSettings.favicon;
-const faviconDanger = SmConfig.uiSettings.faviconDanger;
 
 const { applications } = useApplicationStore();
 const downCount = computed(() => {

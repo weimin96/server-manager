@@ -1,7 +1,6 @@
 <template>
   <nav id="navigation" class="sm-navbar">
     <sm-navbar-brand :brand="brand" />
-
     <sm-navbar-toggle @click="toggleNavigation" />
 
     <div
@@ -16,8 +15,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import SmNavbarBrand from '@/components/sm-navbar/sm-navbar-brand';
-import SmNavbarToggle from '@/components/sm-navbar/sm-navbar-toggle';
+import SmNavbarBrand from '@/components/sm-navbar/sm-navbar-brand.vue';
+import SmNavbarToggle from '@/components/sm-navbar/sm-navbar-toggle.vue';
 
 defineProps({
   brand: {

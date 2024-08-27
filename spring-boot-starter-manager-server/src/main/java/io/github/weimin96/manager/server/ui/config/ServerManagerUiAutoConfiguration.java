@@ -69,9 +69,6 @@ public class ServerManagerUiAutoConfiguration {
     @ConditionalOnMissingBean
     public UIController homeUiController() {
         UIController.Settings uiSettings = UIController.Settings.builder().brand(this.serverUi.getBrand()).title(this.serverUi.getTitle())
-                .icon(this.serverUi.getIcon())
-                .favicon(this.serverUi.getFavicon())
-                .faviconDanger(this.serverUi.getFaviconDanger())
                 .routes(DEFAULT_UI_ROUTES)
                 .externalViews(this.serverUi.getExternalViews())
                 .pollTimer(this.serverUi.getPollTimer())

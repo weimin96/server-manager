@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => {
           sm: resolve(frontendDir, "./index.html"),
           login: resolve(frontendDir, "./login.html")
         },
-        external: ["settings.js", "public/variables.css"]
+        external: ["settings.js"]
       }
     },
     resolve: {
@@ -68,7 +68,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       proxy: {
-        "^/api/login": {
+        "^/api/(login|logout)": {
           target: "http://localhost:8080/admin",
           changeOrigin: true
         },

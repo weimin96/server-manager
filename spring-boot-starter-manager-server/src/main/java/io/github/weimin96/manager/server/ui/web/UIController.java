@@ -80,11 +80,6 @@ public class UIController {
         return "settings.js";
     }
 
-    @GetMapping(path = "/variables.css", produces = "text/css")
-    public String variablesCss() {
-        return "variables.css";
-    }
-
     @GetMapping(path = "/login", produces = MediaType.TEXT_HTML_VALUE)
     public String login() {
         return "login";
@@ -119,12 +114,6 @@ public class UIController {
         private final String title;
 
         private final String brand;
-
-        private final String icon;
-
-        private final String favicon;
-
-        private final String faviconDanger;
 
         private final ServerManagerUIProperties.PollTimer pollTimer;
 

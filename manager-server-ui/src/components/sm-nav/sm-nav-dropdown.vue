@@ -87,7 +87,7 @@ defineProps({
 }
 
 .submenu-items {
-  @apply absolute right-0 text-black w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
+  @apply absolute right-0 text-black w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
 }
 
 .submenu-opener--link {

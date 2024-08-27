@@ -34,21 +34,6 @@ public class ServerManagerUIProperties {
     private String templateLocation = CLASSPATH_RESOURCE_LOCATIONS[0];
 
     /**
-     * 系统图标
-     */
-    private String icon = "assets/img/icon-server-manager.svg";
-
-    /**
-     * favicon图标
-     */
-    private String favicon = "assets/img/favicon.png";
-
-    /**
-     * 通知图标
-     */
-    private String faviconDanger = "assets/img/favicon-danger.png";
-
-    /**
      * 系统标题
      */
     private String title = "Server Manager";
@@ -56,7 +41,7 @@ public class ServerManagerUIProperties {
     /**
      * 导航栏中徽标
      */
-    private String brand = "<img src=\"assets/img/icon-server-manager.svg\"><span>Server Manager</span>";
+    private String brand = "<img style=\"width: auto;height: 45px\" src=\"assets/img/icon-server-manager.svg\">";
 
     /**
      * 反向代理路径

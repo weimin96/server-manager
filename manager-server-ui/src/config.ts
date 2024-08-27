@@ -1,13 +1,11 @@
 import { merge } from 'lodash-es';
 
-const brand = '<img src="assets/img/icon-server-manager.svg">Server Manager';
+const brand = '<img style="width: auto;height: 45px" src="assets/img/icon-server-manager.svg">';
 
 const DEFAULT_CONFIG = {
   uiSettings: {
     brand,
     externalViews: [] as ExternalView[],
-    favicon: 'assets/img/favicon.png',
-    faviconDanger: 'assets/img/favicon-danger.png',
     routes: [],
     viewSettings: [],
     pollTimer: {

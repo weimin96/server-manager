@@ -3,13 +3,8 @@ import { createApp } from 'vue';
 import Login from './login/login.vue';
 
 const app = createApp(Login, {
-  icon: window.uiSettings.icon,
-  title: window.uiSettings.title,
+  icon: './assets/img/favicon.png',
+  title: window.uiSettings?.title? window.uiSettings.title: 'Server Manager',
 });
-// const app = createApp(Login, {
-//   csrf: window.csrf,
-//   icon: './assets/img/favicon.png',
-//   title: 'Server Manager',
-// });
 
 app.mount('#login');
