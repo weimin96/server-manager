@@ -17,15 +17,22 @@
         </encoder>
     </appender>
 
-    <!-- 系统日志输出 -->
+    <!--处理INFO级别的日志，并把该日志放到/info.log文件中-->
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/info.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 按时间分割，创建年月文件夹 -->
+            <fileNamePattern>${log.path}/%d{yyyy-MM}/%d{yyyy-MM-dd}.%i.info.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 文件大小达到 500MB 时触发滚动 -->
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
             <!-- 日志最大的历史 30个 -->
             <maxHistory>30</maxHistory>
+            <!-- 日志文件总大小限制 -->
+            <totalSizeCap>3GB</totalSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
@@ -46,9 +53,16 @@
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM}/%d{yyyy-MM-dd}.%i.error.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 文件大小达到 500MB 时触发滚动 -->
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
             <!-- 日志最大的历史 30个 -->
             <maxHistory>30</maxHistory>
+            <!-- 日志文件总大小限制 -->
+            <totalSizeCap>3GB</totalSizeCap>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder>
@@ -64,11 +78,6 @@
         </filter>
     </appender>
 
-    <!-- 系统模块日志级别控制  -->
-    <logger name="com.guodi.cim" level="info"/>
-    <!-- Spring日志级别控制  -->
-    <logger name="org.springframework" level="warn"/>
-
     <root level="info">
         <appender-ref ref="console"/>
     </root>
@@ -78,4 +87,9 @@
         <appender-ref ref="file_info"/>
         <appender-ref ref="file_error"/>
     </root>
+
+    <!-- Spring日志级别控制  -->
+    <logger name="org.springframework" level="warn"/>
+
+
 </configuration>

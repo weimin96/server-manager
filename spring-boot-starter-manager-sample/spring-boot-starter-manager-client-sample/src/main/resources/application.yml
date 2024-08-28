@@ -3,6 +3,33 @@ server:
 spring:
   application:
     name: client-sample
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/demo
+    username: postgres
+    password: 123456
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall,slf4j
+      filter:
+        stat:
+          db-type: postgres
+          log-slow-sql: true
+          slow-sql-millis: 50
+      stat-view-servlet:
+        enabled: true
+
   boot:
     manager:
       client:
@@ -13,12 +40,14 @@ spring:
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
+  main:
+    allow-bean-definition-overriding: true
 # 暴露监控端点
 management:
   endpoints:
     web:
       exposure:
-        include: "logdir,logcontent,health,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,loggers,auditevents,mappings,scheduledtasks,configprops,beans"
+        include: "druid,logdir,logcontent,health,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,loggers,auditevents,mappings,scheduledtasks,configprops,beans"
   endpoint:
     health:
       # health 默认只展示 是否在线，增加该配置后会展示更多信息

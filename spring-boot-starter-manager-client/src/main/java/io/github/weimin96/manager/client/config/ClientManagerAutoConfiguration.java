@@ -1,7 +1,9 @@
 
 package io.github.weimin96.manager.client.config;
 
+import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import io.github.weimin96.manager.client.config.cloud.ClientManagerDiscoveryConfiguration;
+import io.github.weimin96.manager.client.endpoints.druid.DruidStateEndpoint;
 import io.github.weimin96.manager.client.endpoints.log.LogContentEndpoint;
 import io.github.weimin96.manager.client.endpoints.log.LogDirEndpoint;
 import io.github.weimin96.manager.client.registration.*;
@@ -71,6 +73,13 @@ public class ClientManagerAutoConfiguration {
 
         return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client.getServerUrl(),
                 client.isRegisterOnce());
+    }
+
+    @Bean
+    @ConditionalOnBean(DruidStatProperties.class)
+    @ConditionalOnMissingBean
+    public DruidStateEndpoint druidStateEndpoint() {
+        return new DruidStateEndpoint();
     }
 
     @Bean
