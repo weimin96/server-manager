@@ -3,9 +3,6 @@ import { resolve } from "path";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, loadEnv } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import postcss from "./postcss.config";
 
@@ -37,13 +34,7 @@ export default defineConfig(({ mode }) => {
             dest: outDir
           }
         ]
-      }),
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
+      })
     ],
     css: {
       postcss

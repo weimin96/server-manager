@@ -1,6 +1,8 @@
 
 spring-boot-manager-server-ui
-================================
+
+[![node](https://img.shields.io/badge/node-v20.16.0-blue)](https://github.com/weimin96/spring-boot-starter-server-manager)
+
 
 ### 开发调试
 
