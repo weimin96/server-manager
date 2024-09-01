@@ -9,6 +9,10 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author panwm
  * @since 2024/8/21 22:47
@@ -28,8 +32,9 @@ public class LogContentEndpoint {
     }
 
     @ReadOperation(produces = "text/plain; charset=UTF-8")
-    public Resource getLogContent(@Selector String filename) {
-        Resource logFileResource = getLogFileResource(filename);
+    public Resource getLogContent(@Selector String filePath) throws UnsupportedEncodingException {
+        String decodedFilePath= URLDecoder.decode(filePath, StandardCharsets.UTF_8.toString());
+        Resource logFileResource = getLogFileResource(decodedFilePath);
         if (logFileResource == null || !logFileResource.isReadable()) {
             return null;
         }

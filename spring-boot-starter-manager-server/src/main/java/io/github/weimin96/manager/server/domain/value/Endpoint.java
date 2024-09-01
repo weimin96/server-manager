@@ -50,8 +50,8 @@ public class Endpoint implements Serializable {
     }
 
     public static Endpoint of(String id, String url) {
-        if ("logcontent-filename".equals(id)) {
-            return new Endpoint("logcontent", url.replace("/{filename}", ""));
+        if ("logcontent-filePath".equals(id)) {
+            return new Endpoint("logcontent", url.replace("/{filePath}", ""));
         }
         return new Endpoint(id, url);
     }

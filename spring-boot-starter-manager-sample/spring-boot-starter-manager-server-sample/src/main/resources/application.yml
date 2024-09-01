@@ -7,7 +7,7 @@ spring:
         authority:
           default-password: 123
           default-user-name: admin
-          enabled: true
+          enabled: false
         context-path: /admin
   cloud:
     nacos:

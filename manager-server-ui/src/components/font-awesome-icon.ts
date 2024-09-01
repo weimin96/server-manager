@@ -31,6 +31,7 @@ import { faExclamation } from '@fortawesome/free-solid-svg-icons/faExclamation';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle';
 import { faFile } from '@fortawesome/free-solid-svg-icons/faFile';
+import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 import { faFrownOpen } from '@fortawesome/free-solid-svg-icons/faFrownOpen';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons/faHeartbeat';
@@ -56,7 +57,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 export default FontAwesomeIcon;
 
 library.add(
-  //solid
+  faFolder,
   faFile,
   faAngleUp,
   faAngleDoubleRight,

@@ -3,23 +3,43 @@
     <div class="flex h-[calc(100vh-110px)] border bg-white">
       <!-- 左侧文件目录 -->
       <div class="basis-1/5 p-4 border border-gray-100">
-        <ul class="">
-          <li
-            v-for="(fileName, index) in logList"
-            :key="fileName"
-            :class="[
-              active === index ? 'bg-slate-100 rounded' : '',
-              'bg-opacity-80 cursor-pointer py-2 px-3 hover:bg-slate-100 m-1 transition-all duration-300 ease-in-out',
-            ]"
-            @click="selectFile(fileName, index)"
-          >
-            <font-awesome-icon
-              class="mr-1 text-orange-400"
-              :icon="['fas', 'file']"
-            />
-            {{ fileName }}
-          </li>
-        </ul>
+        <el-input
+          v-model="filterText"
+          class="w-full mb-1 border-0"
+          placeholder="请输入关键字"
+        />
+        <el-tree
+          v-cloak
+          ref="treeRef"
+          style="max-width: 600px"
+          class="filter-tree"
+          :data="logList"
+          :props="defaultProps"
+          default-expand-all
+          highlight-current
+          @node-click="selectFile"
+          :filter-node-method="filterNode"
+        >
+          <template #default="{ node }">
+            <span
+              class="bg-opacity-80 cursor-pointer py-2 px-3 hover:bg-slate-100 m-1 transition-all duration-300 ease-in-out"
+            >
+              <span :title="node.data.name">
+                <font-awesome-icon
+                  v-if="node.data.type === 'file'"
+                  class="mr-1 text-gray-300"
+                  :icon="['fas', 'file']"
+                />
+                <font-awesome-icon
+                  v-if="node.data.type === 'folder'"
+                  class="mr-1 text-yellow-400"
+                  :icon="['fas', 'folder']"
+                />
+                {{ node.data.name }}
+              </span>
+            </span>
+          </template>
+        </el-tree>
       </div>
       <!-- 右侧文件内容展示 -->
       <div class="basis-4/5 overflow-auto p-4 text-sm">
@@ -55,21 +75,28 @@ export default {
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     logList: [],
     selectedFile: undefined,
     selectedFileContent: undefined,
-    active: -1,
+    defaultProps: {
+      children: 'children',
+      label: 'name',
+    },
+    filterText: '',
   }),
+  watch: {
+    filterText(val) {
+      this.$refs.treeRef.filter(val);
+    },
+  },
   computed: {
     processedLines() {
       return this.selectedFileContent
         ? this.selectedFileContent.map((line) => {
             // 用 <span> 标签包裹 INFO 字样，并应用样式
-            return line.replace(
-              /(INFO)/g,
-              '<span class="info-text">\$1</span>',
-            );
+            return line
+              .replace(/(INFO)/g, '<span class="info-text">\$1</span>')
+              .replace(/(ERROR)/g, '<span class="error-text">\$1</span>');
           })
         : undefined;
     },
@@ -79,7 +106,6 @@ export default {
   },
   methods: {
     getDirList() {
-      this.error = null;
       return this.instance
         .logdir()
         .then((res) => {
@@ -89,15 +115,16 @@ export default {
         .catch((error) => {
           this.hasLoaded = true;
           console.warn('Fetching logdir failed:', error);
-          this.error = error;
+          ElMessage.error('加载失败');
         });
     },
-    selectFile(fileName, index) {
-      this.active = index;
-      this.selectedFile = fileName;
+    selectFile(node) {
+      if (node.type === 'folder') return;
       this.hasLoaded = false;
+      this.selectedFile = node.name;
+      const encodedParameter = encodeURIComponent(node.path);
       this.instance
-        .logContent(fileName)
+        .logContent(encodedParameter)
         .then((res) => {
           this.selectedFileContent = res.data
             ? res.data.split('\n')
@@ -107,8 +134,12 @@ export default {
         .catch((error) => {
           this.hasLoaded = true;
           console.warn('Fetching logdir failed:', error);
-          this.error = error;
+          ElMessage.error('加载失败');
         });
+    },
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.name.toLowerCase().includes(value.toLowerCase());
     },
   },
   install({ viewRegistry }) {
@@ -126,8 +157,11 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="scss">
 .info-text {
   color: #4e952a;
+}
+.error-text {
+  color: #e14c46;
 }
 </style>

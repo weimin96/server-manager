@@ -23,7 +23,7 @@
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按时间分割，创建年月文件夹 -->
-            <fileNamePattern>${log.path}/%d{yyyy-MM}/%d{yyyy-MM-dd}.%i.info.log.gz</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM}/%d{yyyy-MM-dd}.%i.info.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- 文件大小达到 500MB 时触发滚动 -->

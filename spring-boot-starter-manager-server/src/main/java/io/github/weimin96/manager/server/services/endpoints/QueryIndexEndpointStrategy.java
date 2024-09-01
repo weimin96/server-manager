@@ -112,7 +112,7 @@ public class QueryIndexEndpointStrategy implements EndpointDetectionStrategy {
 	protected Mono<Endpoints> convertResponse(Response response) {
 		List<Endpoint> endpoints = response.getLinks().entrySet().stream()
 				.filter((e) -> {
-					if ("logcontent-filename".equals(e.getKey())) {
+					if ("logcontent-filePath".equals(e.getKey())) {
 						return true;
 					}
 					return !"self".equals(e.getKey()) && !e.getValue().isTemplated();

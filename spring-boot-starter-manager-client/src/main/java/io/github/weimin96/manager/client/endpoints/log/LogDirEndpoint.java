@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public class LogDirEndpoint {
     }
 
     @ReadOperation
-    public List<String> logDir() {
+    public List<LogDirTree> logDir() {
         Resource logDirResource = getLogDirResource();
         try {
             if (logDirResource == null) {
@@ -46,10 +47,35 @@ public class LogDirEndpoint {
             if (!dir.exists() || !dir.isDirectory() || dir.listFiles() == null) {
                 return null;
             }
-            return Stream.of(dir.listFiles()).sorted(Comparator.comparingLong(File::lastModified).reversed()).map(File::getName).collect(Collectors.toList());
+            List<LogDirTree> result = new ArrayList<>();
+            if (dir.exists() && dir.isDirectory()) {
+                for (File file : dir.listFiles()) {
+                    result.add(createTree(file, ""));
+                }
+            }
+            return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // 创建树形结构的方法
+    private static LogDirTree createTree(File file, String parentPath) {
+        LogDirTree node = new LogDirTree();
+        node.setName(file.getName());
+        node.setType(file.isDirectory() ? "folder" : "file");
+        node.setPath(parentPath.isEmpty() ? file.getName() : parentPath + "/" + file.getName());
+        node.setChildren(new ArrayList<>());
+
+        if (file.isDirectory()) {
+            for (File child : file.listFiles()) {
+                if (child.isDirectory() || child.isFile()) {
+                    node.getChildren().add(createTree(child ,node.getPath()));
+                }
+            }
+        }
+
+        return node;
     }
 
     private Resource getLogDirResource() {

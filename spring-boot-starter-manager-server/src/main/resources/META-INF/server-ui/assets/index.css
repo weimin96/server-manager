@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-slate-100 {
+  background-color: rgb(241, 245, 249);
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
+.table {
+  @apply text-left text-gray-700 bg-white border-collapse;
+}
+
+.table thead {
+  @apply border-b bg-blue-50 rounded-md;
+}
+
+.table th,
+.table td {
+  @apply py-3 px-3;
+}
+
+.table.table-full {
+  @apply w-full;
+}
+
+.table.table-sm {
+  @apply text-sm;
+}
+
+.table tr:not(:last-of-type) {
+  @apply border-b;
+}
+
+.-rotate-90 {
+  --tw-rotate: -90deg;
+  transform: rotate(var(--tw-rotate));
+}
+
+.rotate-90 {
+  --tw-rotate: 90deg;
+  transform: rotate(var(--tw-rotate));
+}
+
+th {
+  text-align: left;
+}
+
+
+.el-input__inner:focus {
+  @apply ring-0;
+}
