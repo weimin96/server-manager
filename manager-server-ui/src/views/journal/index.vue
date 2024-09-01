@@ -14,28 +14,7 @@
           v-text="`${getName(filter.instanceId)} (${filter.instanceId})`"
         />
       </div>
-      <div>
-        <label class="label" v-text="$t('journal.per_page.per_page')" />
-        <sm-select
-          v-model="pageSize"
-          :options="[
-            { value: 10, label: 10 },
-            { value: 25, label: 25 },
-            { value: 50, label: 50 },
-            { value: 100, label: 100 },
-            { value: 200, label: 200 },
-            { value: 500, label: 500 },
-            { value: events.length, label: $t('journal.per_page.all') },
-          ]"
-          name="pageSize"
-          @change="setPageSize($event.target.value)"
-        />
-      </div>
     </div>
-
-    <sm-alert :error="error" />
-    {{ error }}
-
     <sm-panel :seamless="true">
       <table class="table table-full table-striped">
         <thead>
@@ -106,21 +85,22 @@
         </transition-group>
       </table>
     </sm-panel>
-
-    <sm-pagination-nav
-      v-model="current"
-      :page-count="pageCount"
-      :page-size="pageSize"
-      class="mt-6 text-center"
-    />
+    <div class="float-right">
+      <el-pagination
+        v-model:current-page="current"
+        background
+        layout="prev, pager, next, sizes"
+        :total="pageCount"
+        :page-sizes="[10, 25, 50, 100]"
+        v-model:page-size="pageSize"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { isEqual, uniq } from 'lodash-es';
 import moment from 'moment';
-
-import SmAlert from '@/components/sm-alert.vue';
 
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
@@ -147,7 +127,6 @@ InstanceEvent.INFO_CHANGED = 'INFO_CHANGED';
 InstanceEvent.ENDPOINTS_DETECTED = 'ENDPOINTS_DETECTED';
 
 export default {
-  components: { SmAlert },
   mixins: [subscribing],
   data: () => ({
     Event,
@@ -156,7 +135,6 @@ export default {
     showPayload: {},
     pageSize: 25,
     current: 1,
-    error: null,
     filter: {
       application: undefined,
       instanceId: undefined,
@@ -223,10 +201,9 @@ export default {
         .map((e) => new InstanceEvent(e));
 
       this.events = Object.freeze(events);
-      this.error = null;
     } catch (error) {
       console.warn('Fetching events failed:', error);
-      this.error = error;
+      ElMessage.error('加载失败');
     }
   },
   methods: {
@@ -263,7 +240,7 @@ export default {
     createSubscription() {
       return Instance.getEventStream().subscribe({
         next: (message) => {
-          this.error = null;
+          ElMessage.error('加载失败');
           this.events = Object.freeze([
             new InstanceEvent(message.data),
             ...this.events,
@@ -272,7 +249,7 @@ export default {
         },
         error: (error) => {
           console.warn('Listening for events failed:', error);
-          this.error = error;
+          ElMessage.error('加载失败');
         },
       });
     },

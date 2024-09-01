@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <template #before>
       <details-hero :instance="instance" />
     </template>

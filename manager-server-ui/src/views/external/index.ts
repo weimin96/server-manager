@@ -2,8 +2,8 @@ import { h } from 'vue';
 
 import './style.css';
 
-import SmConfig from '@/config';
-import ViewRegistry from '@/viewRegistry';
+import SmConfig from '@/main/config';
+import ViewRegistry from '@/main/viewRegistry';
 
 export const addIframeView = (
   viewRegistry: ViewRegistry,

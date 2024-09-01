@@ -3,7 +3,7 @@ import { Text, VNode, h, markRaw, reactive, shallowRef, toRaw } from 'vue';
 import { Router, createRouter, createWebHistory } from 'vue-router';
 
 import SmConfig from './config';
-import { VIEW_GROUP, VIEW_GROUP_ICON } from './views/ViewGroup.js';
+import { VIEW_GROUP, VIEW_GROUP_ICON } from '../views/ViewGroup';
 
 let router: Router;
 

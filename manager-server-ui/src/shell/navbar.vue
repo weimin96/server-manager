@@ -4,17 +4,17 @@
       <template v-for="item in topLevelViews" :key="item.id">
         <template v-if="item.children.length === 0">
           <sm-nav-item v-if="!item.href && item.name" :to="{ name: item.name }">
-            <component :is="item.handle" :error="error" />
+            <component :is="item.handle" />
           </sm-nav-item>
           <sm-nav-item
             v-else-if="item.href !== '#'"
             :href="item.href"
             target="blank"
           >
-            <component :is="item.handle" :error="error" />
+            <component :is="item.handle" />
           </sm-nav-item>
           <sm-nav-item v-else>
-            <component :is="item.handle" :error="error" />
+            <component :is="item.handle" />
           </sm-nav-item>
         </template>
         <template v-else>
@@ -29,7 +29,7 @@
                 :to="{ name: child.name }"
                 v-bind="{ ...child }"
               >
-                <component :is="child.handle" :error="error" />
+                <component :is="child.handle" />
               </sm-dropdown-item>
             </template>
           </sm-nav-dropdown>
@@ -52,7 +52,7 @@ import SmNavbarNav from '@/components/sm-navbar/sm-navbar-nav.vue';
 import SmNavbar from '@/components/sm-navbar/sm-navbar.vue';
 
 import { useViewRegistry } from '@/composables/ViewRegistry';
-import SmConfig, { getCurrentUser } from '@/config';
+import SmConfig, { getCurrentUser } from '@/main/config';
 import SmNavUsermenu from '@/shell/sm-nav-usermenu.vue';
 import { compareBy } from '@/utils/collections';
 

@@ -6,8 +6,6 @@
     "
   >
     <div>
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
       <div v-if="current" class="level datasource-current">
         <div class="level-item has-text-centered">
           <div>
@@ -48,7 +46,7 @@ import moment from 'moment';
 import { concatMap, delay, retryWhen, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import datasourceChart from '@/views/instances/details/datasource-chart';
@@ -68,7 +66,6 @@ export default {
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     current: null,
     chartData: [],
   }),
@@ -113,7 +110,7 @@ export default {
               `Fetching datasource ${this.dataSource} metrics failed:`,
               error,
             );
-            this.error = error;
+            ElMessage.error('加载失败');
           },
         });
     },

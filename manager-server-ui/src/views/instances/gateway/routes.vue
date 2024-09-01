@@ -10,8 +10,6 @@
         @routes-refreshed="fetchRoutes"
       />
 
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
       <div class="field">
         <p class="control is-expanded has-icons-left">
           <input v-model="routesFilterCriteria" class="input" type="search" />
@@ -78,7 +76,6 @@ export default {
   },
   data: () => ({
     isLoading: false,
-    error: null,
     $routes: [],
     routesFilterCriteria: null,
   }),
@@ -98,14 +95,13 @@ export default {
   },
   methods: {
     async fetchRoutes() {
-      this.error = null;
       this.isLoading = true;
       try {
         const response = await this.instance.fetchGatewayRoutes();
         this.$data.$routes = response.data;
       } catch (error) {
         console.warn('Fetching routes failed:', error);
-        this.error = error;
+        ElMessage.error('加载失败');
       }
       this.isLoading = false;
     },

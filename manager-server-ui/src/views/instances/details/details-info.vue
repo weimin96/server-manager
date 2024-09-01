@@ -1,12 +1,6 @@
 <template>
   <sm-panel :title="$t('instances.details.info.title')" :loading="loading">
-    <sm-alert
-      v-if="error"
-      :error="error"
-      class="border-l-4"
-      :title="$t('term.fetch_failed')"
-    />
-    <div v-else class="content info">
+    <div class="content info">
       <table v-if="!isEmptyInfo" class="table">
         <tr v-for="(value, key) in info" :key="key">
           <td class="info__key" v-text="key" />
@@ -35,7 +29,6 @@ export default {
     },
   },
   data: () => ({
-    error: null,
     loading: false,
     liveInfo: null,
   }),
@@ -54,13 +47,11 @@ export default {
     async fetchInfo() {
       if (this.instance.hasEndpoint('info')) {
         this.loading = true;
-        this.error = null;
-
         try {
           const res = await this.instance.fetchInfo();
           this.liveInfo = res.data;
         } catch (error) {
-          this.error = error;
+          ElMessage.error(error);
           console.warn('Fetching info failed:', error);
         } finally {
           this.loading = false;

@@ -1,6 +1,7 @@
 import { merge } from 'lodash-es';
 
-const brand = '<img style="width: auto;height: 45px" src="assets/img/icon-server-manager.svg">';
+const brand =
+  '<img style="width: auto;height: 45px" src="../assets/img/icon-server-manager.svg">';
 
 const DEFAULT_CONFIG = {
   uiSettings: {

@@ -1,8 +1,7 @@
 <template>
   <sm-panel v-if="hasLoaded" :title="$t('instances.details.process.title')">
     <div>
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-      <div v-else class="-mx-4 -my-3">
+      <div class="-mx-4 -my-3">
         <sm-key-value-table :map="tableData">
           <template #uptime="value">
             <process-uptime :value="value.value" />
@@ -16,7 +15,7 @@
 <script>
 import { take } from 'rxjs/operators';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
@@ -34,7 +33,6 @@ export default {
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     pid: null,
     uptime: { value: null, baseUnit: null },
     systemCpuLoad: null,
@@ -82,7 +80,7 @@ export default {
           baseUnit: response.baseUnit,
         };
       } catch (error) {
-        this.error = error;
+        ElMessage.error('加载失败');
         console.warn('Fetching Uptime failed:', error);
       } finally {
         this.hasLoaded = true;
@@ -127,7 +125,7 @@ export default {
           error: (error) => {
             this.hasLoaded = true;
             console.warn('Fetching CPU Usage metrics failed:', error);
-            this.error = error;
+            ElMessage.error('加载失败');
           },
         });
     },

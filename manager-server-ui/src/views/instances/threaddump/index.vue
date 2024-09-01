@@ -10,11 +10,6 @@
         </div>
       </sm-sticky-subnav>
     </template>
-    <sm-alert
-      v-if="errorDownload"
-      :error="errorDownload"
-      :title="$t('instances.threaddump.download_failed')"
-    />
     <sm-panel>
       <threads-list v-if="threads" :thread-timelines="threads" />
     </sm-panel>
@@ -45,7 +40,6 @@ export default {
   data: () => ({
     hasLoaded: false,
     errorFetch: null,
-    errorDownload: null,
     threads: {},
   }),
   computed: {},
@@ -101,12 +95,11 @@ export default {
       return response.data.threads;
     },
     async downloadThreaddump() {
-      this.errorDownload = null;
       try {
         await this.instance.downloadThreaddump();
       } catch (error) {
         console.warn('Downloading thread dump failed.', error);
-        this.errorDownload = error;
+        ElMessage.error('下载失败');
       }
     },
     createSubscription() {

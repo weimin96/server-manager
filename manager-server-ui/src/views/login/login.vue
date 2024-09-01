@@ -6,8 +6,8 @@
       >
         <div class="flex items-center">
           <img
-            v-if="props.icon"
-            :src="props.icon"
+            v-if="icon"
+            :src="icon"
             class="flex-initial w-12 h-12 m-6"
           />
           <div class="flex-initial text-2xl font-semibold">{{ title }}</div>
@@ -60,41 +60,47 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-import { setCurrentUser } from '@/config';
+import { setCurrentUser } from '@/main/config';
 import User from '@/services/user';
 
-const props = defineProps({
-  icon: {
-    type: String,
-    default: undefined,
+export default defineComponent({
+  props: {
+    icon: {
+      type: String,
+      default: undefined,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
   },
-  title: {
-    type: String,
-    required: true,
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    login(event) {
+      event.preventDefault();
+      User.login(this.username, this.password)
+        .then((response) => {
+          // 成功存储用户信息和设置请求头
+          localStorage.setItem('token', response.data);
+          setCurrentUser(this.username);
+          let url = window.location.href.replace('login.html', 'applications');
+          url = url.replace('login', 'applications');
+          window.location.href = url;
+        })
+        .catch((error) => {
+          ElMessage.error(error.response.data);
+          // 失败提示
+          localStorage.removeItem('token');
+        });
+    },
   },
 });
-
-const username = ref('');
-const password = ref('');
-
-const login = (event) => {
-  event.preventDefault();
-  User.login(username.value, password.value)
-    .then((response) => {
-      // 成功存储用户信息和设置请求头
-      localStorage.setItem('token', response.data);
-      setCurrentUser(username.value);
-      let url = window.location.href.replace('login.html', 'applications');
-      url = url.replace('login', 'applications');
-      window.location.href = url;
-    })
-    .catch((error) => {
-      // 失败提示
-      ElMessage.error(error.response.data);
-      localStorage.removeItem('token');
-    });
-};
 </script>

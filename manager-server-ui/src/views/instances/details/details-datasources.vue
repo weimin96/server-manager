@@ -12,7 +12,7 @@
 <script>
 import { take } from 'rxjs/operators';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';

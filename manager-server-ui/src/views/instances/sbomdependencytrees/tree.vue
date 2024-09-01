@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <sm-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :loading="isLoading">
     <sm-panel :title="sbomId">
       <div ref="treeContainer" class="x-scroller"></div>
     </sm-panel>

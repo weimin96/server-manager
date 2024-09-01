@@ -1,7 +1,7 @@
 import { h } from 'vue';
 
-import ConfirmButtons from './ConfirmButtons';
-import Modal from './Modal';
+import ConfirmButtons from './ConfirmButtons.vue';
+import Modal from './Modal.vue';
 import { createComponent } from './helpers';
 
 import eventBus from '@/services/bus';

@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <template #before>
       <sm-sticky-subnav>
         <div class="flex items-center justify-end gap-1">
@@ -84,7 +84,7 @@ import { chunk } from 'lodash-es';
 import prettyBytes from 'pretty-bytes';
 import { debounceTime, fromEvent } from 'rxjs';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import autolink from '@/utils/autolink';

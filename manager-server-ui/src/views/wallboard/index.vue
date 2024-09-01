@@ -33,14 +33,6 @@
       </select>
     </div>
 
-    <sm-alert
-      v-if="error"
-      :error="error"
-      :title="t('applications.server_connection_failed')"
-      class="my-0 fixed w-full"
-      severity="WARN"
-    />
-
     <sm-loading-spinner v-if="!applicationsInitialized" />
 
     <template v-if="applicationsInitialized">
@@ -91,7 +83,7 @@ import Fuse from 'fuse.js';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { HealthStatus } from '@/HealthStatus';
+import { HealthStatus } from '@/main/HealthStatus';
 import { useApplicationStore } from '@/composables/useApplicationStore';
 import Application from '@/services/application';
 import { useRouterState } from '@/utils/useRouterState';

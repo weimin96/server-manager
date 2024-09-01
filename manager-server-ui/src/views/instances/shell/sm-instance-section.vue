@@ -11,18 +11,6 @@
         })
       "
     >
-      <sm-alert
-        v-if="error"
-        :class="
-          classNames({
-            'p-4': layoutOptions.noMargin,
-          })
-        "
-        :error="error"
-        title="加载失败"
-        class="mb-6 w-full"
-      />
-
       <div
         v-if="loading"
         class="loading-spinner-wrapper"
@@ -51,10 +39,6 @@ export default {
     loading: {
       type: Boolean,
       default: false,
-    },
-    error: {
-      type: Error,
-      default: null,
     },
     layoutOptions: {
       type: Object,

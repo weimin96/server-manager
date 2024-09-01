@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <sm-panel v-if="!isOldMetrics && availableMetrics.length > 0">
       <form class="grid grid-cols-6 gap-6">
         <div class="col-span-3">

@@ -4,7 +4,8 @@ import { createApp, h, onBeforeMount, onBeforeUnmount, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
-import components from './components';
+import App from './App.vue';
+import components from './components/index';
 import {
   CUSTOM_ROUTES_ADDED_EVENT,
   createViewRegistry,
@@ -19,7 +20,6 @@ import SmModalPlugin from './plugins/modal';
 import views from './views';
 
 import eventBus from '@/services/bus';
-import SmShell from '@/shell/index.vue';
 
 const applicationStore = createApplicationStore();
 const viewRegistry = createViewRegistry();
@@ -75,7 +75,7 @@ const app = createApp({
 
     return () =>
       h(
-        SmShell,
+        App,
         reactive({
           applications,
           applicationsInitialized,

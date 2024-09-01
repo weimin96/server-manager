@@ -1,8 +1,6 @@
 <template>
   <sm-panel v-if="hasLoaded" :title="$t('instances.details.threads.title')">
     <div>
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
       <div v-if="current" class="flex w-full">
         <div class="flex-1 text-center">
           <p class="font-bold" v-text="$t('instances.details.threads.live')" />
@@ -33,7 +31,7 @@
 import moment from 'moment';
 import { take } from 'rxjs/operators';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
@@ -50,7 +48,6 @@ export default {
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     current: null,
     chartData: [],
   }),
@@ -83,7 +80,7 @@ export default {
           error: (error) => {
             this.hasLoaded = true;
             console.warn('Fetching threads metrics failed:', error);
-            this.error = error;
+            ElMessage.error('加载失败');
           },
         });
     },

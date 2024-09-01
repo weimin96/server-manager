@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <sm-panel
       :key="sbomId"
       :header-sticks-below="'#subnavigation'"

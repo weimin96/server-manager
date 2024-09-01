@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <sm-instance-section :error="error" :loading="isLoading">
+  <sm-instance-section :loading="isLoading">
     <template #before>
       <sm-sticky-subnav>
         <sm-input

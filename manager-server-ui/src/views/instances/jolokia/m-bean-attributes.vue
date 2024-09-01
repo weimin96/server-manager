@@ -15,8 +15,6 @@
         />
       </div>
 
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
       <m-bean-attribute
         v-for="(attribute, name) in mBean.attr"
         :key="`attr-${name}`"
@@ -57,7 +55,6 @@ export default {
   },
   data: () => ({
     attributeValues: null,
-    error: null,
     scope: 'instance',
     loading: true,
   }),
@@ -75,7 +72,7 @@ export default {
         this.attributeValues = response.data.value;
       } catch (error) {
         console.warn('Fetching MBean attributes failed:', error);
-        this.error = error;
+        ElMessage.error('加载失败');
       } finally {
         this.loading = false;
       }

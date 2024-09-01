@@ -17,7 +17,7 @@
 
 import SmNavDropdown from '@/components/sm-nav/sm-nav-dropdown.vue';
 
-import { getCurrentUser } from '@/config';
+import { getCurrentUser } from '@/main/config';
 import SmDropdownLogoutItem from '@/shell/sm-dropdown-logout-item.vue';
 
 const currentUser = getCurrentUser();

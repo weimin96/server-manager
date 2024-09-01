@@ -10,11 +10,6 @@
     </template>
 
     <template #default>
-      <sm-alert
-        :error="error"
-        class="border-l-4"
-        :title="$t('term.fetch_failed')"
-      />
       <div class="-mx-4 -my-3">
         <health-details :health="health" name="Instance" />
 
@@ -63,7 +58,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import Instance from '@/services/instance';
-import healthDetails from '@/views/instances/details/health-details';
+import healthDetails from '@/views/instances/details/health-details.vue';
 
 export default {
   components: { FontAwesomeIcon, healthDetails },
@@ -74,7 +69,6 @@ export default {
     },
   },
   data: () => ({
-    error: null,
     loading: false,
     liveHealth: null,
     healthGroups: [],
@@ -105,7 +99,6 @@ export default {
       }
     },
     async fetchHealth() {
-      this.error = null;
       this.loading = true;
       try {
         const res = await this.instance.fetchHealth();
@@ -143,7 +136,7 @@ export default {
         }
       } catch (error) {
         console.warn('Fetching live health failed:', error);
-        this.error = error;
+        ElMessage.error('加载失败');
       } finally {
         this.loading = false;
       }

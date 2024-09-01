@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import SmConfig from '../config';
+import SmConfig from '../main/config';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.xsrfHeaderName = SmConfig.csrf.headerName;

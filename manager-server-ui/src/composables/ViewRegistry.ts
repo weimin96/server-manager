@@ -1,6 +1,6 @@
 import { debounce } from 'lodash-es';
 
-import ViewRegistry from '../viewRegistry.js';
+import ViewRegistry from '../main/viewRegistry';
 
 import eventBus from '@/services/bus';
 

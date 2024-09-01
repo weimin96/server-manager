@@ -24,7 +24,7 @@ import { defineComponent } from 'vue';
 
 import { useViewRegistry } from '@/composables/ViewRegistry';
 import { useApplicationStore } from '@/composables/useApplicationStore';
-import { findApplicationForInstance, findInstance } from '@/store';
+import { findApplicationForInstance, findInstance } from '@/main/store';
 import Sidebar from '@/views/instances/shell/sidebar';
 
 export default defineComponent({

@@ -1,8 +1,6 @@
 <template>
   <sm-panel v-if="hasLoaded" :title="`Cache: ${cacheName}`">
     <div>
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
       <div v-if="current" class="level cache-current">
         <div
           v-if="current.hit !== undefined"
@@ -56,7 +54,7 @@
 import moment from 'moment';
 import { take } from 'rxjs/operators';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import { concatMap, delay, retryWhen, timer } from '@/utils/rxjs';
@@ -77,7 +75,6 @@ export default {
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     current: null,
     shouldFetchCacheSize: true,
     shouldFetchCacheHits: true,
@@ -182,7 +179,7 @@ export default {
               `Fetching cache ${this.cacheName} metrics failed:`,
               error,
             );
-            this.error = error;
+            ElMessage.error('加载失败');
           },
         });
     },

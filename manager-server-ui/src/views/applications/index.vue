@@ -20,13 +20,6 @@
       </sm-sticky-subnav>
 
       <div class="container mx-auto py-6">
-        <sm-alert
-          v-if="error"
-          :error="error"
-          :title="t('applications.server_connection_failed')"
-          class-names="mb-6"
-          severity="WARN"
-        />
         <sm-panel v-if="!applicationsInitialized">
           <p
             class="is-muted is-loading"
@@ -168,10 +161,6 @@ import InstancesList from '@/views/applications/InstancesList.vue';
 import NotificationFilterSettings from '@/views/applications/NotificationFilterSettings.vue';
 
 const props = defineProps({
-  error: {
-    type: Error,
-    default: null,
-  },
   selected: {
     type: String,
     default: null,
@@ -402,7 +391,7 @@ import { defineComponent } from 'vue';
 import { directive as onClickaway } from 'vue3-click-away';
 
 import Popper from '@/directives/popper';
-import handle from '@/views/applications/handle';
+import handle from '@/views/applications/handle.vue';
 
 export default defineComponent({
   directives: { Popper, onClickaway },

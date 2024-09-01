@@ -1,6 +1,5 @@
 import FontAwesomeIcon from './font-awesome-icon.js';
 import SmActionButtonScoped from './sm-action-button-scoped.vue';
-import SmAlert from './sm-alert.vue';
 import SmButtonGroup from './sm-button-group.vue';
 import SmButton from './sm-button.vue';
 import SmCheckbox from './sm-checkbox.vue';
@@ -12,7 +11,6 @@ import SmKeyValueTable from './sm-key-value-table.vue';
 import SmListBox from './sm-listbox.vue';
 import SmLoadingSpinner from './sm-loading-spinner.vue';
 import SmModal from './sm-modal.vue';
-import SmPaginationNav from './sm-pagination-nav.vue';
 import SmPanel from './sm-panel.vue';
 import SmSelect from './sm-select.vue';
 import SmStatusBadge from './sm-status-badge.vue';
@@ -24,9 +22,8 @@ import SmTimeAgo from './sm-time-ago.vue';
 import SmToggleScopeButton from './sm-toggle-scope-button.vue';
 import SmWave from './sm-wave.vue';
 
-export const components = {
+const components = {
   'sm-action-button-scoped': SmActionButtonScoped,
-  'sm-alert': SmAlert,
   'sm-button-group': SmButtonGroup,
   'sm-button': SmButton,
   'sm-checkbox': SmCheckbox,
@@ -38,7 +35,6 @@ export const components = {
   'sm-key-value-table': SmKeyValueTable,
   'sm-loading-spinner': SmLoadingSpinner,
   'sm-modal': SmModal,
-  'sm-pagination-nav': SmPaginationNav,
   'sm-panel': SmPanel,
   'sm-status-badge': SmStatusBadge,
   'sm-status': SmStatus,

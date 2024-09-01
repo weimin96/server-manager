@@ -4,8 +4,6 @@
     :title="$t('instances.details.memory.title') + `: ${name}`"
   >
     <div>
-      <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
       <div v-if="current" class="flex w-full">
         <div v-if="current.metaspace" class="flex-1 text-center">
           <p
@@ -65,7 +63,7 @@ import { concatMap, delay, retryWhen, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { defineComponent } from 'vue';
 
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import subscribing from '@/mixins/subscribing';
 import Instance from '@/services/instance';
 import MemChart from '@/views/instances/details/mem-chart.vue';
@@ -86,7 +84,6 @@ export default defineComponent({
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     current: null,
     chartData: [],
   }),
@@ -151,7 +148,7 @@ export default defineComponent({
           error: (error) => {
             this.hasLoaded = true;
             console.warn('Fetching memory metrics failed:', error);
-            this.error = error;
+            ElMessage.error('加载失败');
           },
         });
     },

@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <template #before>
       <sm-sticky-subnav>
         <div class="flex gap-2">
@@ -74,20 +74,6 @@
     </template>
 
     <sm-panel>
-      <div v-if="failedInstances > 0" class="message is-warning">
-        <div class="message-body">
-          <sm-alert
-            :title="
-              $t('instances.loggers.fetch_failed_some_instances', {
-                failed: failedInstances,
-                count: instanceCount,
-              })
-            "
-            severity="WARN"
-          />
-        </div>
-      </div>
-
       <loggers-list
         :levels="loggerConfig.levels"
         :loggers="filteredLoggers"
@@ -102,7 +88,6 @@
 
 <script>
 import { ActionScope } from '@/components/ActionScope';
-import SmAlert from '@/components/sm-alert';
 
 import { finalize, from, listen } from '@/utils/rxjs';
 import LoggersList from '@/views/instances/loggers/loggers-list';
@@ -132,7 +117,7 @@ const addLoggerCreationEntryIfLoggerNotPresent = (nameFilter, loggers) => {
 };
 
 export default {
-  components: { SmAlert, SmInstanceSection, LoggersList },
+  components: { SmInstanceSection, LoggersList },
   props: {
     instanceCount: {
       type: Number,
@@ -147,7 +132,6 @@ export default {
   data() {
     return {
       hasLoaded: false,
-      error: null,
       failedInstances: 0,
       loggerConfig: { loggers: [], levels: [] },
       filter: {
@@ -196,16 +180,13 @@ export default {
         });
     },
     async fetchLoggers() {
-      this.error = null;
       this.failedInstances = 0;
       try {
-        const { errors, ...loggerConfig } =
-          await this.loggersService.fetchLoggers();
+        const { ...loggerConfig } = await this.loggersService.fetchLoggers();
         this.loggerConfig = Object.freeze(loggerConfig);
-        this.failedInstances = errors.length;
       } catch (error) {
+        ElMessage.error('加载失败');
         console.warn('Fetching loggers failed:', error);
-        this.error = error;
       }
       this.hasLoaded = true;
     },

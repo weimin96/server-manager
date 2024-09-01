@@ -1,7 +1,5 @@
 <template>
   <div :class="{ 'is-loading': isLoading }">
-    <sm-alert v-if="error" :error="error" :title="$t('term.fetch_failed')" />
-
     <sm-panel :header-sticks-below="'#subnavigation'" title="Global Filters">
       <div v-if="globalFilters.length > 0" class="field">
         <p class="control is-expanded has-icons-left">
@@ -67,7 +65,6 @@ export default {
   },
   data: () => ({
     isLoading: false,
-    error: null,
     $globalFilters: [],
     filterCriteria: null,
   }),
@@ -87,7 +84,6 @@ export default {
   },
   methods: {
     async fetchGlobalFilters() {
-      this.error = null;
       this.isLoading = true;
       try {
         const response = await this.instance.fetchGatewayGlobalFilters();
@@ -103,7 +99,7 @@ export default {
         );
       } catch (error) {
         console.warn('Fetching global filters failed:', error);
-        this.error = error;
+        ElMessage.error('加载失败');
       }
       this.isLoading = false;
     },

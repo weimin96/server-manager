@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error">
+  <sm-instance-section>
     <template #before>
       <sm-sticky-subnav>
         <div class="flex gap-2">

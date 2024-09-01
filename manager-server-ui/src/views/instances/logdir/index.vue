@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <div class="flex h-[calc(100vh-110px)] border bg-white">
       <!-- 左侧文件目录 -->
       <div class="basis-1/5 p-4 border border-gray-100">

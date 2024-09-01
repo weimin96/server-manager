@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import SmConfig from '@/config';
+import SmConfig from '@/main/config';
 import uri from "@/utils/uri";
 
 const readCookie = (name) => {

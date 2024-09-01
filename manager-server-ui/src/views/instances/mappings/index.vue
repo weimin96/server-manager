@@ -1,5 +1,5 @@
 <template>
-  <sm-instance-section :error="error" :loading="!hasLoaded">
+  <sm-instance-section :loading="!hasLoaded">
     <template v-for="(context, ctxName) in contexts" :key="ctxName">
       <sm-panel :seamless="true">
         <dispatcher-mappings

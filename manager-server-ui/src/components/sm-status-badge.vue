@@ -5,7 +5,7 @@
 <script>
 import classNames from 'classnames';
 
-import { HealthStatus } from '@/HealthStatus';
+import { HealthStatus } from '@/main/HealthStatus';
 
 export default {
   props: {
