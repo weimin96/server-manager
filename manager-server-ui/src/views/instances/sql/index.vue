@@ -2,10 +2,10 @@
   <sm-instance-section :loading="!hasLoaded">
     <div class="flex h-[calc(100vh-110px)] border bg-white">
       <div class="w-full p-4">
-        <div class="float-right flex h-16">
-          <span class="mr-2">刷新时间</span>
+        <div class="float-right flex">
+          <span class="mr-2 leading-8">刷新时间</span>
           <div class="w-20 mr-2">
-            <el-select v-model="timeValue" placeholder="Select">
+            <el-select v-model="timeValue" placeholder="Select" @change="changeTimer">
               <el-option
                 v-for="item in timeOptions"
                 :key="item"
@@ -15,9 +15,9 @@
             </el-select>
           </div>
 
-          <el-button type="primary">暂停刷新</el-button>
+          <el-button type="primary" @click="stopTimer">暂停刷新</el-button>
         </div>
-        <el-table class="mb-6 w-full" :data="sqlList" stripe >
+        <el-table ref="table" class="mb-6 w-full" :data="sqlList" stripe>
           <el-table-column prop="SQL" label="SQL" show-overflow-tooltip />
           <el-table-column prop="ExecuteCount" label="执行数" width="80" />
           <el-table-column prop="TotalTime" label="执行时间" width="80" />
@@ -67,8 +67,10 @@
 
 <script>
 import moment from 'moment/moment';
+import { switchMap } from 'rxjs/operators';
 
 import Instance from '@/services/instance';
+import { timer } from '@/utils/rxjs';
 import { VIEW_GROUP } from '@/views/ViewGroup';
 import SmInstanceSection from '@/views/instances/shell/sm-instance-section.vue';
 
@@ -86,34 +88,51 @@ export default {
     current: 1,
     pageSize: 25,
     total: 0,
-    timeValue: 5,
-    timeOptions: [5, 10, 30, 60],
+    timeValue: 10,
+    timeOptions: [5, 10, 30, 60, 120],
+    subscription: null,
   }),
   created() {
-    this.getSqlList();
+    this.createSubscription();
+  },
+  unmounted() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   },
   methods: {
-    getSqlList() {
-      return this.instance
-        .druid(this.current, this.pageSize)
-        .then((res) => {
+    createSubscription() {
+      this.subscription = timer(0, this.timeValue * 1000)
+        .pipe(switchMap(() => this.getSqlList()))
+        .subscribe((res) => {
           this.hasLoaded = true;
           this.sqlList = res.data.records;
           this.total = res.data.total;
-        })
-        .catch((error) => {
-          this.hasLoaded = true;
-          console.warn('加载失败:', error);
-          ElMessage.error('加载失败');
         });
+    },
+    getSqlList() {
+      this.hasLoaded = false;
+      return this.instance.druid(this.current, this.pageSize);
     },
     handleClick(item) {
       console.log(item);
     },
     formatter(row) {
       return moment(row.LastTime, moment.HTML5_FMT.DATETIME_LOCAL).format(
-        'YYYY-MM-DD HH:mm:ss',
+        'YYYY-MM-DD HH:mm',
       );
+    },
+    changeTimer() {
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+      }
+      this.createSubscription();
+    },
+    stopTimer() {
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+        ElMessage.success('暂停成功');
+      }
     },
   },
   install({ viewRegistry }) {

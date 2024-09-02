@@ -1,7 +1,7 @@
 {
   "instances": {
     "druid": {
-      "label": "sql记录"
+      "label": "SQL"
     }
   }
 }
