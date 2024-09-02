@@ -131,10 +131,6 @@ class Instance {
           params.append('tag', `${name}:${value}`);
 
           if (!firstElementDuplicated) {
-            // workaround for tags that contains comma
-            // take a look at https://github.com/spring-projects/spring-framework/issues/23820#issuecomment-543087878
-            // If there is single tag specified and name or value contains comma then it will be incorrectly split into several parts
-            // To bypass it we duplicate first tag.
             params.append('tag', `${name}:${value}`);
             firstElementDuplicated = true;
           }
@@ -323,6 +319,15 @@ class Instance {
     return this.axios.get(uri`actuator/logdir`, {
       headers: { Accept: 'application/json' },
     });
+  }
+
+  async druid(current, pageSize) {
+    return this.axios.get(
+      uri`actuator/druid?current=${current}&pageSize=${pageSize}`,
+      {
+        headers: { Accept: 'application/json' },
+      },
+    );
   }
 
   async logContent(fileName) {

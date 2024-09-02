@@ -72,7 +72,7 @@ public class StatusUpdater {
             return Mono.empty();
         }
 
-        log.info("Update status for {}", instance);
+        log.debug("Update status for {}", instance);
         return this.instanceWebClient.instance(instance)
                 .get()
                 .uri(Endpoint.HEALTH)
@@ -133,9 +133,10 @@ public class StatusUpdater {
 
     protected void logError(Instance instance, Throwable ex) {
         if (instance.getStatusInfo().isOffline()) {
-            log.debug("Couldn't retrieve status for {}", instance, ex);
+            log.debug("更新服务状态失败 {}", instance, ex);
         } else {
-            log.info("Couldn't retrieve status for {}", instance, ex);
+            log.info("更新服务状态失败 {}", instance);
+            log.debug(ex.getMessage(), ex);
         }
     }
 }
