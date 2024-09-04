@@ -321,6 +321,42 @@ class Instance {
     });
   }
 
+  async downloadFile(url, filename) {
+    return this.axios
+      .get(url, {
+        responseType: 'text',
+        headers: {
+          Accept: '*/*',
+        },
+      })
+      .then((response) => {
+        if (!response.status === 200) {
+          ElMessage.erroe('下载失败');
+        }
+        return response.data;
+      })
+      .then((text) => {
+        // 创建一个Blob对象并指定类型
+        const blob = new Blob([text], { type: 'text/plain' });
+        // 创建一个链接对象
+        const link = document.createElement('a');
+        // 创建一个指向Blob对象的URL
+        link.href = URL.createObjectURL(blob);
+        // 设置下载的文件名
+        link.download = filename;
+        // 模拟点击下载链接
+        link.click();
+        // 释放Blob对象的URL
+        URL.revokeObjectURL(link.href);
+      })
+      .catch((error) => {
+        console.error(
+          'There has been a problem with your fetch operation:',
+          error,
+        );
+      });
+  }
+
   async druid(current, pageSize) {
     return this.axios.get(
       uri`actuator/druid?current=${current}&pageSize=${pageSize}`,

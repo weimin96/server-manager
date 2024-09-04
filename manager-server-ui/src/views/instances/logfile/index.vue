@@ -110,7 +110,6 @@ export default {
   },
   data: () => ({
     hasLoaded: false,
-    error: null,
     atBottom: false,
     atTop: true,
     skippedBytes: null,
@@ -183,7 +182,6 @@ export default {
           error: (error) => {
             this.hasLoaded = true;
             console.warn('Fetching logfile failed:', error);
-            this.error = error;
           },
         });
     },
@@ -195,7 +193,8 @@ export default {
         document.scrollingElement.scrollHeight;
     },
     downloadLogfile() {
-      window.open(`instances/${this.instance.id}/actuator/logfile`, '_blank');
+      const url = '/actuator/logfile';
+      this.instance.downloadFile(url, 'logfile.log');
     },
   },
   install({ viewRegistry }) {

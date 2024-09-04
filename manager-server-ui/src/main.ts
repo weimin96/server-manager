@@ -3,6 +3,9 @@ import * as Vue from 'vue';
 import { createApp, h, onBeforeMount, onBeforeUnmount, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import VueVirtualScroller from 'vue-virtual-scroller';
+
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 
 import App from './App.vue';
 import components from './components/index';
@@ -86,6 +89,7 @@ const app = createApp({
   },
 });
 
+app.use(VueVirtualScroller);
 app.use(i18n);
 app.use(components);
 app.use(SmModalPlugin, { i18n });

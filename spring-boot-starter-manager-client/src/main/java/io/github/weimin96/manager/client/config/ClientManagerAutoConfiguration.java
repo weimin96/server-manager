@@ -62,16 +62,18 @@ public class ClientManagerAutoConfiguration {
     @ConditionalOnMissingBean
     @Order(1)
     public ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration(DiscoveryClient discoveryClient, ClientProperties clientProperties, InstanceProperties instanceProperties) {
-        return new ClientManagerDiscoveryConfiguration(discoveryClient, clientProperties, instanceProperties);
+        ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration = new ClientManagerDiscoveryConfiguration(discoveryClient, clientProperties, instanceProperties);
+        clientManagerDiscoveryConfiguration.setServerInfo();
+        return clientManagerDiscoveryConfiguration;
     }
 
     @Bean
     @ConditionalOnMissingBean
     @Order(2)
     public ApplicationRegistrator registrator(RegistrationClient registrationClient, ClientProperties client,
-                                              ApplicationFactory applicationFactory) {
+                                              ApplicationFactory applicationFactory, ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration) {
 
-        return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client.getServerUrl(),
+        return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client ,clientManagerDiscoveryConfiguration,
                 client.isRegisterOnce());
     }
 

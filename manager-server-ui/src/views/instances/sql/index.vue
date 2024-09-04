@@ -5,7 +5,11 @@
         <div class="float-right flex">
           <span class="mr-2 leading-8">刷新时间</span>
           <div class="w-20 mr-2">
-            <el-select v-model="timeValue" placeholder="Select" @change="changeTimer">
+            <el-select
+              v-model="timeValue"
+              placeholder="Select"
+              @change="changeTimer"
+            >
               <el-option
                 v-for="item in timeOptions"
                 :key="item"
@@ -42,13 +46,28 @@
             width="180"
             :formatter="formatter"
           />
-          <el-table-column label="操作" min-width="60">
-            <template #default>
-              <el-button link type="primary" size="small" @click="handleClick">
-                查看
-              </el-button>
-            </template>
-          </el-table-column>
+<!--          <el-table-column label="操作" min-width="60">-->
+<!--            <template #default="scope">-->
+<!--              <el-popover-->
+<!--                placement="left"-->
+<!--                title="SQL 格式化"-->
+<!--                :width="200"-->
+<!--                trigger="click"-->
+<!--                :content="content"-->
+<!--              >-->
+<!--                <template #reference>-->
+<!--                  <el-button-->
+<!--                    link-->
+<!--                    type="primary"-->
+<!--                    size="small"-->
+<!--                    class="m-2"-->
+<!--                    @click="handleClick(row)"-->
+<!--                    >SQL预览</el-button-->
+<!--                  >-->
+<!--                </template>-->
+<!--              </el-popover>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
         </el-table>
         <div class="float-right">
           <el-pagination
@@ -68,6 +87,7 @@
 <script>
 import moment from 'moment/moment';
 import { switchMap } from 'rxjs/operators';
+import { format } from 'sql-formatter';
 
 import Instance from '@/services/instance';
 import { timer } from '@/utils/rxjs';
@@ -91,7 +111,9 @@ export default {
     timeValue: 10,
     timeOptions: [5, 10, 30, 60, 120],
     subscription: null,
+    content: '',
   }),
+  computed: {},
   created() {
     this.createSubscription();
   },
@@ -114,8 +136,8 @@ export default {
       this.hasLoaded = false;
       return this.instance.druid(this.current, this.pageSize);
     },
-    handleClick(item) {
-      console.log(item);
+    handleClick(row) {
+      this.content = format(row.SQL, { language: row.DbType });
     },
     formatter(row) {
       return moment(row.LastTime, moment.HTML5_FMT.DATETIME_LOCAL).format(

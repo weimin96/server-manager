@@ -1,6 +1,8 @@
 
 package io.github.weimin96.manager.client.registration;
 
+import io.github.weimin96.manager.client.config.ClientProperties;
+import io.github.weimin96.manager.client.config.cloud.ClientManagerDiscoveryConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -20,18 +22,24 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
 
     private final ApplicationFactory applicationFactory;
 
-    private final String[] serverUrls;
+    private String[] serverUrls;
 
     private final boolean registerOnce;
 
     private final RegistrationClient registrationClient;
 
+    private final ClientProperties clientProperties;
+
+    private final ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration;
+
     public DefaultApplicationRegistrator(ApplicationFactory applicationFactory, RegistrationClient registrationClient,
-                                         String[] serverUrls, boolean registerOnce) {
+                                         ClientProperties clientProperties, ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration, boolean registerOnce) {
         this.applicationFactory = applicationFactory;
-        this.serverUrls = serverUrls;
+        this.serverUrls = clientProperties.getServerUrl();
         this.registerOnce = registerOnce;
         this.registrationClient = registrationClient;
+        this.clientProperties = clientProperties;
+        this.clientManagerDiscoveryConfiguration = clientManagerDiscoveryConfiguration;
     }
 
     /**
@@ -43,7 +51,10 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
     public boolean register() {
         Application application = this.applicationFactory.createApplication();
         boolean isRegistrationSuccessful = false;
-
+        if (this.serverUrls.length == 0) {
+            this.clientManagerDiscoveryConfiguration.setServerInfo();
+            this.serverUrls = this.clientProperties.getServerUrl();
+        }
         for (String serverUrl : this.serverUrls) {
             LongAdder attempt = this.attempts.computeIfAbsent(serverUrl, (k) -> new LongAdder());
             boolean successful = register(application, serverUrl, attempt.intValue() == 0);

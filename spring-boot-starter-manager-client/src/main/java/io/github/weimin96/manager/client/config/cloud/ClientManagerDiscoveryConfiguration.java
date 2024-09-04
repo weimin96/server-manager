@@ -26,7 +26,6 @@ public class ClientManagerDiscoveryConfiguration {
         this.discoveryClient = discoveryClient;
         this.clientProperties = clientProperties;
         this.instanceProperties = instanceProperties;
-        setServerInfo();
     }
 
     public void setServerInfo() {
