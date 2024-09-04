@@ -22,7 +22,16 @@
           <el-button type="primary" @click="stopTimer">暂停刷新</el-button>
         </div>
         <el-table ref="table" class="mb-6 w-full" :data="sqlList" stripe>
-          <el-table-column prop="SQL" label="SQL" show-overflow-tooltip />
+          <el-table-column label="SQL" show-overflow-tooltip>
+            <template #default="scope">
+              <span
+                class="text-blue-500 hover:text-blue-700 cursor-default"
+                @click="previewSql(scope.row)"
+              >
+                {{ scope.row.SQL }}</span
+              >
+            </template>
+          </el-table-column>
           <el-table-column prop="ExecuteCount" label="执行数" width="80" />
           <el-table-column prop="TotalTime" label="执行时间" width="80" />
           <el-table-column prop="MaxTimespan" label="最慢" width="60" />
@@ -46,28 +55,6 @@
             width="180"
             :formatter="formatter"
           />
-<!--          <el-table-column label="操作" min-width="60">-->
-<!--            <template #default="scope">-->
-<!--              <el-popover-->
-<!--                placement="left"-->
-<!--                title="SQL 格式化"-->
-<!--                :width="200"-->
-<!--                trigger="click"-->
-<!--                :content="content"-->
-<!--              >-->
-<!--                <template #reference>-->
-<!--                  <el-button-->
-<!--                    link-->
-<!--                    type="primary"-->
-<!--                    size="small"-->
-<!--                    class="m-2"-->
-<!--                    @click="handleClick(row)"-->
-<!--                    >SQL预览</el-button-->
-<!--                  >-->
-<!--                </template>-->
-<!--              </el-popover>-->
-<!--            </template>-->
-<!--          </el-table-column>-->
         </el-table>
         <div class="float-right">
           <el-pagination
@@ -81,6 +68,22 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      v-model="dialogSqlPreviewVisible"
+      title="查看"
+      width="500"
+      :modal="false"
+    >
+      <div>
+        <div v-html="formattedSql"></div>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary"> 复制 </el-button>
+          <el-button @click="dialogSqlPreviewVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </sm-instance-section>
 </template>
 
@@ -112,8 +115,17 @@ export default {
     timeOptions: [5, 10, 30, 60, 120],
     subscription: null,
     content: '',
+    dialogSqlPreviewVisible: false,
   }),
-  computed: {},
+  computed: {
+    formattedSql() {
+      return this.content
+        .replace(/\n/g, '<br>')
+        .replace(/ {1,}/g, (match) =>
+          '<span class="mr-2"></span>'.repeat(match.length),
+        );
+    },
+  },
   created() {
     this.createSubscription();
   },
@@ -136,8 +148,9 @@ export default {
       this.hasLoaded = false;
       return this.instance.druid(this.current, this.pageSize);
     },
-    handleClick(row) {
+    previewSql(row) {
       this.content = format(row.SQL, { language: row.DbType });
+      this.dialogSqlPreviewVisible = true;
     },
     formatter(row) {
       return moment(row.LastTime, moment.HTML5_FMT.DATETIME_LOCAL).format(

@@ -2,7 +2,6 @@
 package io.github.weimin96.manager.client.registration;
 
 import io.github.weimin96.manager.client.config.ClientProperties;
-import io.github.weimin96.manager.client.config.cloud.ClientManagerDiscoveryConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -22,24 +21,18 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
 
     private final ApplicationFactory applicationFactory;
 
-    private String[] serverUrls;
+    private final ClientProperties clientProperties;
 
     private final boolean registerOnce;
 
     private final RegistrationClient registrationClient;
 
-    private final ClientProperties clientProperties;
-
-    private final ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration;
-
     public DefaultApplicationRegistrator(ApplicationFactory applicationFactory, RegistrationClient registrationClient,
-                                         ClientProperties clientProperties, ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration, boolean registerOnce) {
+                                         ClientProperties clientProperties, boolean registerOnce) {
         this.applicationFactory = applicationFactory;
-        this.serverUrls = clientProperties.getServerUrl();
+        this.clientProperties = clientProperties;
         this.registerOnce = registerOnce;
         this.registrationClient = registrationClient;
-        this.clientProperties = clientProperties;
-        this.clientManagerDiscoveryConfiguration = clientManagerDiscoveryConfiguration;
     }
 
     /**
@@ -51,11 +44,8 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
     public boolean register() {
         Application application = this.applicationFactory.createApplication();
         boolean isRegistrationSuccessful = false;
-        if (this.serverUrls.length == 0) {
-            this.clientManagerDiscoveryConfiguration.setServerInfo();
-            this.serverUrls = this.clientProperties.getServerUrl();
-        }
-        for (String serverUrl : this.serverUrls) {
+        String[] serverUrls = this.clientProperties.getServerUrl();
+        for (String serverUrl : serverUrls) {
             LongAdder attempt = this.attempts.computeIfAbsent(serverUrl, (k) -> new LongAdder());
             boolean successful = register(application, serverUrl, attempt.intValue() == 0);
 
@@ -89,12 +79,12 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
                 } else {
                     log.warn(
                             "注册失败 {} - ({}): {}. ",
-                            application, this.serverUrls, ex.getMessage());
+                            application, serverUrl, ex.getMessage());
                 }
 
             } else {
                 log.debug("注册失败 {} - ({}): {}", application,
-                        this.serverUrls, ex.getMessage());
+                        serverUrl, ex.getMessage());
             }
             return false;
         }
@@ -106,8 +96,8 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
         if (id == null) {
             return;
         }
-
-        for (String serverUrl : this.serverUrls) {
+        String[] serverUrls = this.clientProperties.getServerUrl();
+        for (String serverUrl : serverUrls) {
             try {
                 this.registrationClient.deregister(serverUrl, id);
                 this.registeredId.compareAndSet(id, null);

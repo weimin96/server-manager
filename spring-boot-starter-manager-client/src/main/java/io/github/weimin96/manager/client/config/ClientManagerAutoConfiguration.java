@@ -58,22 +58,11 @@ import static org.springframework.web.reactive.function.client.ExchangeFilterFun
 public class ClientManagerAutoConfiguration {
 
     @Bean
-    @ConditionalOnBean(DiscoveryClient.class)
     @ConditionalOnMissingBean
-    @Order(1)
-    public ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration(DiscoveryClient discoveryClient, ClientProperties clientProperties, InstanceProperties instanceProperties) {
-        ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration = new ClientManagerDiscoveryConfiguration(discoveryClient, clientProperties, instanceProperties);
-        clientManagerDiscoveryConfiguration.setServerInfo();
-        return clientManagerDiscoveryConfiguration;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    @Order(2)
     public ApplicationRegistrator registrator(RegistrationClient registrationClient, ClientProperties client,
-                                              ApplicationFactory applicationFactory, ClientManagerDiscoveryConfiguration clientManagerDiscoveryConfiguration) {
+                                              ApplicationFactory applicationFactory) {
 
-        return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client ,clientManagerDiscoveryConfiguration,
+        return new DefaultApplicationRegistrator(applicationFactory, registrationClient, client,
                 client.isRegisterOnce());
     }
 

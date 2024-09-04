@@ -35,11 +35,12 @@ spring:
       client:
         username: admin
         password: 123
+#        url: http://127.0.0.1:8080/admin
         server-application-name: server-sample
         server-context-path: admin
-  cloud:
-    nacos:
-      server-addr: 127.0.0.1:8848
+    cloud:
+      nacos:
+        server-addr: 127.0.0.1:8848
   main:
     allow-bean-definition-overriding: true
 # 暴露监控端点
