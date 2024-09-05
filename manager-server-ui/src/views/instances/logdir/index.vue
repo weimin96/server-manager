@@ -92,7 +92,7 @@
         <h2 v-if="!selectedFile" class="text-2xl font-bold mb-4">
           请选择一个文件
         </h2>
-        <div v-if="selectedFileContent">
+        <div v-if="selectedFileContent" class="mt-4">
           <DynamicScroller
             ref="scroller"
             :items="processedLines"
@@ -115,7 +115,7 @@
             </template>
           </DynamicScroller>
         </div>
-        <div v-else>没有内容可显示</div>
+        <div v-else class="mt-4">没有内容可显示</div>
       </div>
     </div>
   </sm-instance-section>

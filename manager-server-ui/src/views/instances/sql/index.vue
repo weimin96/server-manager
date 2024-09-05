@@ -74,12 +74,21 @@
       width="500"
       :modal="false"
     >
-      <div>
-        <div v-html="formattedSql"></div>
+      <div
+        class="bg-black text-white transition-colors duration-500 my-4 rounded-lg overflow-x-auto"
+      >
+        <div class="">
+          <div class="relative">
+            <span class="absolute right-2 top-0.5 text-gray-500">{{
+              dbType
+            }}</span>
+          </div>
+          <div class="px-4 py-4" v-html="formattedSql"></div>
+        </div>
       </div>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary"> 复制 </el-button>
+          <el-button type="primary" @click="copyText()"> 复制 </el-button>
           <el-button @click="dialogSqlPreviewVisible = false">关闭</el-button>
         </div>
       </template>
@@ -115,6 +124,7 @@ export default {
     timeOptions: [5, 10, 30, 60, 120],
     subscription: null,
     content: '',
+    dbType: '',
     dialogSqlPreviewVisible: false,
   }),
   computed: {
@@ -149,6 +159,7 @@ export default {
       return this.instance.druid(this.current, this.pageSize);
     },
     previewSql(row) {
+      this.dbType = row.DbType;
       this.content = format(row.SQL, { language: row.DbType });
       this.dialogSqlPreviewVisible = true;
     },
@@ -156,6 +167,16 @@ export default {
       return moment(row.LastTime, moment.HTML5_FMT.DATETIME_LOCAL).format(
         'YYYY-MM-DD HH:mm',
       );
+    },
+    copyText() {
+      navigator.clipboard
+        .writeText(this.content)
+        .then(() => {
+          ElMessage.success('文本已复制');
+        })
+        .catch((err) => {
+          console.error('复制失败', err);
+        });
     },
     changeTimer() {
       if (this.subscription) {
