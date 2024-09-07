@@ -2,5 +2,16 @@
   "wallboard": {
     "instances_count": "没有实例 | {count} 个实例 | {count} 个实例",
     "label": "应用墙"
+  },
+  "health": {
+    "label": "标签",
+    "status": {
+      "OFFLINE": "OFFLINE",
+      "UP": "UP",
+      "UNKNOWN": "UNKNOWN",
+      "RESTRICTED": "RESTRICTED",
+      "DOWN": "DOWN",
+      "OUT_OF_SERVICE": "OUT_OF_SERVICE"
+    }
   }
 }

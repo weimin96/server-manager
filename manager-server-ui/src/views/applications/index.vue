@@ -1,138 +1,94 @@
 <template>
   <div>
-    <sm-wave />
-    <section>
-      <sm-sticky-subnav>
-        <div class="container mx-auto flex">
-          <ApplicationStats />
-          <div class="flex-1">
-            <sm-input
-              v-model="routerState.q"
-              name="filter"
-              type="search"
-            >
-              <template #prepend>
-                <font-awesome-icon icon="filter" />
-              </template>
-            </sm-input>
-          </div>
-        </div>
-      </sm-sticky-subnav>
+    <ApplicationStats />
+    <div
+      v-if="applications.length > 0"
+      class="mx-16 rounded-xl border shadow bg-white md:mt-0 mt-16"
+    >
+      <div class="flex flex-col gap-y-1.5 p-6">
+        <h3 class="font-semibold leading-none tracking-tight">概览</h3>
+      </div>
+      <sm-panel v-if="!applicationsInitialized">
+        <p class="is-muted is-loading" v-text="'应用加载中...'" />
+      </sm-panel>
 
-      <div class="container mx-auto py-6">
-        <sm-panel v-if="!applicationsInitialized">
-          <p
-            class="is-muted is-loading"
-            v-text="t('applications.loading_applications')"
-          />
-        </sm-panel>
-
-        <ApplicationStatusHero v-if="applicationsInitialized" />
-
-        <template v-if="applicationsInitialized">
-          <sm-panel
-            v-if="hasActiveFilter && grouped.length === 0"
-            class="text-center"
-          >
-            {{ t('filter.no_results') }}
-          </sm-panel>
-
-          <template v-else>
-            <div v-if="groupNames.length > 1" class="text-right mb-6">
-              <sm-button-group>
-                <sm-button @click="() => setGroupingFunction('application')">
-                  <font-awesome-icon icon="list" />
-                </sm-button>
-                <sm-button @click="() => setGroupingFunction('group')">
-                  <font-awesome-icon icon="expand" />
-                </sm-button>
-              </sm-button-group>
-            </div>
-
-            <sm-panel
-              v-for="group in grouped"
-              :id="group.name"
-              :key="group.name"
-              v-on-clickaway="(event: Event) => deselect(event, group.name)"
-              :seamless="true"
-              :title="group.name"
-              :subtitle="
-                t('term.instances_tc', { count: group.instances?.length ?? 0 })
+      <template v-if="applicationsInitialized">
+        <application-item
+          v-for="group in grouped"
+          :id="group.name"
+          :key="group.name"
+          v-on-clickaway="(event: Event) => deselect(event, group.name)"
+          :seamless="true"
+          :title="group.name"
+          :subtitle="`${group.instances?.length ?? 0}个实例`"
+          class="application-group"
+          :aria-expanded="isExpanded(group.name)"
+          @title-click="
+            () => {
+              select(group.name);
+              toggleGroup(group.name);
+            }
+          "
+        >
+          <template #prefix>
+            <font-awesome-icon
+              icon="chevron-down"
+              :class="{
+                '-rotate-90': !isExpanded(group.name),
+                'mr-2 transition-[transform]': true,
+              }"
+            />
+            <sm-status-badge
+              v-if="isGroupedByApplication"
+              class="ml-1 mr-2"
+              :status="
+                applicationStore.findApplicationByInstanceId(
+                  group.instances[0].id,
+                )?.status
               "
-              class="application-group"
-              :aria-expanded="isExpanded(group.name)"
-              @title-click="
-                () => {
-                  select(group.name);
-                  toggleGroup(group.name);
-                }
+            />
+          </template>
+
+          <template v-if="isGroupedByApplication" #actions>
+            <ApplicationListItemAction
+              :item="
+                applicationStore.findApplicationByInstanceId(
+                  group.instances[0].id,
+                )
               "
-            >
-              <template #prefix>
-                <font-awesome-icon
-                  icon="chevron-down"
-                  :class="{
-                    '-rotate-90': !isExpanded(group.name),
-                    'mr-2 transition-[transform]': true,
-                  }"
-                />
-                <sm-status-badge
-                  v-if="isGroupedByApplication"
-                  class="mr-2"
-                  :status="
-                    applicationStore.findApplicationByInstanceId(
-                      group.instances[0].id,
-                    )?.status
-                  "
-                />
-              </template>
+              @filter-settings="toggleNotificationFilterSettings"
+            />
+          </template>
 
-              <template v-if="singleVersionInGroup(group)" #version>
-                <span v-text="group.instances[0].buildVersion" />
-              </template>
-
-              <template v-if="isGroupedByApplication" #actions>
+          <template v-if="isExpanded(group.name)" #default>
+            <InstancesList :instances="group.instances">
+              <template #actions="{ instance }">
                 <ApplicationListItemAction
-                  :item="
-                    applicationStore.findApplicationByInstanceId(
-                      group.instances[0].id,
-                    )
-                  "
+                  :item="instance"
+                  class="md:hidden"
                   @filter-settings="toggleNotificationFilterSettings"
                 />
               </template>
-
-              <template v-if="isExpanded(group.name)" #default>
-                <InstancesList :instances="group.instances">
-                  <template #actions="{ instance }">
-                    <ApplicationListItemAction
-                      :item="instance"
-                      class="md:hidden"
-                      @filter-settings="toggleNotificationFilterSettings"
-                    />
-                  </template>
-                </InstancesList>
-              </template>
-            </sm-panel>
+            </InstancesList>
           </template>
+        </application-item>
 
-          <NotificationFilterSettings
-            v-if="showNotificationFilterSettingsObject"
-            v-on-clickaway="() => toggleNotificationFilterSettings(null)"
-            v-popper="
-              `nf-settings-${
-                showNotificationFilterSettingsObject.id ||
-                showNotificationFilterSettingsObject.name
-              }`
-            "
-            :notification-filters="notificationFilters"
-            :object="showNotificationFilterSettingsObject"
-            @filter-add="addFilter"
-            @filter-remove="removeFilter"
-          />
-        </template>
-      </div>
-    </section>
+        <NotificationFilterSettings
+          v-if="showNotificationFilterSettingsObject"
+          v-on-clickaway="() => toggleNotificationFilterSettings(null)"
+          v-popper="
+            `nf-settings-${
+              showNotificationFilterSettingsObject.id ||
+              showNotificationFilterSettingsObject.name
+            }`
+          "
+          :notification-filters="notificationFilters"
+          :object="showNotificationFilterSettingsObject"
+          @filter-add="addFilter"
+          @filter-remove="removeFilter"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -140,11 +96,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { groupBy, sortBy, transform } from 'lodash-es';
 import { computed, nextTick, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
-
-import SmStickySubnav from '@/components/sm-sticky-subnav.vue';
-import SmWave from '@/components/sm-wave.vue';
 
 import { useApplicationStore } from '@/composables/useApplicationStore';
 import Application from '@/services/application';
@@ -156,9 +108,10 @@ import { useRouterState } from '@/utils/useRouterState';
 import { useSubscription } from '@/utils/useSubscription';
 import ApplicationListItemAction from '@/views/applications/ApplicationListItemAction.vue';
 import ApplicationStats from '@/views/applications/ApplicationStats.vue';
-import ApplicationStatusHero from '@/views/applications/ApplicationStatusHero.vue';
 import InstancesList from '@/views/applications/InstancesList.vue';
 import NotificationFilterSettings from '@/views/applications/NotificationFilterSettings.vue';
+import ApplicationItem from '@/views/applications/ApplicationItem.vue';
+import SmStatusBadge from '@/components/sm-status-badge.vue';
 
 const props = defineProps({
   selected: {
@@ -195,7 +148,6 @@ const groupingFunctions = {
     instance.registration.metadata?.['group'] ?? 'term.no_group',
 };
 
-const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const { applications, applicationsInitialized, applicationStore } =
@@ -205,9 +157,6 @@ const groupingFunction = ref(groupingFunctions.application);
 
 const routerState = useRouterState({
   q: '',
-});
-const hasActiveFilter = computed(() => {
-  return routerState.q?.length > 0;
 });
 const notificationFilterSubject = new Subject();
 const notificationFilters = ref([]);
@@ -231,19 +180,6 @@ useSubscription(
 async function fetchNotificationFilters() {
   return [];
 }
-
-const groupNames = computed(() => {
-  return [
-    ...new Set(
-      applications.value
-        .flatMap((application: Application) => application.instances)
-        .map(
-          (instance: Instance) =>
-            instance.registration.metadata?.['group'] ?? 'Ungrouped',
-        ),
-    ),
-  ];
-});
 
 const grouped = computed(() => {
   const filteredApplications = filterInstances(applications.value);
@@ -293,15 +229,6 @@ const isGroupedByApplication = computed(() => {
   return groupingFunction.value === groupingFunctions.application;
 });
 
-const singleVersionInGroup = (group) => {
-  return (
-    group.length === 1 ||
-    group.instances.filter(
-      (instance) => group.instances[0].buildVersion !== instance.buildVersion,
-    ).length === 0
-  );
-};
-
 if (props.selected) {
   scrollIntoView(props.selected);
 }
@@ -323,10 +250,6 @@ async function scrollIntoView(id) {
 const showNotificationFilterSettingsObject = ref(
   null as unknown as NotificationFilterSettingsObject,
 );
-const setGroupingFunction = (key: keyof typeof groupingFunctions) => {
-  groupingFunction.value = groupingFunctions[key];
-  expandedGroups.value = [];
-};
 
 function isExpanded(name: string) {
   return expandedGroups.value.includes(name);

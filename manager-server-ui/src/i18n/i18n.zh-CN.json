@@ -39,7 +39,8 @@
     "time": "时间",
     "unsuppress": "Unsuppress",
     "username": "用户名",
-    "filter": "Filter",
-    "fetch_failed": "加载失败"
+    "filter": "请输入关键字",
+    "fetch_failed": "加载失败",
+    "all": "全部"
   }
 }

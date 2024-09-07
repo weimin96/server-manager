@@ -1,22 +1,19 @@
 <template>
-  <sm-panel>
+  <div class="rounded-xl border shadow bg-white items-center justify-center">
     <template v-if="applicationsCount > 0">
-      <div class="flex flex-row md:flex-col items-center justify-center">
+      <div class="flex flex-row items-center justify-start p-6 h-full">
         <template v-if="statusInfo.allUp">
-          <font-awesome-icon icon="check-circle" class="text-green-500 icon" />
-          <div class="text-center">
-            <h1 class="font-bold text-2xl" v-text="$t('applications.all_up')" />
-            <p class="text-gray-400" v-text="lastUpdate" />
+          <font-awesome-icon icon="check-circle" class="text-cyan-400 icon" />
+          <div class="text-left">
+            <h1 class="font-bold text-xl" v-text="'全部在线'" />
+            <p class="text-gray-400 text-xs" v-text="lastUpdate" />
           </div>
         </template>
         <template v-else-if="statusInfo.allDown">
-          <font-awesome-icon icon="check-circle" class="text-green-500 icon" />
-          <div class="text-center">
-            <h1
-              class="font-bold text-2xl"
-              v-text="$t('applications.all_down')"
-            />
-            <p class="text-gray-400" v-text="lastUpdate" />
+          <font-awesome-icon icon="check-circle" class="text-gray-400 icon" />
+          <div class="text-left">
+            <h1 class="font-bold text-xl" v-text="'全部离线'" />
+            <p class="text-gray-400 text-xs" v-text="lastUpdate" />
           </div>
         </template>
         <template v-if="statusInfo.allUnknown">
@@ -24,53 +21,37 @@
             icon="question-circle"
             class="text-gray-300 icon"
           />
-          <div class="text-center">
-            <h1
-              class="font-bold text-2xl"
-              v-text="$t('applications.all_unknown')"
-            />
-            <p class="text-gray-400" v-text="lastUpdate" />
+          <div class="text-left">
+            <h1 class="font-bold text-xl" v-text="'全部未知'" />
+            <p class="text-gray-400 text-xs" v-text="lastUpdate" />
           </div>
         </template>
         <template v-else-if="someInstancesDown">
           <font-awesome-icon icon="minus-circle" class="text-red-500 icon" />
-          <div class="text-center">
-            <h1
-              class="font-bold text-2xl"
-              v-text="$t('applications.some_down')"
-            />
-            <p class="text-gray-400" v-text="lastUpdate" />
+          <div class="text-left">
+            <h1 class="font-bold text-xl" v-text="'部分离线'" />
+            <p class="text-gray-400 text-xs" v-text="lastUpdate" />
           </div>
         </template>
-
         <template v-else-if="someInstancesUnknown">
           <font-awesome-icon
             icon="question-circle"
             class="text-gray-300 icon"
           />
-          <div class="text-center">
-            <h1
-              class="font-bold text-2xl"
-              v-text="$t('applications.some_unknown')"
-            />
-            <p class="text-gray-400" v-text="lastUpdate" />
+          <div class="text-left">
+            <h1 class="font-bold text-xl" v-text="'部分未知'" />
+            <p class="text-gray-400 text-xs" v-text="lastUpdate" />
           </div>
         </template>
       </div>
     </template>
     <template v-else>
-      <div class="flex flex-col items-center">
-        <font-awesome-icon
-          icon="frown-open"
-          class="text-gray-500 text-9xl pb-4"
-        />
-        <h1
-          class="font-bold text-2xl"
-          v-text="$t('applications.no_applications_registered')"
-        />
+      <div class="flex flex-row items-center justify-start p-6 h-full">
+        <font-awesome-icon icon="frown-open" class="icon text-gray-500" />
+        <h1 class="font-bold text-xl" v-text="'暂无应用注册'" />
       </div>
     </template>
-  </sm-panel>
+  </div>
 </template>
 
 <script>
@@ -122,12 +103,6 @@ export default {
     applicationsCount() {
       return this.applications.length;
     },
-    instancesCount() {
-      return this.applications.reduce(
-        (current, next) => current + next.instances.length,
-        0,
-      );
-    },
   },
   beforeMount() {
     this.updateLastUpdateTime();
@@ -142,6 +117,6 @@ export default {
 
 <style scoped>
 .icon {
-  @apply text-9xl pr-4 md:pb-4 md:pr-0;
+  @apply text-6xl mx-8;
 }
 </style>

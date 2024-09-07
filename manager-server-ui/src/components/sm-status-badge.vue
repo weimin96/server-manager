@@ -27,15 +27,15 @@ export default {
 
 <style scoped>
 .status-badge {
-  @apply bg-gray-200 text-black text-xs inline-flex items-center uppercase  rounded overflow-hidden px-3 py-1;
+  @apply bg-gray-200 text-black text-xs inline-flex items-center uppercase  rounded-lg overflow-hidden px-8 py-1.5;
 }
 .up {
-  @apply bg-green-200 text-green-700;
+  @apply bg-cyan-300 text-gray-100;
 }
 .down {
-  @apply bg-red-200 text-red-700;
+  @apply bg-red-200 text-gray-100;
 }
 .restricted {
-  @apply bg-yellow-200 text-yellow-700;
+  @apply bg-yellow-400 text-gray-100;
 }
 </style>

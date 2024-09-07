@@ -53,7 +53,7 @@ export default {
   @apply text-gray-500 mx-auto;
 }
 .application-status__icon--UP {
-  color: #48c78e;
+  color: #67e8f9;
 }
 .application-status__icon--RESTRICTED {
   color: #ffe08a;

@@ -4,7 +4,7 @@
       v-for="instance in instances"
       :key="instance.id"
       :data-testid="instance.id"
-      class="flex items-center hover:bg-gray-100 p-2 pr-6"
+      class="flex items-center hover:bg-gray-100 py-2 border-t rounded-lg"
       @click.stop="showDetails(instance)"
     >
       <div class="pr-3 md:w-16 text-center">
@@ -15,6 +15,7 @@
       </div>
       <div class="flex-auto xl:flex-1 xl:w-1/4 truncate">
         <a
+          class="font-semibold"
           @click.stop
           v-text="
             instance.registration.serviceUrl || instance.registration.healthUrl
@@ -27,7 +28,7 @@
           small
         />
         <br />
-        <span class="text-sm italic" v-text="instance.id" />
+        <span class="text-sm italic text-gray-600" v-text="instance.id" />
       </div>
       <div
         class="hidden xl:block w-1/4"
