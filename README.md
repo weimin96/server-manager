@@ -3,7 +3,8 @@
 </div>
 
 <div align="center">
-    <h2>Spring Boot Starter Server Manager</h2> 
+    <h2>Spring Boot Starter Server Manager</h2>
+    <h4>基于springboot的分布式的服务监控管理组件</h4>
 </div>
 
 <div align="center">
@@ -15,9 +16,6 @@
 <a href = "https://github.com/weimin96/spring-boot-starter-server-manager"><img src="https://img.shields.io/github/last-commit/weimin96/spring-boot-starter-server-manager.svg" alt="Last Commit"></a>
 <a href = "https://github.com/weimin96/spring-boot-starter-server-manager"><img src="https://img.shields.io/github/commit-activity/m/weimin96/spring-boot-starter-server-manager.svg" alt="GitHub commit activity"></a>
 </div>
-## 简介
-
-基于springboot的分布式的服务监控管理组件
 
 ## 功能特性
 
