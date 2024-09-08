@@ -1,14 +1,20 @@
+<div align="center">
+    <img alt="logo" src="image/banner.png" style="width: 400px">
+</div>
 
-# Spring Boot Starter Server Manager
+<div align="center">
+    <h2>Spring Boot Starter Server Manager</h2> 
+</div>
 
-[![Java CI](https://github.com/weimin96/spring-boot-starter-server-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/weimin96/spring-boot-starter-server-manager/actions/workflows/ci.yml)
-[![GitHub Release](https://img.shields.io/github/v/release/weimin96/spring-boot-starter-server-manager)](https://github.com/weimin96/spring-boot-starter-server-manager/releases/)
-[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.weimin96/spring-boot-starter-server-manager)](https://repo1.maven.org/maven2/io/github/weimin96/spring-boot-starter-server-manager/)
-[![GitHub repo size](https://img.shields.io/github/repo-size/weimin96/spring-boot-starter-server-manager)](https://github.com/weimin96/spring-boot-starter-server-manager/releases/)
-[![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![Last Commit](https://img.shields.io/github/last-commit/weimin96/spring-boot-starter-server-manager.svg)](https://github.com/weimin96/spring-boot-starter-server-manager)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/weimin96/spring-boot-starter-server-manager.svg)](https://github.com/weimin96/spring-boot-starter-server-manager)
-
+<div align="center">
+<a href = "https://github.com/weimin96/spring-boot-starter-server-manager/actions/workflows/ci.yml"><img src="https://github.com/weimin96/spring-boot-starter-server-manager/actions/workflows/ci.yml/badge.svg" alt="Java CI"></a>
+<a href = "https://github.com/weimin96/spring-boot-starter-server-manager/releases/"><img src="https://img.shields.io/github/v/release/weimin96/spring-boot-starter-server-manager" alt="GitHub Release"></a>
+<a href = "https://repo1.maven.org/maven2/io/github/weimin96/spring-boot-starter-server-manager/"><img src="https://img.shields.io/maven-central/v/io.github.weimin96/spring-boot-starter-server-manager" alt="Maven Central Version"></a>
+<a href = "https://github.com/weimin96/spring-boot-starter-server-manager/releases/"><img src="https://img.shields.io/github/repo-size/weimin96/spring-boot-starter-server-manager" alt="GitHub repo size"></a>
+<a href = "https://www.apache.org/licenses/LICENSE-2.0.html"><img src="https://img.shields.io/:license-apache-brightgreen.svg" alt="License"></a>
+<a href = "https://github.com/weimin96/spring-boot-starter-server-manager"><img src="https://img.shields.io/github/last-commit/weimin96/spring-boot-starter-server-manager.svg" alt="Last Commit"></a>
+<a href = "https://github.com/weimin96/spring-boot-starter-server-manager"><img src="https://img.shields.io/github/commit-activity/m/weimin96/spring-boot-starter-server-manager.svg" alt="GitHub commit activity"></a>
+</div>
 ## 简介
 
 基于springboot的分布式的服务监控管理组件
@@ -66,7 +72,7 @@ spring:
 </dependency>
 ```
 
-2、添加配置（单例）
+2、添加配置
 ```
 spring:
   boot:
@@ -76,8 +82,7 @@ spring:
         username: your_username
         # 对应client的密码
         password: your_password
-        # server地址
-        url: http://{your_server_ip}:{your_server_port}/{your_server_context_path}
+
 management:
   endpoints:
     web:
@@ -89,6 +94,29 @@ management:
       # health 默认只展示是否在线，增加该配置后会展示更多信息
       show-details: ALWAYS
 ```
+
+单例
+```
+spring:
+  boot:
+    manager:
+      client:
+        # server地址
+        url: http://{your_server_ip}:{your_server_port}/{your_server_context_path}      
+```
+
+nacos
+```
+spring:
+  boot:
+    manager:
+      client:
+        # 对应server application name
+        server-application-name: your_server_application_name
+        # 对应server context path  
+        server-context-path: your_server_context_path  
+```
+
 
 ## 端点解释
 | 端点                | 解释                                                                             |
