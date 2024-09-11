@@ -2,7 +2,7 @@
   <sm-instance-section :loading="!hasLoaded">
     <div class="flex h-[calc(100vh-110px)] border bg-white">
       <!-- 左侧文件目录 -->
-      <div class="basis-1/5 p-4 border border-gray-100">
+      <div class="flex flex-col basis-1/5 p-4 border border-gray-100">
         <el-input
           v-model="filterText"
           class="w-full mb-1 border-0"
@@ -12,7 +12,7 @@
           v-cloak
           ref="treeRef"
           style="max-width: 600px"
-          class="filter-tree"
+          class="filter-tree max-h-full overflow-y-auto mt-2"
           :data="logList"
           :props="defaultProps"
           default-expand-all
@@ -21,23 +21,52 @@
           @node-click="selectFile"
         >
           <template #default="{ node }">
-            <span
-              class="bg-opacity-80 cursor-pointer py-2 px-3 hover:bg-slate-100 m-1 transition-all duration-300 ease-in-out"
+            <div
+              class="bg-opacity-80 cursor-pointer py-2 px-3 m-1 transition-all duration-300 ease-in-out"
             >
-              <span :title="node.data.name">
-                <font-awesome-icon
+              <div class="flex">
+                <svg
                   v-if="node.data.type === 'file'"
-                  class="mr-1 text-gray-300"
-                  :icon="['fas', 'file']"
-                />
-                <font-awesome-icon
+                  class="mr-1 h-5 w-5"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M0 0h1024v1024H0z" fill="#FFFFFF"></path>
+                  <path
+                    d="M859.008 980.608H164.992a34.56 34.56 0 0 1-34.56-34.56V77.952a34.56 34.56 0 0 1 34.56-34.56H614.4a34.304 34.304 0 0 1 23.808 9.472L883.2 285.696a34.432 34.432 0 0 1 10.752 25.6v634.752a34.56 34.56 0 0 1-34.944 34.56zM199.552 911.36h624.896V325.632L600.32 112.64H199.552z"
+                    fill="#0082FD"
+                  ></path>
+                  <path
+                    d="M277.376 380.288h469.12v69.248H277.376zM277.376 512h469.12v69.248H277.376zM277.376 648.32h469.12v69.248H277.376zM594.688 778.624h151.936v69.248H594.688zM272.384 220.032h234.624v69.248H272.384z"
+                    fill="#ABE3FF"
+                  ></path>
+                  <path
+                    d="M851.968 345.6H614.4a34.304 34.304 0 0 1-24.576-10.24 34.688 34.688 0 0 1-10.112-24.576l1.408-233.088a34.56 34.56 0 0 1 58.88-24.32l236.288 232.704a34.688 34.688 0 0 1-24.32 59.52zM648.96 276.096H768l-117.76-115.968z"
+                    fill="#0082FD"
+                  ></path>
+                </svg>
+                <svg
                   v-if="node.data.type === 'folder'"
-                  class="mr-1 text-yellow-400"
-                  :icon="['fas', 'folder']"
-                />
-                {{ node.data.name }}
-              </span>
-            </span>
+                  class="mr-1 h-5 w-5"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M918.673 883H104.327C82.578 883 65 867.368 65 848.027V276.973C65 257.632 82.578 242 104.327 242h814.346C940.422 242 958 257.632 958 276.973v571.054C958 867.28 940.323 883 918.673 883z"
+                    fill="#FFE9B4"
+                  ></path>
+                  <path
+                    d="M512 411H65V210.37C65 188.597 82.598 171 104.371 171h305.92c17.4 0 32.71 11.334 37.681 28.036L512 411z"
+                    fill="#FFB02C"
+                  ></path>
+                  <path
+                    d="M918.673 883H104.327C82.578 883 65 865.42 65 843.668V335.332C65 313.58 82.578 296 104.327 296h814.346C940.422 296 958 313.58 958 335.332v508.336C958 865.32 940.323 883 918.673 883z"
+                    fill="#FFCA28"
+                  ></path>
+                </svg>
+                <span>{{ node.data.name }}</span>
+              </div>
+            </div>
           </template>
         </el-tree>
       </div>
@@ -89,7 +118,7 @@
             </el-button>
           </div>
         </sm-sticky-subnav>
-        <h2 v-if="!selectedFile" class="text-2xl font-bold mb-4">
+        <h2 v-if="!selectedFile" class="text-2xl font-bold mb-4 mt-2">
           请选择一个文件
         </h2>
         <div v-if="selectedFileContent" class="mt-4">

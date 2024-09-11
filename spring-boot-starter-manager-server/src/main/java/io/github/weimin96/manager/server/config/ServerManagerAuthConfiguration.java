@@ -49,6 +49,9 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
     public WebFilter serverManagerAuthFilter() {
         return (exchange, chain) -> {
             String path = exchange.getRequest().getPath().toString();
+            if (!path.startsWith(this.publicUrl)) {
+                return chain.filter(exchange);
+            }
             // 检查是否为白名单路径
             if (isWhitelisted(path)) {
                 return chain.filter(exchange);

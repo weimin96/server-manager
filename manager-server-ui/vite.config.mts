@@ -63,11 +63,11 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '^/api/(login|logout)': {
-          target: 'http://localhost:8080/admin',
+          target: 'http://localhost:8888/serverAdmin',
           changeOrigin: true
         },
         '^/api/(applications|instances/)': {
-          target: 'http://localhost:8080/admin',
+          target: 'http://localhost:8888/serverAdmin',
           changeOrigin: true,
           bypass: (req) => {
             const isEventStream = req.headers.accept === 'text/event-stream';

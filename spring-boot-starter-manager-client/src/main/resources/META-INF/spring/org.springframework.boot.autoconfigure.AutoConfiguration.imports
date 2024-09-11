@@ -1,2 +1,3 @@
 io.github.weimin96.manager.client.config.ClientManagerAutoConfiguration
 io.github.weimin96.manager.client.config.cloud.ClientManagerDiscoveryConfiguration
+io.github.weimin96.manager.client.config.druid.ClientManagerDruidConfiguration

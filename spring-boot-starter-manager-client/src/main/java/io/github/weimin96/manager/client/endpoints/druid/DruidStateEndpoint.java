@@ -2,7 +2,7 @@ package io.github.weimin96.manager.client.endpoints.druid;
 
 import com.alibaba.druid.stat.DruidStatManagerFacade;
 import com.alibaba.druid.util.MapComparator;
-import io.github.weimin96.manager.client.endpoints.druid.bean.PageDomain;
+import io.github.weimin96.manager.client.endpoints.bean.PageDomain;
 import io.github.weimin96.manager.client.utils.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;

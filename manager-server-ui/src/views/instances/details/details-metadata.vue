@@ -1,5 +1,5 @@
 <template>
-  <sm-panel :title="$t('instances.details.metadata.title')" :seamless="true">
+  <sm-panel title="'元数据'" :seamless="true">
     <sm-key-value-table v-if="!isEmptyMetadata" :map="metadata" />
   </sm-panel>
 </template>

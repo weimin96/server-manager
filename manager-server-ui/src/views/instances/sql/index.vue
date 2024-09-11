@@ -1,8 +1,8 @@
 <template>
   <sm-instance-section :loading="!hasLoaded">
     <div class="flex h-[calc(100vh-110px)] border bg-white">
-      <div class="w-full p-4">
-        <div class="float-right flex">
+      <div class="flex flex-col w-full p-4">
+        <div class="flex justify-end">
           <span class="mr-2 leading-8">刷新时间</span>
           <div class="w-20 mr-2">
             <el-select
@@ -18,10 +18,15 @@
               />
             </el-select>
           </div>
-
           <el-button type="primary" @click="stopTimer">暂停刷新</el-button>
         </div>
-        <el-table ref="table" class="mb-6 w-full" :data="sqlList" stripe>
+        <el-table
+          ref="table"
+          class="mb-6 w-full flex"
+          :data="sqlList"
+          tooltip-effect="dark myTooltips"
+          stripe
+        >
           <el-table-column label="SQL" show-overflow-tooltip>
             <template #default="scope">
               <span
@@ -56,7 +61,7 @@
             :formatter="formatter"
           />
         </el-table>
-        <div class="float-right">
+        <div class="flex justify-end">
           <el-pagination
             v-model:current-page="current"
             v-model:page-size="pageSize"
@@ -126,6 +131,7 @@ export default {
     content: '',
     dbType: '',
     dialogSqlPreviewVisible: false,
+    supportsDbType: ['plsql', 'mysql', 'postgresql', 'sqlite', 'mariadb'],
   }),
   computed: {
     formattedSql() {
@@ -160,7 +166,13 @@ export default {
     },
     previewSql(row) {
       this.dbType = row.DbType;
-      this.content = format(row.SQL, { language: row.DbType });
+      let formatType;
+      if (this.supportsDbType.indexOf(row.DbType) === -1) {
+        formatType = 'sql';
+      } else {
+        formatType = row.DbType;
+      }
+      this.content = format(row.SQL, { language: formatType });
       this.dialogSqlPreviewVisible = true;
     },
     formatter(row) {
@@ -206,4 +218,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.myTooltips {
+  width: 25%;
+}
+</style>
