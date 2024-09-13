@@ -2,6 +2,7 @@ package io.github.weimin96.manager.client.config.cloud;
 
 import io.github.weimin96.manager.client.config.ClientManagerAutoConfiguration;
 import io.github.weimin96.manager.client.config.ClientProperties;
+import io.github.weimin96.manager.client.registration.ApplicationRegistrator;
 import io.github.weimin96.manager.client.utils.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -24,7 +25,7 @@ import java.util.concurrent.ScheduledFuture;
  * @since 2024/8/22 17:38
  */
 @AutoConfiguration(after = ClientManagerAutoConfiguration.class)
-@ConditionalOnBean(DiscoveryClient.class)
+@ConditionalOnBean({DiscoveryClient.class, ApplicationRegistrator.class})
 @Slf4j
 public class ClientManagerDiscoveryConfiguration {
 

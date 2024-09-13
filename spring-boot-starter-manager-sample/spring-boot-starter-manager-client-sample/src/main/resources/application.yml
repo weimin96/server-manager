@@ -29,7 +29,6 @@ spring:
           slow-sql-millis: 50
       stat-view-servlet:
         enabled: true
-
   boot:
     manager:
       client:
@@ -48,7 +47,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: druid,logdir,logcontent,health,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,loggers,auditevents,mappings,scheduledtasks,configprops,beans
+        include: druid,logdir,logcontent,env,metrics,httptrace,threaddump,jolokia,info,logfile,refresh,heapdump,loggers,auditevents,mappings,scheduledtasks,configprops,beans
 #  endpoint:
 #    health:
 #      # health 默认只展示 是否在线，增加该配置后会展示更多信息

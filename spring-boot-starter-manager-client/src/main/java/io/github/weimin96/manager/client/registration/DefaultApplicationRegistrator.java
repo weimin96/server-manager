@@ -41,7 +41,7 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
      * @return 成功或失败
      */
     @Override
-    public boolean register() {
+    public boolean register() throws IllegalStateException {
         Application application = this.applicationFactory.createApplication();
         boolean isRegistrationSuccessful = false;
         String[] serverUrls = this.clientProperties.getServerUrl();

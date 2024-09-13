@@ -10,6 +10,6 @@ public interface ApplicationFactory {
 	/**
 	 * @return {@link Application} instance;
 	 */
-	Application createApplication();
+	Application createApplication() throws IllegalStateException;
 
 }

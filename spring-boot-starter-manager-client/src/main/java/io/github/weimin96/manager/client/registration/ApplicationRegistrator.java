@@ -11,7 +11,7 @@ public interface ApplicationRegistrator {
 	 * 注册
 	 * @return boolean
 	 */
-	boolean register();
+	boolean register() throws IllegalStateException;
 
 	/**
 	 * 注销

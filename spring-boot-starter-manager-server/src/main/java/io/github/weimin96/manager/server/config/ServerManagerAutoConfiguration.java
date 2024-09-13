@@ -10,6 +10,7 @@ import io.github.weimin96.manager.server.services.endpoints.ChainingStrategy;
 import io.github.weimin96.manager.server.services.endpoints.ProbeEndpointsStrategy;
 import io.github.weimin96.manager.server.services.endpoints.QueryIndexEndpointStrategy;
 import io.github.weimin96.manager.server.web.client.InstanceWebClient;
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -31,6 +32,7 @@ import org.springframework.context.annotation.Lazy;
 @ImportAutoConfiguration({ServerManagerWebClientConfiguration.class, ServerManagerWebConfiguration.class, ServerManagerAuthConfiguration.class})
 @EnableConfigurationProperties(ServerManagerProperties.class)
 @Lazy(false)
+@Slf4j
 public class ServerManagerAutoConfiguration {
 
     private final ServerManagerProperties properties;
@@ -43,6 +45,7 @@ public class ServerManagerAutoConfiguration {
     @ConditionalOnMissingBean
     public InstanceRegistry instanceRegistry(InstanceRepository instanceRepository,
                                              InstanceIdGenerator instanceIdGenerator) {
+        log.info("Server Manager initialization started");
         return new InstanceRegistry(instanceRepository, instanceIdGenerator);
     }
 

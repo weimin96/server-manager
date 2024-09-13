@@ -31,9 +31,9 @@ public class ClientProperties {
 	private String serverApplicationName;
 
 	/**
-	 * server 上下文 使用nacos作为注册中心时生效
+	 * server 上下文 使用nacos作为注册中心时生效 默认：serverManager
 	 */
-	private String serverContextPath;
+	private String serverContextPath = "serverManager";
 
 	/**
 	 * server 实例api地址

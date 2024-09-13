@@ -53,7 +53,7 @@ public class DefaultApplicationFactory implements ApplicationFactory {
 	}
 
 	@Override
-	public Application createApplication() {
+	public Application createApplication() throws IllegalStateException {
 		return Application.create(getName()).healthUrl(getHealthUrl()).managementUrl(getManagementUrl())
 				.serviceUrl(getServiceUrl()).metadata(getMetadata()).build();
 	}
@@ -124,7 +124,7 @@ public class DefaultApplicationFactory implements ApplicationFactory {
 		return this.webEndpoint.getBasePath();
 	}
 
-	protected String getHealthUrl() {
+	protected String getHealthUrl() throws IllegalStateException {
 		if (this.instance.getHealthUrl() != null) {
 			return this.instance.getHealthUrl();
 		}
@@ -179,7 +179,7 @@ public class DefaultApplicationFactory implements ApplicationFactory {
 		return this.localManagementPort;
 	}
 
-	protected String getHealthEndpointPath() {
+	protected String getHealthEndpointPath() throws IllegalStateException {
 		String health = this.pathMappedEndpoints.getPath(EndpointId.of("health"));
 		if (StringUtils.hasText(health)) {
 			return health;
@@ -188,7 +188,7 @@ public class DefaultApplicationFactory implements ApplicationFactory {
 		if (StringUtils.hasText(status)) {
 			return status;
 		}
-		throw new IllegalStateException("Either health or status endpoint must be enabled!");
+		throw new IllegalStateException("注册 Manager Client 必须先启用 actuator 的 health endpoint");
 	}
 
 	protected String getScheme(Ssl ssl) {

@@ -25,9 +25,9 @@ import static java.util.Arrays.asList;
 public class ServerManagerProperties {
 
     /**
-     * server服务地址上下文
+     * server服务地址上下文 默认：serverManager
      */
-    private String contextPath = "";
+    private String contextPath = "serverManager";
 
     /**
      * 服务信息配置
