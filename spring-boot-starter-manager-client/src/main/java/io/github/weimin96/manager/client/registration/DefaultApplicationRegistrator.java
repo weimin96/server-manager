@@ -54,9 +54,9 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
             } else {
                 attempt.reset();
                 isRegistrationSuccessful = true;
-                if (this.registerOnce) {
-                    break;
-                }
+//                if (this.registerOnce) {
+//                    break;
+//                }
             }
         }
 
@@ -101,9 +101,9 @@ public class DefaultApplicationRegistrator implements ApplicationRegistrator {
             try {
                 this.registrationClient.deregister(serverUrl, id);
                 this.registeredId.compareAndSet(id, null);
-                if (this.registerOnce) {
-                    break;
-                }
+//                if (this.registerOnce) {
+//                    break;
+//                }
             } catch (Exception ex) {
                 log.warn("注销应用失败 (id={}) - ({}): {}", id, serverUrl,
                         ex.getMessage());
