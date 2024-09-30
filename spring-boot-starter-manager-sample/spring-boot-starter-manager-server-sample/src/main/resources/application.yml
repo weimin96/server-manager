@@ -7,10 +7,12 @@ spring:
         authority:
           default-password: 123
           default-user-name: admin
-          enabled: false
+          enabled: true
         context-path: /admin
+#        ui:
+#          public-url: http://localhost:8999/api/admin
 #  cloud:
 #    nacos:
 server:
-  port: 8080
+  port: 8888
 #      server-addr: 127.0.0.1:8848

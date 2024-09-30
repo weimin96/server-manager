@@ -175,7 +175,7 @@ class Application {
   async fetchLoggers() {
     const responses = convertBody(
       (
-        await this.axios.get(uri`actuator/loggers`, {
+        await this.axios.get(uri`monitor/loggers`, {
           headers: { Accept: actuatorMimeTypes.join(',') },
         })
       ).data,
@@ -186,7 +186,7 @@ class Application {
   async configureLogger(name, level) {
     const responses = (
       await this.axios.post(
-        uri`actuator/loggers/${name}`,
+        uri`monitor/loggers/${name}`,
         level === null ? {} : { configuredLevel: level },
         { headers: { 'Content-Type': 'application/json' } },
       )
@@ -196,7 +196,7 @@ class Application {
 
   async setEnv(name, value) {
     return this.axios.post(
-      uri`actuator/env`,
+      uri`monitor/env`,
       { name, value },
       {
         headers: { 'Content-Type': 'application/json' },
@@ -205,29 +205,29 @@ class Application {
   }
 
   async resetEnv() {
-    return this.axios.delete(uri`actuator/env`);
+    return this.axios.delete(uri`monitor/env`);
   }
 
   async refreshContext() {
-    return this.axios.post(uri`actuator/refresh`);
+    return this.axios.post(uri`monitor/refresh`);
   }
 
   async clearCaches() {
-    return this.axios.delete(uri`actuator/caches`);
+    return this.axios.delete(uri`monitor/caches`);
   }
 
   async clearCache(name, cacheManager) {
-    return this.axios.delete(uri`actuator/caches/${name}`, {
+    return this.axios.delete(uri`monitor/caches/${name}`, {
       params: { cacheManager: cacheManager },
     });
   }
 
   shutdown() {
-    return this.axios.post(uri`actuator/shutdown`);
+    return this.axios.post(uri`monitor/shutdown`);
   }
 
   restart() {
-    return this.axios.post(uri`actuator/restart`);
+    return this.axios.post(uri`monitor/restart`);
   }
 
   async writeMBeanAttribute(domain, mBean, attribute, value) {
@@ -237,7 +237,7 @@ class Application {
       attribute,
       value,
     };
-    return this.axios.post(uri`actuator/jolokia`, body, {
+    return this.axios.post(uri`monitor/jolokia`, body, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -252,7 +252,7 @@ class Application {
       operation,
       arguments: args,
     };
-    return this.axios.post(uri`actuator/jolokia`, body, {
+    return this.axios.post(uri`monitor/jolokia`, body, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

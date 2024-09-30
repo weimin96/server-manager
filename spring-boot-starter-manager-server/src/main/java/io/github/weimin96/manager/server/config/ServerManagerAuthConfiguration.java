@@ -49,7 +49,7 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
     public WebFilter serverManagerAuthFilter() {
         return (exchange, chain) -> {
             String path = exchange.getRequest().getPath().toString();
-            if (!path.startsWith(this.publicUrl)) {
+            if (!path.startsWith(this.serverProperties.getContextPath())) {
                 return chain.filter(exchange);
             }
             // 检查是否为白名单路径
@@ -68,7 +68,7 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
                         // 未授权，返回 JSON 格式的 401 错误
                         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                         exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
-                        String jsonResponse = "{\"error\": \"Unauthorized\", \"message\": \"You need to log in.\"}";
+                        String jsonResponse = "{\"error\": \"Unauthorized\", \"message\": \"You need to login in.\"}";
                         DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(jsonResponse.getBytes());
                         return exchange.getResponse().writeWith(Mono.just(buffer));
                     }
@@ -83,8 +83,7 @@ public class ServerManagerAuthConfiguration implements WebFluxConfigurer {
 
     // 检查路径是否在白名单中
     private boolean isWhitelisted(String path) {
-        // 遍历白名单列表，支持通配符匹配（这里使用简单的startsWith作为示例）
-        return WHITE_LIST.stream().anyMatch(item -> path.startsWith(publicUrl + item));
+        return WHITE_LIST.stream().anyMatch(item -> path.startsWith(this.serverProperties.getContextPath() + item));
     }
 
     public boolean checkCredentials(ServerHttpRequest request, WebSession session) {

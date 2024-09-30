@@ -45,7 +45,7 @@ public class ServerManagerUiAutoConfiguration {
             "/journal/**", "/wallboard/**", "/external/**");
 
     private static final List<String> DEFAULT_UI_ROUTE_EXCLUDES = asList(
-            "/instances/*/actuator/heapdump", "/instances/*/actuator/logfile");
+            "/instances/*/monitor/heapdump", "/instances/*/monitor/logfile");
 
     private final ServerManagerUIProperties serverUi;
 

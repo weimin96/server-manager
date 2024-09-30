@@ -193,7 +193,7 @@ export default {
         document.scrollingElement.scrollHeight;
     },
     downloadLogfile() {
-      const url = '/actuator/logfile';
+      const url = '/monitor/logfile';
       this.instance.downloadFile(url, 'logfile.log');
     },
   },

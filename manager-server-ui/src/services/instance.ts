@@ -14,7 +14,7 @@ const actuatorMimeTypes = [
 ].join(',');
 
 const isInstanceActuatorRequest = (url: string) =>
-  url.match(/^instances[/][^/]+[/]actuator([/].*)?$/);
+  url.match(/^instances[/][^/]+[/]monitor([/].*)?$/);
 
 class Instance {
   public readonly id: string;
@@ -114,11 +114,11 @@ class Instance {
   }
 
   async fetchInfo() {
-    return this.axios.get(uri`actuator/info`);
+    return this.axios.get(uri`monitor/info`);
   }
 
   async fetchMetrics() {
-    return this.axios.get(uri`actuator/metrics`);
+    return this.axios.get(uri`monitor/metrics`);
   }
 
   async fetchMetric(metric, tags) {
@@ -136,43 +136,43 @@ class Instance {
           }
         });
     }
-    return this.axios.get(uri`actuator/metrics/${metric}`, {
+    return this.axios.get(uri`monitor/metrics/${metric}`, {
       params,
     });
   }
 
   async fetchHealth() {
-    return await this.axios.get(uri`actuator/health`, { validateStatus: null });
+    return await this.axios.get(uri`monitor/health`, { validateStatus: null });
   }
 
   async fetchHealthGroup(groupName: string) {
-    return await this.axios.get(uri`actuator/health/${groupName}`, {
+    return await this.axios.get(uri`monitor/health/${groupName}`, {
       validateStatus: null,
     });
   }
 
   async fetchEnv(name) {
-    return this.axios.get(uri`actuator/env/${name || ''}`);
+    return this.axios.get(uri`monitor/env/${name || ''}`);
   }
 
   async fetchConfigprops() {
-    return this.axios.get(uri`actuator/configprops`);
+    return this.axios.get(uri`monitor/configprops`);
   }
 
   async hasEnvManagerSupport() {
-    const response = await this.axios.options(uri`actuator/env`);
+    const response = await this.axios.options(uri`monitor/env`);
     return (
       response.headers['allow'] && response.headers['allow'].includes('POST')
     );
   }
 
   async resetEnv() {
-    return this.axios.delete(uri`actuator/env`);
+    return this.axios.delete(uri`monitor/env`);
   }
 
   async setEnv(name, value) {
     return this.axios.post(
-      uri`actuator/env`,
+      uri`monitor/env`,
       { name, value },
       {
         headers: { 'Content-Type': 'application/json' },
@@ -181,60 +181,60 @@ class Instance {
   }
 
   async refreshContext() {
-    return this.axios.post(uri`actuator/refresh`);
+    return this.axios.post(uri`monitor/refresh`);
   }
 
   async fetchLiquibase() {
-    return this.axios.get(uri`actuator/liquibase`);
+    return this.axios.get(uri`monitor/liquibase`);
   }
 
   async fetchScheduledTasks() {
-    return this.axios.get(uri`actuator/scheduledtasks`);
+    return this.axios.get(uri`monitor/scheduledtasks`);
   }
 
   async fetchGatewayGlobalFilters() {
-    return this.axios.get(uri`actuator/gateway/globalfilters`);
+    return this.axios.get(uri`monitor/gateway/globalfilters`);
   }
 
   async addGatewayRoute(route) {
-    return this.axios.post(uri`actuator/gateway/routes/${route.id}`, route, {
+    return this.axios.post(uri`monitor/gateway/routes/${route.id}`, route, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
   async fetchGatewayRoutes() {
-    return this.axios.get(uri`actuator/gateway/routes`);
+    return this.axios.get(uri`monitor/gateway/routes`);
   }
 
   async deleteGatewayRoute(routeId) {
-    return this.axios.delete(uri`actuator/gateway/routes/${routeId}`);
+    return this.axios.delete(uri`monitor/gateway/routes/${routeId}`);
   }
 
   async refreshGatewayRoutesCache() {
-    return this.axios.post(uri`actuator/gateway/refresh`);
+    return this.axios.post(uri`monitor/gateway/refresh`);
   }
 
   async fetchCaches() {
-    return this.axios.get(uri`actuator/caches`);
+    return this.axios.get(uri`monitor/caches`);
   }
 
   async clearCaches() {
-    return this.axios.delete(uri`actuator/caches`);
+    return this.axios.delete(uri`monitor/caches`);
   }
 
   async clearCache(name, cacheManager) {
-    return this.axios.delete(uri`actuator/caches/${name}`, {
+    return this.axios.delete(uri`monitor/caches/${name}`, {
       params: { cacheManager: cacheManager },
     });
   }
 
   async fetchLoggers() {
-    return this.axios.get(uri`actuator/loggers`);
+    return this.axios.get(uri`monitor/loggers`);
   }
 
   async configureLogger(name, level) {
     await this.axios.post(
-      uri`actuator/loggers/${name}`,
+      uri`monitor/loggers/${name}`,
       level === null ? {} : { configuredLevel: level },
       {
         headers: { 'Content-Type': 'application/json' },
@@ -243,27 +243,27 @@ class Instance {
   }
 
   async fetchHttptrace() {
-    return this.axios.get(uri`actuator/httptrace`);
+    return this.axios.get(uri`monitor/httptrace`);
   }
 
   async fetchHttpExchanges() {
-    return this.axios.get(uri`actuator/httpexchanges`);
+    return this.axios.get(uri`monitor/httpexchanges`);
   }
 
   async fetchBeans() {
-    return this.axios.get(uri`actuator/beans`);
+    return this.axios.get(uri`monitor/beans`);
   }
 
   async fetchConditions() {
-    return this.axios.get(uri`actuator/conditions`);
+    return this.axios.get(uri`monitor/conditions`);
   }
 
   async fetchThreaddump() {
-    return this.axios.get(uri`actuator/threaddump`);
+    return this.axios.get(uri`monitor/threaddump`);
   }
 
   async downloadThreaddump() {
-    const res = await this.axios.get(uri`actuator/threaddump`, {
+    const res = await this.axios.get(uri`monitor/threaddump`, {
       headers: { Accept: 'text/plain' },
     });
     const blob = new Blob([res.data], { type: 'text/plain;charset=utf-8' });
@@ -271,7 +271,7 @@ class Instance {
   }
 
   async fetchAuditevents({ after, type, principal }) {
-    return this.axios.get(uri`actuator/auditevents`, {
+    return this.axios.get(uri`monitor/auditevents`, {
       params: {
         after: after.toISOString(),
         type: type || undefined,
@@ -281,7 +281,7 @@ class Instance {
   }
 
   async fetchSessionsByUsername(username) {
-    return this.axios.get(uri`actuator/sessions`, {
+    return this.axios.get(uri`monitor/sessions`, {
       params: {
         username: username || undefined,
       },
@@ -289,34 +289,34 @@ class Instance {
   }
 
   async fetchSession(sessionId) {
-    return this.axios.get(uri`actuator/sessions/${sessionId}`);
+    return this.axios.get(uri`monitor/sessions/${sessionId}`);
   }
 
   async deleteSession(sessionId) {
-    return this.axios.delete(uri`actuator/sessions/${sessionId}`);
+    return this.axios.delete(uri`monitor/sessions/${sessionId}`);
   }
 
   async fetchStartup() {
-    const optionsResponse = await this.axios.options(uri`actuator/startup`);
+    const optionsResponse = await this.axios.options(uri`monitor/startup`);
     if (
       optionsResponse.headers.allow &&
       optionsResponse.headers.allow.includes('GET')
     ) {
-      return this.axios.get(uri`actuator/startup`);
+      return this.axios.get(uri`monitor/startup`);
     }
 
-    return this.axios.post(uri`actuator/startup`);
+    return this.axios.post(uri`monitor/startup`);
   }
 
   streamLogfile(interval) {
     return logtail(
-      (opt) => this.axios.get(uri`actuator/logfile`, opt),
+      (opt) => this.axios.get(uri`monitor/logfile`, opt),
       interval,
     );
   }
 
   async logdir() {
-    return this.axios.get(uri`actuator/logdir`, {
+    return this.axios.get(uri`monitor/logdir`, {
       headers: { Accept: 'application/json' },
     });
   }
@@ -359,7 +359,7 @@ class Instance {
 
   async druid(current, pageSize) {
     return this.axios.get(
-      uri`actuator/druid?current=${current}&pageSize=${pageSize}`,
+      uri`monitor/druid?current=${current}&pageSize=${pageSize}`,
       {
         headers: { Accept: 'application/json' },
       },
@@ -367,13 +367,13 @@ class Instance {
   }
 
   async logContent(fileName) {
-    return this.axios.get(uri`actuator/logcontent/${fileName}`, {
+    return this.axios.get(uri`monitor/logcontent/${fileName}`, {
       headers: { Accept: '*/*' },
     });
   }
 
   async listMBeans() {
-    return this.axios.get(uri`actuator/jolokia/list`, {
+    return this.axios.get(uri`monitor/jolokia/list`, {
       headers: { Accept: 'application/json' },
       params: { canonicalNaming: false },
       transformResponse: Instance._toMBeans,
@@ -386,7 +386,7 @@ class Instance {
       mbean: `${domain}:${mBean}`,
       config: { ignoreErrors: true },
     };
-    return this.axios.post(uri`actuator/jolokia`, body, {
+    return this.axios.post(uri`monitor/jolokia`, body, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -401,7 +401,7 @@ class Instance {
       attribute,
       value,
     };
-    return this.axios.post(uri`actuator/jolokia`, body, {
+    return this.axios.post(uri`monitor/jolokia`, body, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -416,7 +416,7 @@ class Instance {
       operation,
       arguments: args,
     };
-    return this.axios.post(uri`actuator/jolokia`, body, {
+    return this.axios.post(uri`monitor/jolokia`, body, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -425,51 +425,51 @@ class Instance {
   }
 
   async fetchMappings() {
-    return this.axios.get(uri`actuator/mappings`);
+    return this.axios.get(uri`monitor/mappings`);
   }
 
   async fetchQuartzJobs() {
-    return this.axios.get(uri`actuator/quartz/jobs`, {
+    return this.axios.get(uri`monitor/quartz/jobs`, {
       headers: { Accept: 'application/json' },
     });
   }
 
   async fetchQuartzJob(group, name) {
-    return this.axios.get(uri`actuator/quartz/jobs/${group}/${name}`, {
+    return this.axios.get(uri`monitor/quartz/jobs/${group}/${name}`, {
       headers: { Accept: 'application/json' },
     });
   }
 
   async fetchQuartzTriggers() {
-    return this.axios.get(uri`actuator/quartz/triggers`, {
+    return this.axios.get(uri`monitor/quartz/triggers`, {
       headers: { Accept: 'application/json' },
     });
   }
 
   async fetchQuartzTrigger(group, name) {
-    return this.axios.get(uri`actuator/quartz/triggers/${group}/${name}`, {
+    return this.axios.get(uri`monitor/quartz/triggers/${group}/${name}`, {
       headers: { Accept: 'application/json' },
     });
   }
 
   async fetchSbomIds() {
-    return this.axios.get(uri`actuator/sbom`, {
+    return this.axios.get(uri`monitor/sbom`, {
       headers: { Accept: 'application/json' },
     });
   }
 
   async fetchSbom(id) {
-    return this.axios.get(uri`actuator/sbom/${id}`, {
+    return this.axios.get(uri`monitor/sbom/${id}`, {
       headers: { Accept: '*/*' },
     });
   }
 
   shutdown() {
-    return this.axios.post(uri`actuator/shutdown`);
+    return this.axios.post(uri`monitor/shutdown`);
   }
 
   restart() {
-    return this.axios.post(uri`actuator/restart`);
+    return this.axios.post(uri`monitor/restart`);
   }
 }
 

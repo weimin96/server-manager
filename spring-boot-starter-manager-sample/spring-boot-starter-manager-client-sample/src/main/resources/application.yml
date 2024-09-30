@@ -5,9 +5,9 @@ spring:
     name: client-sample
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/demo
+    url: jdbc:postgresql://127.0.0.1:5432/demo
     username: postgres
-    password: 123456
+    password: postgres
     druid:
       initial-size: 5
       min-idle: 5
@@ -34,7 +34,7 @@ spring:
       client:
         username: admin
         password: 123
-        url: http://127.0.0.1:8080/admin
+        url: http://127.0.0.1:8888/admin
         server-application-name: server-sample
         server-context-path: admin
 #    cloud:

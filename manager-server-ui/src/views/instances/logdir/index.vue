@@ -251,7 +251,7 @@ export default {
       this.atBottom = true;
     },
     downloadLogfile() {
-      const url = `/actuator/logcontent/${this.selectedPath}`;
+      const url = `/monitor/logcontent/${this.selectedPath}`;
       this.instance.downloadFile(url, this.selectedFile);
     },
   },

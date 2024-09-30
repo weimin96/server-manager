@@ -34,9 +34,13 @@ import java.util.Set;
 @ServerController
 public class InstancesProxyController {
 
-    private static final String INSTANCE_MAPPED_PATH = "/api/instances/{instanceId}/actuator/**";
+    private static final String INSTANCE_MAPPED_PATH = "/api/instances/{instanceId}/monitor/**";
 
-    private static final String APPLICATION_MAPPED_PATH = "/api/applications/{applicationName}/actuator/**";
+    private static final String INSTANCE_MAPPED_PATH_PROXY = "/api/instances/{instanceId}/actuator/**";
+
+    private static final String APPLICATION_MAPPED_PATH = "/api/applications/{applicationName}/monitor/**";
+
+    private static final String APPLICATION_MAPPED_PATH_PROXY = "/api/applications/{applicationName}/actuator/**";
 
     private final PathMatcher pathMatcher = new AntPathMatcher();
 
@@ -63,7 +67,7 @@ public class InstancesProxyController {
     public Mono<Void> endpointProxy(@PathVariable("instanceId") String instanceId, ServerHttpRequest request,
                                     ServerHttpResponse response) {
         InstanceWebProxy.ForwardRequest fwdRequest = createForwardRequest(request, request.getBody(),
-                this.contextPath + INSTANCE_MAPPED_PATH);
+                this.contextPath + INSTANCE_MAPPED_PATH_PROXY);
 
         return this.instanceWebProxy.forward(this.registry.getInstance(InstanceId.of(instanceId)), fwdRequest,
                 (clientResponse) -> {
@@ -89,7 +93,7 @@ public class InstancesProxyController {
         }).cache();
 
         InstanceWebProxy.ForwardRequest fwdRequest = createForwardRequest(request, cachedBody,
-                this.contextPath + APPLICATION_MAPPED_PATH);
+                this.contextPath + APPLICATION_MAPPED_PATH_PROXY);
 
         return this.instanceWebProxy.forward(this.registry.getInstances(applicationName), fwdRequest);
     }

@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     downloadHeap() {
-      window.open(`instances/${this.instance.id}/actuator/heapdump`, '_blank');
+      window.open(`instances/${this.instance.id}/monitor/heapdump`, '_blank');
     },
   },
   install({ viewRegistry }) {
